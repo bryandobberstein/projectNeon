@@ -17,8 +17,8 @@ const User = new userSchema({
   weakspot: {
     type: Array,
   },
-  game: {
-    type: gameSettings,
+  feed: {
+    type: Feed,
   },
   interface: {
     type: Interface,
