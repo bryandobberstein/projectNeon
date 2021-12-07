@@ -11,12 +11,6 @@ const User = new userSchema({
     type: String,
     required: true,
   },
-  scoreHistory: {
-    type: Array,
-  },
-  weakspot: {
-    type: Array,
-  },
   feed: {
     type: Feed,
   },
