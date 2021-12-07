@@ -14,4 +14,7 @@ const gameSettings = new gameSchema({
   },
 });
 
-module.exports = gameSettings;
+module.exports = mongoose.model(
+  'gameSettings',
+  gameSettings
+);
