@@ -12,9 +12,21 @@ const Folder = new folderSchema({
     required: true,
   },
   links: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Links',
-    },
+    [
+      {
+        title: {
+          type: String,
+          required: true,
+        },
+        address: {
+          type: String,
+          required: true,
+        },
+        position: {
+          type: Number,
+          required: true,
+        },
+      },
+    ],
   ],
 });
