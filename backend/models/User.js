@@ -15,8 +15,7 @@ const User = new userSchema({
     type: Feed,
   },
   interface: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: Interface,
+    type: [String],
   },
 });
 
