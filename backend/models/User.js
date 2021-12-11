@@ -11,9 +11,12 @@ const User = new userSchema({
     type: String,
     required: true,
   },
-  feed: {
-    type: Feed,
-  },
+  folder: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: Folder,
+    },
+  ],
   interface: {
     type: [String],
   },
