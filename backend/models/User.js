@@ -11,6 +11,9 @@ const User = new userSchema({
     type: String,
     required: true,
   },
+  token: {
+    type: String,
+  },
   folder: [
     {
       type: mongoose.Schema.Types.ObjectId,

@@ -41,10 +41,13 @@ userRouter.post('/userLogin', async (req, res) => {
   try {
     if (await bcrypt.compare(password, user.password)) {
       const accessToken = jwt.sign(
-        user,
-        process.env.JWT_TOKEN
+        { user_id: user._id, email },
+        process.env.JWT_TOKEN,
+        { expiresIn: '1h' }
       );
     }
+    user.token = accessToken;
+    res.status(200).send('Successfully created');
   } catch (error) {
     res.status(500);
   }
