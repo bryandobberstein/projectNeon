@@ -1,28 +1,12 @@
-const mongoose = require('mongoose');
+const { getDb } = require('./util/db');
 
-const userSchema = mongoose.Schema();
+class User {
+  constructor(email, password) {
+    this.email = email;
+    this.password = password;
+  }
 
-const User = new userSchema({
-  email: {
-    type: String,
-    required: true,
-  },
-  password: {
-    type: String,
-    required: true,
-  },
-  token: {
-    type: String,
-  },
-  folder: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: Folder,
-    },
-  ],
-  interface: {
-    type: [String],
-  },
-});
+  save() {}
+}
 
-module.exports = mongoose.model('User', User);
+module.exports = User;

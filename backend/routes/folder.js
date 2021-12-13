@@ -1,8 +1,6 @@
 const { Router } = require('express');
 
 const authenticateToken = require('../middleware/tokenAuthentication');
-const Folder = require('../models/Folder');
-
 const folderRouter = Router();
 
 //folder create (post)
