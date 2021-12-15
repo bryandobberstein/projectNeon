@@ -1,4 +1,4 @@
-const { getDb } = require('./util/db');
+const { getDb } = require('../util/db');
 
 class User {
   constructor(email, password) {
