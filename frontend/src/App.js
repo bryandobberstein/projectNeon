@@ -1,17 +1,29 @@
-import React from 'react';
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+} from 'react-router-dom';
+import Folder from './components/Folder';
+import Menu from './components/Menu';
+import Settings from './components/Settings';
 
 const App = () => {
   return (
-    <div className='container'>
-      <h1>Under Construction</h1>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing
-        elit. Fugiat, placeat. Omnis assumenda error nobis
-        atque ratione dolor vitae quas, mollitia facere
-        pariatur autem, quidem officia illum cumque ad
-        blanditiis at.
-      </p>
-    </div>
+    <>
+      <Menu />
+      <BrowserRouter>
+        <Routes>
+          <Route
+            exact
+            path='/'
+            element={<Folder />}></Route>
+          <Route
+            exact
+            path='/settings'
+            element={<Settings />}></Route>
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 };
 

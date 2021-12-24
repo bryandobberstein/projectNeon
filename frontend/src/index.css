@@ -1,9 +1,12 @@
 .container {
-  color: rgb(6, 53, 27);
+  color: rgb(86, 148, 114);
   background-color: rgb(222, 238, 238);
-  width: 54%;
+  width: 90%;
+  box-shadow: 10px 10px 3px gray;
+  margin: auto;
+  text-align: center;
 }
 
-p {
-  width: 98%;
+.active {
+  color: black;
 }
