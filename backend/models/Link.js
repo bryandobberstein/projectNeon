@@ -12,6 +12,10 @@ const LinkSchema = new mongoose.Schema({
   position: {
     type: Number,
   },
+  folder: {
+    type: mongoose.Types.ObjectId,
+    ref: 'Folder',
+  },
 });
 
 module.exports = mongoose.model('Link', LinkSchema);
