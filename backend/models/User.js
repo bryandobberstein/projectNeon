@@ -17,13 +17,6 @@ const UserSchema = new mongoose.Schema({
       ref: 'Folder',
     },
   ],
-  tokens: [
-    {
-      token: {
-        type: String,
-      },
-    },
-  ],
 });
 
 module.exports = mongoose.model('User', UserSchema);

@@ -3,7 +3,7 @@ const express = require('express');
 const validator = require('validator');
 
 const User = require('../models/User');
-const { generateToken } = require('../util/tokenVerify');
+const isAuthenticated = require('../middleware/isAuthenticated');
 
 const router = express.Router();
 
@@ -41,20 +41,35 @@ router.post('/authenticate', async (req, res) => {
     if (!user) {
       return res.status(403).send(false);
     }
-    const passwordValid = bcrypt.compare(
+    const passwordValid = await bcrypt.compare(
       req.body.password,
       user.password
     );
     if (!passwordValid) {
       return res.status(403).send(false);
     }
-    const token = await generateToken(user._id.toString());
-    user.tokens = user.tokens.concat({ token });
-    user.save();
+    req.session.authenticated = true;
+    req.session.user = user;
+    await req.session.save(err => {
+      if (err) {
+        console.error(err);
+        return res.status(500).send(false);
+      }
+    });
     res.status(200).send(user);
   } catch (err) {
     res.status(500).send(false);
   }
+});
+
+router.post('/logout', (req, res) => {
+  req.session.destroy(err => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    res.status(200).send(true);
+  });
 });
 
 module.exports = router;
