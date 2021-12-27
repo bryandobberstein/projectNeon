@@ -1,9 +1,11 @@
+require('dotenv').config();
+
 const bcrypt = require('bcrypt');
 const express = require('express');
+const jwt = require('jsonwebtoken');
 const validator = require('validator');
 
 const User = require('../models/User');
-const isAuthenticated = require('../middleware/isAuthenticated');
 
 const router = express.Router();
 
@@ -48,28 +50,19 @@ router.post('/authenticate', async (req, res) => {
     if (!passwordValid) {
       return res.status(403).send(false);
     }
-    req.session.authenticated = true;
-    req.session.user = user;
-    await req.session.save(err => {
-      if (err) {
-        console.error(err);
-        return res.status(500).send(false);
-      }
-    });
-    res.status(200).send(user);
+    const token = await jwt.sign(
+      { user: { id: user._id } },
+      process.env.JWT_TOKEN,
+      { expiresIn: 4 * 3600 }
+    );
+    res.status(200).json({ token });
   } catch (err) {
     res.status(500).send(false);
   }
 });
 
 router.post('/logout', (req, res) => {
-  req.session.destroy(err => {
-    if (err) {
-      console.error(err);
-      return;
-    }
-    res.status(200).send(true);
-  });
+  res.status(200).send(true);
 });
 
 module.exports = router;
