@@ -10,12 +10,17 @@ module.exports = async (req, res, next) => {
     }
     const { user } = await jwt.verify(
       token,
-      process.env.JWT_TOKEN
+      process.env.JWT_TOKEN,
+      err => {
+        if (err) {
+          return res.status(401).send(false);
+        }
+        req.user = user;
+        next();
+      }
     );
-    req.user = user;
-    next();
   } catch (err) {
     console.error(err);
-    res.status(500).send(false);
+    res.status(403).send(false);
   }
 };

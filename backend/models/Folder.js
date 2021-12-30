@@ -18,6 +18,10 @@ const FolderSchema = new mongoose.Schema({
     type: mongoose.Types.ObjectId,
     ref: 'User',
   },
+  parent: {
+    type: mongoose.Types.ObjectId,
+    ref: 'Folder',
+  },
 });
 
 module.exports = mongoose.model('Folder', FolderSchema);
