@@ -13,3 +13,5 @@ const router = express.Router();
 //update link
 
 //delete link
+
+module.exports = router;

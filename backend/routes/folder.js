@@ -24,37 +24,25 @@ router.get('/getFolders', tokenVerify, async (req, res) => {
 //create folder
 router.post('/addFolder', tokenVerify, async (req, res) => {
   try {
-    if (
-      validator.isEmpty(req.title) ||
-      validator.isEmpty(req.position) ||
-      validator.isEmpty(req.link)
-    ) {
-      return res.status(400);
-    } else if (
-      !validator.isURL(req.link) ||
-      !validator.isNumeric(req.position)
-    ) {
-      return res.status(400);
-    }
     if (req.parent) {
-      await Folder.save({
-        title: req.title,
-        position: req.position,
-        link: req.link,
+      const folder = new Folder({
+        title: req.body.title,
+        position: req.body.position,
+        parent: req.body.parent,
         owner: req.user,
-        parent: req.parent,
       });
+      await folder.save();
       return res.status(200);
     }
-    awaitFolder.save({
-      title: req.title,
-      position: req.position,
-      link: req.link,
+    const folder = new Folder({
+      title: req.body.title,
+      position: req.body.position,
       owner: req.user,
     });
-    return res.status(200);
+    await folder.save();
+    return res.status(200).json(folder);
   } catch (err) {
-    res.status(500);
+    return res.status(500);
   }
 });
 

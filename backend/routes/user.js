@@ -51,7 +51,7 @@ router.post('/authenticate', async (req, res) => {
       return res.status(403).send(false);
     }
     const token = await jwt.sign(
-      { user: { id: user._id } },
+      { user: user._id },
       process.env.JWT_TOKEN,
       { expiresIn: 4 * 3600 }
     );
