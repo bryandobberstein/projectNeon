@@ -9,21 +9,25 @@ const router = express.Router();
 //get folders
 router.get('/getFolders', tokenVerify, async (req, res) => {
   try {
-    const folders = await Folder.findOne({
-      owner: req.user._id,
+    console.log(req.user);
+    const folders = await Folder.find({
+      owner: req.user,
     });
     if (!folders) {
+      console.log(2);
       return res.status(404);
     }
-    res.status(200).json({ folders });
+    return res.status(200).json({ folders });
   } catch (err) {
-    res.status(500);
+    console.log(err);
+    return res.status(500);
   }
 });
 
 //create folder
 router.post('/addFolder', tokenVerify, async (req, res) => {
   try {
+    console.log(req.user);
     if (req.parent) {
       const folder = new Folder({
         title: req.body.title,
