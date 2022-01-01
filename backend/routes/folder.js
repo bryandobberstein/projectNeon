@@ -1,7 +1,7 @@
 const express = require('express');
-const validator = require('validator');
 
 const Folder = require('../models/Folder');
+const Link = require('../models/Link');
 const tokenVerify = require('../middleware/tokenVerify');
 
 const router = express.Router();
@@ -9,7 +9,6 @@ const router = express.Router();
 //get folders
 router.get('/getFolders', tokenVerify, async (req, res) => {
   try {
-    console.log(req.user);
     const folders = await Folder.find({
       owner: req.user,
     });
@@ -27,7 +26,13 @@ router.get('/getFolders', tokenVerify, async (req, res) => {
 //create folder
 router.post('/addFolder', tokenVerify, async (req, res) => {
   try {
-    console.log(req.user);
+    if (
+      !req.body.title ||
+      !req.body.position ||
+      isNaN(req.body.position)
+    ) {
+      return res.status(400).send(false);
+    }
     if (req.parent) {
       const folder = new Folder({
         title: req.body.title,
@@ -36,7 +41,7 @@ router.post('/addFolder', tokenVerify, async (req, res) => {
         owner: req.user,
       });
       await folder.save();
-      return res.status(200);
+      return res.status(200).json(folder);
     }
     const folder = new Folder({
       title: req.body.title,
@@ -46,7 +51,8 @@ router.post('/addFolder', tokenVerify, async (req, res) => {
     await folder.save();
     return res.status(200).json(folder);
   } catch (err) {
-    return res.status(500);
+    console.error(err);
+    return res.status(500).json({ err: err });
   }
 });
 
@@ -57,49 +63,56 @@ router.put(
   tokenVerify,
   async (req, res) => {
     try {
-      if (
-        validator.isEmpty(req.title) ||
-        validator.isEmpty(req.position) ||
-        validator.isEmpty(req.link)
-      ) {
-        return res.status(400);
-      } else if (
-        !validator.isURL(req.link) ||
-        !validator.isNumeric(req.position)
-      ) {
-        return res.status(400);
-      }
-      if (req.parent) {
-        await Folder.findOneAndUpdate(
-          { _id: req._id },
-          {
-            title: req.title,
-            position: req.position,
-            link: req.link,
-            owner: req.user,
-            parent: req.parent,
+      if (req.body.parent) {
+        await Folder.updateOne(
+          { id: req.body._id },
+
+          { $set: { title: req.body.title } },
+          { $set: { position: req.body.position } },
+          { $set: { parent: req.body.parent } },
+
+          (err, folder) => {
+            if (err) return console.log(err);
+            return res.status(200).json(folder);
           }
-        );
-        return res.status(200);
+        ).clone();
+
+        await Folder.updateOne(
+          { id: req.body._id },
+
+          { $set: { title: req.body.title } },
+          { $set: { position: req.body.position } },
+
+          (err, folder) => {
+            if (err) return console.log(err);
+            return res.status(200).json(folder);
+          }
+        ).clone();
       }
-      awaitFolder.findOneAndUpdate(
-        {
-          _id: req._id,
-        },
-        {
-          title: req.title,
-          position: req.position,
-          link: req.link,
-          owner: req.user,
-        }
-      );
-      return res.status(200);
     } catch (err) {
-      res.status(500);
+      console.log(err);
+      return res.status(500);
     }
   }
 );
 
 //delete folder
+router.post(
+  '/deleteFolder',
+  tokenVerify,
+  async (req, res) => {
+    try {
+      await Folder.findOneAndDelete({
+        owner: req.user,
+        _id: req.body._id,
+      });
+      await Link.deleteMany({ folder: req.body.folderId });
+      return res.status(200).send(true);
+    } catch (err) {
+      console.log(err);
+      return res.status(500).send(false);
+    }
+  }
+);
 
 module.exports = router;

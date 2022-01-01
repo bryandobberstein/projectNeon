@@ -13,8 +13,7 @@ const LinkSchema = new mongoose.Schema({
     type: Number,
   },
   folder: {
-    type: mongoose.Types.ObjectId,
-    ref: 'Folder',
+    type: String,
   },
 });
 

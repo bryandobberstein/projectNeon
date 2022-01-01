@@ -11,12 +11,6 @@ const UserSchema = new mongoose.Schema({
     required: true,
     minlength: 8,
   },
-  folder: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Folder',
-    },
-  ],
 });
 
 module.exports = mongoose.model('User', UserSchema);
