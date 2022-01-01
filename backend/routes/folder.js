@@ -105,7 +105,7 @@ router.post(
         owner: req.user,
         _id: req.body._id,
       });
-      await Link.deleteMany({ folder: req.body.folderId });
+      await Link.deleteMany({ folder: req.body._id });
       return res.status(200).send(true);
     } catch (err) {
       console.log(err);

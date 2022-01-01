@@ -15,7 +15,7 @@ router.get('/get-links', tokenVerify, async (req, res) => {
     if (!links) {
       return res.status(404).send(false);
     }
-    return res.status(200).json(folders);
+    return res.status(200).json(links);
   } catch (err) {
     console.log(err);
     return res.status(500).send(false);
@@ -55,6 +55,47 @@ router.post(
 
 //update link
 
+router.put(
+  '/update-link',
+  tokenVerify,
+  async (req, res) => {
+    try {
+      await Link.updateOne(
+        { id: req.body._id },
+
+        { $set: { title: req.body.title } },
+        { $set: { position: req.body.position } },
+        { $set: { url: req.body.url } },
+        { $set: { folder: req.body.folder } },
+
+        (err, link) => {
+          if (err) return console.log(err);
+          return res.status(200).json(link);
+        }
+      ).clone();
+    } catch (err) {
+      console.log(err);
+      return res.status(500).send(false);
+    }
+  }
+);
+
 //delete link
 
+router.post(
+  'delete-link',
+  tokenVerify,
+  async (req, res) => {
+    try {
+      await Link.findOneAndDelete({
+        owner: req.user,
+        folder: req.body.folder,
+        _id: req.body._id,
+      });
+    } catch (err) {
+      console.error(err);
+      return res.status(500).send(false);
+    }
+  }
+);
 module.exports = router;
