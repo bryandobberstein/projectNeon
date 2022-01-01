@@ -5,14 +5,16 @@ const express = require('express');
 const mongoose = require('mongoose');
 
 const userRoute = require('./routes/user');
-const folderRouter = require('./routes/folder');
+const folderRoute = require('./routes/folder');
+const linkRoute = require('./routes/link');
 
 const app = express();
 
 app.use(bp.json());
 
 app.use('/user', userRoute);
-app.use('/folders', folderRouter);
+app.use('/folders', folderRoute);
+app.use('/link', linkRoute);
 
 const runApp = async () => {
   try {

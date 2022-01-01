@@ -15,6 +15,9 @@ const LinkSchema = new mongoose.Schema({
   folder: {
     type: String,
   },
+  owner: {
+    type: String,
+  },
 });
 
 module.exports = mongoose.model('Link', LinkSchema);

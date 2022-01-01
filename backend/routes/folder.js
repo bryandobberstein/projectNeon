@@ -13,7 +13,6 @@ router.get('/getFolders', tokenVerify, async (req, res) => {
       owner: req.user,
     });
     if (!folders) {
-      console.log(2);
       return res.status(404);
     }
     return res.status(200).json({ folders });
