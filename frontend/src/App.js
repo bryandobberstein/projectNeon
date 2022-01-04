@@ -1,12 +1,14 @@
-import { useState } from 'react';
+//import { useState } from 'react';
 import './App.css';
 
+import SignIn from './components/SignIn';
+
 function App() {
-  const [loggedin, setloggedin] = useState(false);
-  const [token, settoken] = useState(initialState);
+  // const [loggedin, setloggedin] = useState(false);
+  // const [token, settoken] = useState('');
   return (
     <>
-      <h1>Under Construction</h1>
+      <SignIn />
     </>
   );
 }
