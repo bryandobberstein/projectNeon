@@ -4,9 +4,9 @@ const jwt = require('jsonwebtoken');
 
 module.exports = async (req, res, next) => {
   try {
-    const token = req.header('x-auth-token');
+    const token = req.cookies.token;
     if (!token) {
-      return res.status(403).send(false);
+      return res.status(403).send();
     }
     const decoded = await jwt.verify(
       token,
@@ -16,6 +16,6 @@ module.exports = async (req, res, next) => {
     next();
   } catch (err) {
     console.error(err);
-    res.status(403).send(false);
+    res.status(403).send();
   }
 };

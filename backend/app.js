@@ -3,6 +3,8 @@ require('dotenv').config();
 const bp = require('body-parser');
 const express = require('express');
 const mongoose = require('mongoose');
+const cookieParser = require('cookie-parser');
+const cors = require('cors');
 
 const userRoute = require('./routes/user');
 const folderRoute = require('./routes/folder');
@@ -11,6 +13,10 @@ const linkRoute = require('./routes/link');
 const app = express();
 
 app.use(bp.json());
+app.use(cookieParser());
+app.use({
+  origin: ['http://localhost'],
+});
 
 app.use('/user', userRoute);
 app.use('/folders', folderRoute);
