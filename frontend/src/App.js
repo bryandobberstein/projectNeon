@@ -1,16 +1,11 @@
-//import { useState } from 'react';
+import { useState } from 'react';
+import { useCookies } from 'react-cookie';
 import './App.css';
 
-import SignIn from './components/SignIn';
-
 function App() {
-  // const [loggedin, setloggedin] = useState(false);
-  // const [token, settoken] = useState('');
-  return (
-    <>
-      <SignIn />
-    </>
-  );
+  const [authenticated, setauthenticated] = useState(false);
+  const [cookies, setcookies] = useCookies(['user'])
+  return <>{authenticated || <SignIn />}</>;
 }
 
 export default App;

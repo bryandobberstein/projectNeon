@@ -35,14 +35,7 @@ router.post('/signup', async (req, res) => {
       process.env.JWT_TOKEN,
       { expiresIn: 4 * 3600 }
     );
-    return res
-      .status(201)
-      .cookie('token', token, {
-        httpOnly: true,
-        secure: true,
-        sameSite: 'none',
-      })
-      .send();
+    return res.status(201).json(token);
   } catch (err) {
     console.error(err);
     res.status(500).send();
@@ -70,14 +63,7 @@ router.post('/authenticate', async (req, res) => {
       process.env.JWT_TOKEN,
       { expiresIn: 4 * 3600 }
     );
-    res
-      .status(200)
-      .cookie('token', token, {
-        httpOnly: true,
-        secure: true,
-        sameSite: 'none',
-      })
-      .send();
+    res.status(200).json(token);
   } catch (err) {
     res.status(500).send(false);
   }
