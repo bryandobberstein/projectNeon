@@ -4,7 +4,9 @@ import './App.css';
 
 function App() {
   const [authenticated, setauthenticated] = useState(false);
-  const [cookies, setcookies] = useCookies(['user'])
+  const [cookies, setcookies, deletecookies] = useCookies([
+    'user',
+  ]);
   return <>{authenticated || <SignIn />}</>;
 }
 

@@ -4,6 +4,7 @@ const bp = require('body-parser');
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
 
 const userRoute = require('./routes/user');
 const folderRoute = require('./routes/folder');
@@ -12,9 +13,8 @@ const linkRoute = require('./routes/link');
 const app = express();
 
 app.use(bp.json());
-app.use({
-  origin: ['http://localhost'],
-});
+app.use(cors({ origin: 'http://localhost' }));
+app.use(cookieParser());
 
 app.use('/user', userRoute);
 app.use('/folders', folderRoute);

@@ -1,10 +1,11 @@
 require('dotenv').config();
 
+const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 module.exports = async (req, res, next) => {
   try {
-    const token = req.token;
+    const token = req.cookies.token;
     if (!token) {
       return res.status(403).send();
     }

@@ -33,9 +33,15 @@ router.post('/signup', async (req, res) => {
     const token = await jwt.sign(
       { user: user._id },
       process.env.JWT_TOKEN,
-      { expiresIn: 4 * 3600 }
+      { expiresIn: 24 * 3600 }
     );
-    return res.status(201).json(token);
+    return res
+      .cookie('token', token, {
+        expire: 24 * 3600,
+        httpOnly: true,
+        sameSite: strict,
+      })
+      .send();
   } catch (err) {
     console.error(err);
     res.status(500).send();
@@ -61,9 +67,15 @@ router.post('/authenticate', async (req, res) => {
     const token = await jwt.sign(
       { user: user._id },
       process.env.JWT_TOKEN,
-      { expiresIn: 4 * 3600 }
+      { expiresIn: 24 * 3600 }
     );
-    res.status(200).json(token);
+    return res
+      .cookie('token', token, {
+        expire: 24 * 3600,
+        httpOnly: true,
+        sameSite: strict,
+      })
+      .send();
   } catch (err) {
     res.status(500).send(false);
   }
