@@ -1,0 +1,10 @@
+yarn run v1.22.17
+$ react-scripts start
+Starting the development server...
+
+Failed to compile.
+
+./src/index.js
+Module not found: Can't resolve './store/store' in '/home/max/Code/projectNeon/frontend/src'
+Compiling...
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.

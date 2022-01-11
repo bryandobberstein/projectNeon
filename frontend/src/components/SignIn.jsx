@@ -1,25 +1,55 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 
-const SignIn = () => {
+const SignIn = props => {
   const [login, setlogin] = useState({
     email: '',
     password: '',
   });
+  const [error, seterror] = useState(false);
+  const [message, setmessage] = useState(null);
 
   const inputChangeHandler = e => {
     setlogin({
       ...login,
       [e.target.name]: e.target.value,
     });
+    console.log({ login });
   };
 
-  const submitHandler = () => {
-    console.log(login);
+  const submitHandler = async e => {
+    e.preventDefault();
+    const result = await fetch(
+      'http://localhost:8000/user/authenticate',
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        method: 'POST',
+        body: JSON.stringify({
+          email: login.email,
+          password: login.password,
+        }),
+      }
+    );
+    switch (result.status) {
+      case 200:
+        seterror(false);
+        props.setauthenticated(true);
+        break;
+      case 403:
+        seterror(true);
+        setmessage('Incorrect email or password');
+        break;
+      case 500:
+        seterror(true);
+        setmessage('Sorry, please try again');
+        break;
+    }
   };
 
   return (
     <form onSubmit={submitHandler}>
-      <label htmlFor='email'>Email</label>
+      <label htmlFor='email'>{login.email}</label>
       <input
         type='text'
         name='email'
@@ -27,7 +57,7 @@ const SignIn = () => {
         value={login.email}
         onChange={inputChangeHandler}
       />
-      <label htmlFor='password'></label>
+      <label htmlFor='password'>{login.password}</label>
       <input
         type='password'
         name='password'

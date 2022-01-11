@@ -36,21 +36,22 @@ router.post('/signup', async (req, res) => {
       { expiresIn: 24 * 3600 }
     );
     return res
+      .status(200)
       .cookie('token', token, {
         expire: 24 * 3600,
         httpOnly: true,
-        sameSite: strict,
+        sameSite: 'strict',
       })
       .send();
   } catch (err) {
     console.error(err);
-    res.status(500).send();
+    res.status(500).send(err);
   }
 });
 
 router.post('/authenticate', async (req, res) => {
-  const email = req.body.email.trim().toLowerCase();
   try {
+    const email = req.body.email.trim();
     const user = await User.findOne({
       email: email,
     });
@@ -73,10 +74,11 @@ router.post('/authenticate', async (req, res) => {
       .cookie('token', token, {
         expire: 24 * 3600,
         httpOnly: true,
-        sameSite: strict,
+        sameSite: 'strict',
       })
       .send();
   } catch (err) {
+    console.error(err);
     res.status(500).send(false);
   }
 });
