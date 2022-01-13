@@ -11,26 +11,32 @@ const Folder = props => {
       'http://localhost:8000/folders/getFolders',
       {
         credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        method: 'POST',
+        crossDomain: true,
       }
     );
-    switch (result.status) {
-      case 400:
-        seterror(true);
-        setmessage('No folders found');
-        break;
-      case 500:
-        seterror(true);
-        setmessage('Server error');
-        break;
-      default:
-        console.log(result);
-        setfolders(result.folders);
-    }
+    const data = await result.json();
+    setfolders(data);
+    // switch (result.status) {
+    //   case 400:
+    //     seterror(true);
+    //     setmessage('No folders found');
+    //     break;
+    //   case 500:
+    //     seterror(true);
+    //     setmessage('Server error');
+    //     break;
+    //   default:
+    //     setfolders(result.json().folders);
+    // }
   }, []);
-  // const folder = folders.map(folder => (
-  //   <li key={folder.position}>{folder.title}</li>
-  // ));
-  return { folders };
+  const collection = folders.map(folder => (
+    <li key={folder.position}>{folder.title}</li>
+  ));
+  return <>{collection}</>;
 };
 
 export default Folder;

@@ -26,11 +26,22 @@ const corsOptions = {
       callback(new Error('Not allowed by CORS'));
     }
   },
+  credentials: true,
+  methods: [
+    'GET',
+    'POST',
+    'HEAD',
+    'PUT',
+    'PATCH',
+    'DELETE',
+  ],
+  allowedHeaders: ['Content-Type'],
+  exposedHeaders: ['Content-Type'],
 };
 
-app.use(cors(whitelist));
 app.use(bp.json());
 app.use(cookieParser());
+app.use(cors(corsOptions));
 
 app.use('/user', userRoute);
 app.use('/folders', folderRoute);

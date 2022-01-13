@@ -13,7 +13,6 @@ const SignIn = props => {
       ...login,
       [e.target.name]: e.target.value,
     });
-    console.log({ login });
   };
 
   const submitHandler = async e => {
@@ -24,6 +23,7 @@ const SignIn = props => {
         headers: {
           'Content-Type': 'application/json',
         },
+        credentials: 'include',
         method: 'POST',
         body: JSON.stringify({
           email: login.email,

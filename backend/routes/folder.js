@@ -7,20 +7,24 @@ const tokenVerify = require('../middleware/tokenVerify');
 const router = express.Router();
 
 //get folders
-router.get('/getFolders', tokenVerify, async (req, res) => {
-  try {
-    const folders = await Folder.find({
-      owner: req.user,
-    });
-    if (!folders) {
-      return res.status(404);
+router.post(
+  '/getFolders',
+  tokenVerify,
+  async (req, res) => {
+    try {
+      const folders = await Folder.find({
+        owner: req.user,
+      });
+      if (!folders) {
+        return res.status(404);
+      }
+      return res.send(JSON.stringify(folders));
+    } catch (err) {
+      console.log(err);
+      return res.status(500);
     }
-    return res.status(200).json({ folders });
-  } catch (err) {
-    console.log(err);
-    return res.status(500);
   }
-});
+);
 
 //create folder
 router.post('/addFolder', tokenVerify, async (req, res) => {
