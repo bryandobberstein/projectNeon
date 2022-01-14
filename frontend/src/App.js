@@ -10,8 +10,7 @@ function App() {
   useEffect(() => {
     if (
       cookies.Authenticate &&
-      cookies.Authenticated === true &&
-      cookies.Authenticated.expires < Date.now()
+      cookies.Authenticated === true
     ) {
       setauthenticated(true);
     }
