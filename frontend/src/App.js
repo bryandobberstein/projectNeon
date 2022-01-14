@@ -9,8 +9,9 @@ import './App.css';
 function App() {
   useEffect(() => {
     if (
-      cookies.Authenticate ||
-      cookies.Authenticated === true
+      cookies.Authenticate &&
+      cookies.Authenticated === true &&
+      cookies.Authenticated.expires < Date.now()
     ) {
       setauthenticated(true);
     }

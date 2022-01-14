@@ -15,6 +15,10 @@ const SignIn = props => {
     });
   };
 
+  const getExpirationDate = () => {
+    return new Date(Date.now() + 864000);
+  };
+
   const submitHandler = async e => {
     e.preventDefault();
     const result = await fetch(
@@ -37,7 +41,7 @@ const SignIn = props => {
         props.cookieHandler(
           'Autheticate',
           true,
-          Date.now() + 24 * 3600
+          getExpirationDate()
         );
         break;
       case 403:
