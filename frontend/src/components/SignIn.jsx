@@ -34,7 +34,11 @@ const SignIn = props => {
     switch (result.status) {
       case 200:
         seterror(false);
-        props.setauthenticated(true);
+        props.cookieHandler(
+          'Autheticate',
+          true,
+          Date.now() + 24 * 3600
+        );
         break;
       case 403:
         seterror(true);

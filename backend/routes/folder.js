@@ -18,7 +18,7 @@ router.post(
       if (!folders) {
         return res.status(404);
       }
-      return res.send(JSON.stringify(folders));
+      return res.json(folders);
     } catch (err) {
       console.log(err);
       return res.status(500);

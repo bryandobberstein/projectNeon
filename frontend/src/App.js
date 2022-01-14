@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useCookies } from 'react-cookie';
 
 import SignIn from './components/SignIn';
 import Folder from './components/Folder';
@@ -6,11 +7,27 @@ import Folder from './components/Folder';
 import './App.css';
 
 function App() {
+  useEffect(() => {
+    if (
+      cookies.Authenticate ||
+      cookies.Authenticated === true
+    ) {
+      setauthenticated(true);
+    }
+  }, [cookies]);
+
   const [authenticated, setauthenticated] = useState(false);
+  const [cookies, setCookie] = useCookies([]);
+
+  const cookieHandler = (name, data, expiration) => {
+    setCookie(name, data),
+      { path: '/', expires: expiration, sameSite: strict };
+  };
+
   return (
     <>
       {authenticated || (
-        <SignIn setauthenticated={setauthenticated} />
+        <SignIn cookieHandler={cookieHandler} />
       )}
       {authenticated && <Folder />}
     </>
