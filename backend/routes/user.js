@@ -72,7 +72,7 @@ router.post('/authenticate', async (req, res) => {
     );
     return res
       .cookie('token', token, {
-        expire: 24 * 3600,
+        maxAge: 2400 * 3600,
         httpOnly: true,
         sameSite: 'strict',
       })

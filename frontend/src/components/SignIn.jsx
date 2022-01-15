@@ -39,7 +39,7 @@ const SignIn = props => {
       case 200:
         seterror(false);
         props.cookieHandler(
-          'Autheticate',
+          'authenticate',
           true,
           getExpirationDate()
         );
