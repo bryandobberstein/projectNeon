@@ -1,7 +1,10 @@
 import React from 'react';
 import ReactDom from 'react-dom';
 
-const Modal = props => {
+const Modal = (children, props) => {
+  if (!props.open) {
+    return;
+  }
   return ReactDom.createPortal(
     <div></div>,
     document.getElementById('modal')
