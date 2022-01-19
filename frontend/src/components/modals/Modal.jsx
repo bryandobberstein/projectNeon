@@ -1,12 +1,10 @@
 import React from 'react';
 import ReactDom from 'react-dom';
 
-import { Placeholder } from './Modals';
+import { Placeholder, AddFolder } from './Modals';
 
 const Modal = props => {
   const closeModal = () => {
-    console.log('clicked');
-
     props.close();
   };
   if (!props.open) {
@@ -14,7 +12,12 @@ const Modal = props => {
   }
   return ReactDom.createPortal(
     <div>
-      <Placeholder close={closeModal} />
+      {props.children === '' && (
+        <Placeholder close={closeModal} />
+      )}
+      {props.children === 'addFolder' && (
+        <AddFolder close={closeModal} />
+      )}
     </div>,
     document.getElementById('modal')
   );

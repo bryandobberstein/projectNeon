@@ -22,11 +22,11 @@ function App() {
   };
 
   const closeModal = () => {
-    console.log('close');
     setmodalOpen(false);
   };
-  const openModal = () => {
-    console.log('open');
+
+  const openAddModal = () => {
+    setmodalChildren('addFolder');
     setmodalOpen(true);
   };
 
@@ -43,7 +43,7 @@ function App() {
   return (
     <>
       <Folder />
-      <button onClick={openModal}>
+      <button onClick={openAddModal}>
         <FaFolderPlus />
       </button>
       <Modal open={modalOpen} close={closeModal}>
