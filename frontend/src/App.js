@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useCookies } from 'react-cookie';
+import { FaFolderPlus } from 'react-icons/fa';
 
 import SignIn from './components/SignIn';
 import Folder from './components/Folder';
@@ -10,8 +11,7 @@ import './App.css';
 function App() {
   const [cookies, setCookie] = useCookies(['authenticate']);
   const [modalOpen, setmodalOpen] = useState(false);
-  const [modalChilddren, setmodalChilddren] =
-    useState(null);
+  const [modalChildren, setmodalChildren] = useState('');
 
   const cookieHandler = (name, data, expiration) => {
     setCookie(name, data, {
@@ -21,17 +21,32 @@ function App() {
     });
   };
 
+  const closeModal = () => {
+    console.log('close');
+    setmodalOpen(false);
+  };
+  const openModal = () => {
+    console.log('open');
+    setmodalOpen(true);
+  };
+
   const isAuthenticated = cookies.authenticate;
+
+  if (!isAuthenticated) {
+    return (
+      <>
+        <SignIn cookieHandler={cookieHandler} />
+      </>
+    );
+  }
 
   return (
     <>
-      {!isAuthenticated && (
-        <SignIn cookieHandler={cookieHandler} />
-      )}
-      {isAuthenticated && <Folder />}
-      <Modal
-        open={modalOpen}
-        close={() => setmodalOpen(false)}>
+      <Folder />
+      <button onClick={openModal}>
+        <FaFolderPlus />
+      </button>
+      <Modal open={modalOpen} close={closeModal}>
         {modalChildren}
       </Modal>
     </>
