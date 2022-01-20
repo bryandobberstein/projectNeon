@@ -5,13 +5,10 @@ import SignIn from './components/SignIn';
 import Folder from './components/Folder';
 import Modal from './components/modals/Modal';
 
-import './App.css';
-
 function App() {
   const [cookies, setCookie] = useCookies(['authenticate']);
-  const [modalOpen, setmodalOpen] = useState(false);
-  const [modalChilddren, setmodalChilddren] =
-    useState(null);
+  const [modalOpen, setmodalOpen] = useState(true);
+  const [modalChildren, setmodalChildren] = useState('');
 
   const cookieHandler = (name, data, expiration) => {
     setCookie(name, data, {

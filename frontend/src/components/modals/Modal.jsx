@@ -1,12 +1,16 @@
 import React from 'react';
 import ReactDom from 'react-dom';
+import { Placeholder } from './Modals';
 
-const Modal = (children, props) => {
+const Modal = props => {
   if (!props.open) {
-    return;
+    console.log(props.open);
+    return null;
   }
   return ReactDom.createPortal(
-    <div></div>,
+    <div>
+      <Placeholder close={() => props.close(false)} />
+    </div>,
     document.getElementById('modal')
   );
 };
