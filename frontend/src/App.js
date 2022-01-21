@@ -5,12 +5,13 @@ import { FaFolderPlus } from "react-icons/fa";
 import SignIn from "./components/SignIn";
 import Folder from "./components/Folder";
 import Modal from "./components/modals/Modal";
-import FolderContext from "./folder/context";
+import FolderContext from "./context/folder/context";
 
 function App() {
   const [cookies, setCookie] = useCookies(["authenticate"]);
   const [modalOpen, setmodalOpen] = useState(false);
   const [modalChildren, setmodalChildren] = useState("");
+  const [folders, setfolders] = useState([]);
 
   const cookieHandler = (name, data, expiration) => {
     setCookie(name, data, {
@@ -41,7 +42,12 @@ function App() {
 
   return (
     <>
-      <FolderContext.Provider>
+      <FolderContext.Provider
+        value={{
+          folders: folders,
+          setfolders: setfolders,
+        }}
+      >
         <Folder />
         <button onClick={openAddModal}>
           <FaFolderPlus />

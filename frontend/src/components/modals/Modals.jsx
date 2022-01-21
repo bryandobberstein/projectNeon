@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import {
   FaRegWindowClose,
   FaFolderPlus,
 } from 'react-icons/fa';
+
+import FolderContext from '../../context/folder/context';
 
 export const Placeholder = props => {
   const closeModal = () => props.close();
@@ -19,10 +21,8 @@ export const Placeholder = props => {
 };
 
 export const AddFolder = props => {
-  const [folder, setfolder] = useState({
-    title: '',
-    position: '',
-  });
+  const [folder, setfolder] = useState({ title: '', position: 0 });
+  const context = useContext(FolderContext);
 
   const inputChangeHandler = e => {
     setfolder({
@@ -34,7 +34,7 @@ export const AddFolder = props => {
   const submitHandler = async e => {
     e.preventDefault();
     try {
-      const result = await fetch(
+      await fetch(
         'http://localhost:8000/folders/addFolder',
         {
           headers: {
@@ -47,9 +47,11 @@ export const AddFolder = props => {
             title: folder.title,
             position: folder.position,
           }),
-        }        
+        }
       );
-      console.log(result);
+      context.setfolders(context.folders.concat(folder));
+      setfolder({ title: '', position: 0 });
+      props.close();
     } catch (error) {
       console.error(error);
     }
