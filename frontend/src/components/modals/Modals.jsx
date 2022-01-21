@@ -33,20 +33,26 @@ export const AddFolder = props => {
 
   const submitHandler = async e => {
     e.preventDefault();
-    const result = await fetch(
-      'http://localhost:8000/user/addFolder',
-      {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include',
-        method: 'POST',
-        body: JSON.stringify({
-          title: folder.title,
-          position: folder.position,
-        }),
-      }
-    );
+    try {
+      const result = await fetch(
+        'http://localhost:8000/folders/addFolder',
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          credentials: 'include',
+          crossDomain: true,
+          method: 'POST',
+          body: JSON.stringify({
+            title: folder.title,
+            position: folder.position,
+          }),
+        }        
+      );
+      console.log(result);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (

@@ -1,39 +1,31 @@
-const express = require('express');
+const express = require("express");
 
-const Folder = require('../models/Folder');
-const Link = require('../models/Link');
-const tokenVerify = require('../middleware/tokenVerify');
+const Folder = require("../models/Folder");
+const Link = require("../models/Link");
+const tokenVerify = require("../middleware/tokenVerify");
 
 const router = express.Router();
 
 //get folders
-router.post(
-  '/getFolders',
-  tokenVerify,
-  async (req, res) => {
-    try {
-      const folders = await Folder.find({
-        owner: req.user,
-      });
-      if (!folders) {
-        return res.status(404);
-      }
-      return res.json(folders);
-    } catch (err) {
-      console.log(err);
-      return res.status(500);
+router.post("/getFolders", tokenVerify, async (req, res) => {
+  try {
+    const folders = await Folder.find({
+      owner: req.user,
+    }).sort({ position: 1 });
+    if (!folders) {
+      return res.status(404);
     }
+    return res.json(folders);
+  } catch (err) {
+    console.log(err);
+    return res.status(500);
   }
-);
+});
 
 //create folder
-router.post('/addFolder', tokenVerify, async (req, res) => {
+router.post("/addFolder", tokenVerify, async (req, res) => {
   try {
-    if (
-      !req.body.title ||
-      !req.body.position ||
-      isNaN(req.body.position)
-    ) {
+    if (!req.body.title || !req.body.position) {
       return res.status(400).send(false);
     }
     if (req.parent) {
@@ -61,61 +53,53 @@ router.post('/addFolder', tokenVerify, async (req, res) => {
 
 //update folder
 
-router.put(
-  '/updateFolder',
-  tokenVerify,
-  async (req, res) => {
-    try {
-      if (req.body.parent) {
-        await Folder.updateOne(
-          { id: req.body._id },
+router.put("/updateFolder", tokenVerify, async (req, res) => {
+  try {
+    if (req.body.parent) {
+      await Folder.updateOne(
+        { id: req.body._id },
 
-          { $set: { title: req.body.title } },
-          { $set: { position: req.body.position } },
-          { $set: { parent: req.body.parent } },
+        { $set: { title: req.body.title } },
+        { $set: { position: req.body.position } },
+        { $set: { parent: req.body.parent } },
 
-          (err, folder) => {
-            if (err) return console.log(err);
-            return res.status(200).json(folder);
-          }
-        ).clone();
+        (err, folder) => {
+          if (err) return console.log(err);
+          return res.status(200).json(folder);
+        }
+      ).clone();
 
-        await Folder.updateOne(
-          { id: req.body._id },
+      await Folder.updateOne(
+        { id: req.body._id },
 
-          { $set: { title: req.body.title } },
-          { $set: { position: req.body.position } },
+        { $set: { title: req.body.title } },
+        { $set: { position: req.body.position } },
 
-          (err, folder) => {
-            if (err) return console.log(err);
-            return res.status(200).json(folder);
-          }
-        ).clone();
-      }
-    } catch (err) {
-      console.log(err);
-      return res.status(500);
+        (err, folder) => {
+          if (err) return console.log(err);
+          return res.status(200).json(folder);
+        }
+      ).clone();
     }
+  } catch (err) {
+    console.log(err);
+    return res.status(500);
   }
-);
+});
 
 //delete folder
-router.post(
-  '/deleteFolder',
-  tokenVerify,
-  async (req, res) => {
-    try {
-      await Folder.findOneAndDelete({
-        owner: req.user,
-        _id: req.body._id,
-      });
-      await Link.deleteMany({ folder: req.body._id });
-      return res.status(200).send(true);
-    } catch (err) {
-      console.log(err);
-      return res.status(500).send(false);
-    }
+router.post("/deleteFolder", tokenVerify, async (req, res) => {
+  try {
+    await Folder.findOneAndDelete({
+      owner: req.user,
+      _id: req.body._id,
+    });
+    await Link.deleteMany({ folder: req.body._id });
+    return res.status(200).send(true);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).send(false);
   }
-);
+});
 
 module.exports = router;

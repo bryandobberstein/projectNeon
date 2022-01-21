@@ -19,20 +19,23 @@ const Folder = props => {
       }
     );
     const data = await result.json();
+    data.sort((a, b) => a.position - b.position)
     setfolders(data);
     // switch (result.status) {
-    //   case 400:
-    //     seterror(true);
-    //     setmessage('No folders found');
-    //     break;
-    //   case 500:
-    //     seterror(true);
-    //     setmessage('Server error');
-    //     break;
-    //   default:
-    //     setfolders(result.json().folders);
-    // }
-  }, []);
+      //   case 400:
+      //     seterror(true);
+      //     setmessage('No folders found');
+      //     break;
+      //   case 500:
+      //     seterror(true);
+      //     setmessage('Server error');
+      //     break;
+      //   default:
+      //     setfolders(result.json().folders);
+      // }
+    }, []);
+    console.log(folders);
+  
   const collection = folders.map(folder => (
     <li key={folder.position}>{folder.title}</li>
   ));
