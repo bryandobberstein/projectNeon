@@ -7,6 +7,8 @@ import Folder from "./components/Folder";
 import Modal from "./components/modals/Modal";
 import FolderContext from "./context/folder/context";
 
+import styles from "./App.module.css";
+
 function App() {
   const [cookies, setCookie] = useCookies(["authenticate"]);
   const [modalOpen, setmodalOpen] = useState(false);
@@ -34,14 +36,14 @@ function App() {
 
   if (!isAuthenticated) {
     return (
-      <>
+      <div className={styles.App}>
         <SignIn cookieHandler={cookieHandler} />
-      </>
+      </div>
     );
   }
 
   return (
-    <>
+    <div className={styles.App}>
       <FolderContext.Provider
         value={{
           folders: folders,
@@ -56,7 +58,7 @@ function App() {
           {modalChildren}
         </Modal>
       </FolderContext.Provider>
-    </>
+    </div>
   );
 }
 

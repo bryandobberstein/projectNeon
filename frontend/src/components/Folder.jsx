@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { FaHamburger } from 'react-icons/fa';
 
 import FolderContext from '../context/folder/context';
+import styles from '../css/Folders.module.css';
 
 const Folder = props => {
   const [open, setopen] = useState(null);
@@ -27,9 +29,9 @@ const Folder = props => {
   }, []);
   console.log(context.folders);
   const collection = context.folders.map(folder => (
-    <li key={folder.position}>{folder.title}</li>
+    <li key={folder.position}><button><FaHamburger /></button>{folder.title}</li>
   ));
-  return <>{collection}</>;
+  return <ul>{collection}</ul>;
 };
 
 export default Folder;
