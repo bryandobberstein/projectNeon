@@ -1,26 +1,10 @@
-import React, { useContext, useState } from 'react';
+import React from 'react';
 import {
   FaRegWindowClose,
   FaFolderPlus,
 } from 'react-icons/fa';
 
-import FolderContext from '../../context/folder/context';
-
-export const Placeholder = props => {
-  const closeModal = () => props.close();
-  return (
-    <div className='overlay'>
-      <div className='modal'>
-        <button onClick={closeModal}>
-          <FaRegWindowClose />
-        </button>
-        <h1>Modal</h1>
-      </div>
-    </div>
-  );
-};
-
-export const AddFolder = props => {
+const AddFolder = props => {
   const [folder, setfolder] = useState({ title: '', position: 0 });
   const context = useContext(FolderContext);
 
@@ -86,3 +70,7 @@ export const AddFolder = props => {
     </div>
   );
 };
+
+export default AddFolder;
+
+

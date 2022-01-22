@@ -4,7 +4,7 @@ import { FaFolderPlus } from "react-icons/fa";
 
 import SignIn from "./components/SignIn";
 import Folder from "./components/Folder";
-import Modal from "./components/modals/Modal";
+import Modal from "./components/modals/ModalRoot";
 import FolderContext from "./context/folder/context";
 
 import styles from "./App.module.css";

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDom from 'react-dom';
 
-import { Placeholder, AddFolder } from './Modals';
+import AddFolder from './AddFolder';
 
 const Modal = props => {
   const closeModal = () => {
