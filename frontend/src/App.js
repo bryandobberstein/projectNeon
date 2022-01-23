@@ -10,6 +10,8 @@ import FolderContext from "./context/folder/context";
 import styles from "./App.module.css";
 
 function App() {
+  const STYLEAPP = styles.App;
+
   const [cookies, setCookie] = useCookies(["authenticate"]);
   const [modalOpen, setmodalOpen] = useState(false);
   const [modalChildren, setmodalChildren] = useState("");
@@ -36,14 +38,14 @@ function App() {
 
   if (!isAuthenticated) {
     return (
-      <div className={styles.App}>
+      <div className={STYLEAPP}>
         <SignIn cookieHandler={cookieHandler} />
       </div>
     );
   }
 
   return (
-    <div className={styles.App}>
+    <div className={STYLEAPP}>
       <FolderContext.Provider
         value={{
           folders: folders,

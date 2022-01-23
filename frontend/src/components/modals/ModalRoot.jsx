@@ -3,6 +3,8 @@ import ReactDom from 'react-dom';
 
 import AddFolder from './AddFolder';
 
+import styles from './ModalRoot.module.css';
+
 const Modal = props => {
   const closeModal = () => {
     props.close();
@@ -11,10 +13,7 @@ const Modal = props => {
     return null;
   }
   return ReactDom.createPortal(
-    <div>
-      {props.children === '' && (
-        <Placeholder close={closeModal} />
-      )}
+    <div className={styles.overlay}>
       {props.children === 'addFolder' && (
         <AddFolder close={closeModal} />
       )}

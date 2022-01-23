@@ -1,12 +1,16 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
 import {
   FaRegWindowClose,
   FaFolderPlus,
 } from 'react-icons/fa';
 
+import FolderContext from '../../context/folder/context';
+
+import styles from './addfolder.module.css';
+
 const AddFolder = props => {
-  const [folder, setfolder] = useState({ title: '', position: 0 });
   const context = useContext(FolderContext);
+  const [folder, setfolder] = useState({ title: '', position: context.folders.length + 1 });
 
   const inputChangeHandler = e => {
     setfolder({
@@ -42,31 +46,22 @@ const AddFolder = props => {
   };
 
   return (
-    <div className='overlay'>
-      <div className='modal'>
-        <button onClick={props.close}>
-          <FaRegWindowClose />
+    <div className={styles.modal}>
+      <button onClick={props.close}>
+        <FaRegWindowClose />
+      </button>
+      <form onSubmit={submitHandler}>
+        <label htmlFor='title'>Title</label>
+        <input
+          type='text'
+          name='title'
+          value={folder.title}
+          onChange={inputChangeHandler}
+        />
+        <button onClick={submitHandler}>
+          <FaFolderPlus />
         </button>
-        <form onSubmit={submitHandler}>
-          <label htmlFor='title'>Title</label>
-          <input
-            type='text'
-            name='title'
-            value={folder.title}
-            onChange={inputChangeHandler}
-          />
-          <label htmlFor='position'>Position</label>
-          <input
-            type='number'
-            name='position'
-            value={folder.position}
-            onChange={inputChangeHandler}
-          />
-          <button onClick={submitHandler}>
-            <FaFolderPlus />
-          </button>
-        </form>
-      </div>
+      </form>
     </div>
   );
 };
