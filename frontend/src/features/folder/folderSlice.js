@@ -28,6 +28,6 @@ export const folderSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const {} = folderSlice.actions;
+export const { initialize, add, remove, edit } = folderSlice.actions;
 
 export default folderSlice.reducer;

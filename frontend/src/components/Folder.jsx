@@ -1,10 +1,14 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { useSelector, useDispatch } from "react-redux";
+import { initialize, add, edit, remove } from '../features/folder/folderSlice';
 import { FaHamburger } from 'react-icons/fa';
 
 import FolderContext from '../context/folder/context';
 import styles from '../css/Folders.module.css';
 
 const Folder = props => {
+  const folders = useSelector(state => state.folders.folders);
+  const dispatch = useDispatch;
   const [open, setopen] = useState(null);
   const [error, seterror] = useState(false);
   const [message, setmessage] = useState(null);
@@ -25,10 +29,9 @@ const Folder = props => {
     );
     const data = await result.json();
     data.sort((a, b) => a.position - b.position);
-    context.setfolders(data);
+    dispatch(initialize(data));
   }, []);
-  console.log(context.folders);
-  const collection = context.folders.map(folder => (
+  const collection = state.folders.folders.map(folder => (
     <li key={folder.position}><button><FaHamburger /></button>{folder.title}</li>
   ));
   return <ul>{collection}</ul>;
