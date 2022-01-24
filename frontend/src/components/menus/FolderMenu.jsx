@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { FaEdit, FaFolderPlus, FaLink } from 'react-icons/fa';
 
 import FolderContext from '../../context/folder/context';
