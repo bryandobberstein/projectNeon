@@ -11,7 +11,6 @@ const Folder = props => {
   const [open, setopen] = useState(null);
   const [error, seterror] = useState(false);
   const [message, setmessage] = useState(null);
-  const context = useContext(FolderContext);
 
   useEffect(async () => {
 

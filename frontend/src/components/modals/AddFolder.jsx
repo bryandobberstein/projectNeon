@@ -1,5 +1,5 @@
-import React, { useState, useContext } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { add } from '../../features/folder/folderSlice';
 import { close } from '../../features/modal/modalSlice';
 import {
@@ -10,8 +10,9 @@ import {
 import styles from './addfolder.module.css';
 
 const AddFolder = () => {
+  const folders = useSelector(state => state.folders.folders);
   const dispatch = useDispatch();
-  const [folder, setfolder] = useState({ title: '', position: context.folders.length + 1 });
+  const [folder, setfolder] = useState({ title: '', position: folders.length + 1 });
 
   const inputChangeHandler = e => {
     setfolder({

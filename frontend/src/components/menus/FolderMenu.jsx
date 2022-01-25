@@ -1,12 +1,12 @@
 import React from 'react';
 import { FaEdit, FaFolderPlus, FaLink } from 'react-icons/fa';
 
-import FolderContext from '../../context/folder/context';
+import { useSelector } from 'react-redux';
 
 const FolderMenu = props => {
-  const context = useContext(FolderContext);
+  const folders = useSelector(state => state.folders.folders);
 
-  const folder = context.folders.filter(fldr => fldr.name == props.folderName);
+  const folder = folders.filter(fldr => fldr.name == props.folderName);
 
   return <div>
     <button><FaEdit />Edit Folder</button>
