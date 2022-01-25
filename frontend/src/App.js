@@ -6,6 +6,7 @@ import { FaFolderPlus } from "react-icons/fa";
 import SignIn from "./components/SignIn";
 import Folder from "./components/Folder";
 import Modal from "./components/modals/ModalRoot";
+import { open } from "./features/modal/modalSlice";
 
 import styles from "./App.module.css";
 
@@ -13,8 +14,8 @@ function App() {
   const STYLEAPP = styles.App;
 
   const [cookies, setCookie] = useCookies(["authenticate"]);
-  const [modalOpen, setmodalOpen] = useState(false);
-  const [modalChildren, setmodalChildren] = useState("");
+  const modal = useSelector((state) => state.modal);
+  const dispatch = useDipatch();
 
   const cookieHandler = (name, data, expiration) => {
     setCookie(name, data, {
@@ -24,13 +25,8 @@ function App() {
     });
   };
 
-  const closeModal = () => {
-    setmodalOpen(false);
-  };
-
-  const openAddModal = () => {
-    setmodalChildren("addFolder");
-    setmodalOpen(true);
+  const openAddModal = (child) => {
+    dispatch(open({ child: child }));
   };
 
   const isAuthenticated = cookies.authenticate;
@@ -46,12 +42,10 @@ function App() {
   return (
     <div className={STYLEAPP}>
       <Folder />
-      <button onClick={openAddModal}>
+      <button onClick={openAddModal("addFolder")}>
         <FaFolderPlus />
       </button>
-      <Modal open={modalOpen} close={closeModal}>
-        {modalChildren}
-      </Modal>
+      <Modal open={modal.show} close={closeModal}></Modal>
     </div>
   );
 }

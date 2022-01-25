@@ -15,7 +15,7 @@ const Modal = () => {
   return ReactDom.createPortal(
     <div className={styles.overlay}>
       {modal.child === 'addFolder' && (
-        <AddFolder close={closeModal} />
+        <AddFolder />
       )}
     </div>,
     document.getElementById('modal')
