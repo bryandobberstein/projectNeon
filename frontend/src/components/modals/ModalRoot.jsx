@@ -1,20 +1,20 @@
 import React from 'react';
 import ReactDom from 'react-dom';
+import { useSelector } from 'react-redux';
 
 import AddFolder from './AddFolder';
 
 import styles from './ModalRoot.module.css';
 
-const Modal = props => {
-  const closeModal = () => {
-    props.close();
-  };
-  if (!props.open) {
+const Modal = () => {
+  const modal = useSelector(state => state.modal);
+
+  if (!modal.open) {
     return null;
   }
   return ReactDom.createPortal(
     <div className={styles.overlay}>
-      {props.children === 'addFolder' && (
+      {modal.child === 'addFolder' && (
         <AddFolder close={closeModal} />
       )}
     </div>,

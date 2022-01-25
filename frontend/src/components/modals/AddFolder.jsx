@@ -1,15 +1,16 @@
 import React, { useState, useContext } from 'react';
+import { useDispatch } from 'react-redux';
+import { add } from '../../features/folder/folderSlice';
+import { close } from '../../features/modal/modalSlice';
 import {
   FaRegWindowClose,
   FaFolderPlus,
 } from 'react-icons/fa';
 
-import FolderContext from '../../context/folder/context';
-
 import styles from './addfolder.module.css';
 
-const AddFolder = props => {
-  const context = useContext(FolderContext);
+const AddFolder = () => {
+  const dispatch = useDispatch();
   const [folder, setfolder] = useState({ title: '', position: context.folders.length + 1 });
 
   const inputChangeHandler = e => {
@@ -37,9 +38,9 @@ const AddFolder = props => {
           }),
         }
       );
-      context.setfolders(context.folders.concat(folder));
+      dispatch(add(folder));
       setfolder({ title: '', position: 0 });
-      props.close();
+      dispatch(close);
     } catch (error) {
       console.error(error);
     }
@@ -47,7 +48,7 @@ const AddFolder = props => {
 
   return (
     <div className={styles.modal}>
-      <button onClick={props.close}>
+      <button onClick={dispatch(close)}>
         <FaRegWindowClose />
       </button>
       <form onSubmit={submitHandler}>

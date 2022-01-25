@@ -1,9 +1,8 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { initialize, add, edit, remove } from '../features/folder/folderSlice';
 import { FaHamburger } from 'react-icons/fa';
 
-import FolderContext from '../context/folder/context';
 import styles from '../css/Folders.module.css';
 
 const Folder = props => {
