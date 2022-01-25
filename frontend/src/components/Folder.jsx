@@ -8,7 +8,7 @@ import styles from '../css/Folders.module.css';
 
 const Folder = props => {
   const folders = useSelector(state => state.folders.folders);
-  const dispatch = useDispatch;
+  const dispatch = useDispatch();
   const [open, setopen] = useState(null);
   const [error, seterror] = useState(false);
   const [message, setmessage] = useState(null);
@@ -31,10 +31,10 @@ const Folder = props => {
     data.sort((a, b) => a.position - b.position);
     dispatch(initialize(data));
   }, []);
-  const collection = state.folders.folders.map(folder => (
+  const collection = folders.map(folder => (
     <li key={folder.position}><button><FaHamburger /></button>{folder.title}</li>
   ));
-  return <ul>{collection}</ul>;
+  return <ul className={styles.folderList}>{collection}</ul>;
 };
 
 export default Folder;
