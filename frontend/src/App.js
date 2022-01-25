@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useSelector, useDipatch } from "react-redux";
 import { useCookies } from "react-cookie";
 import { FaFolderPlus } from "react-icons/fa";
