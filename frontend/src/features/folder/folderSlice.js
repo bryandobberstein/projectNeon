@@ -4,6 +4,7 @@ export const folderSlice = createSlice({
   name: "folders",
   initialState: {
     folders: [],
+    selected: null,
   },
   reducers: {
     initialize: (state, action) => {
@@ -16,6 +17,7 @@ export const folderSlice = createSlice({
     },
     remove: (state, action) => {
       state.folders = state.folders.filter((item) => item != action.payload);
+      state.selected = null;
     },
     edit: (state, action) => {
       state.folders = state.folders.map((item) => {
@@ -23,11 +25,16 @@ export const folderSlice = createSlice({
           item[action.key] = action.value;
         }
       });
+      state.selected = null;
+    },
+    setSelected: (state, action) => {
+      state.selected = action.id;
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { initialize, add, remove, edit } = folderSlice.actions;
+export const { initialize, add, remove, edit, setSelected } =
+  folderSlice.actions;
 
 export default folderSlice.reducer;

@@ -10,9 +10,9 @@ import {
 import styles from './addfolder.module.css';
 
 const AddFolder = () => {
-  const folders = useSelector(state => state.folders.folders);
+  const folders = useSelector(state => state.folders);
   const dispatch = useDispatch();
-  const [folder, setfolder] = useState({ title: '', position: folders.length + 1 });
+  const [folder, setfolder] = useState({ title: '', position: folders.folders.length + 1 });
 
   const inputChangeHandler = e => {
     setfolder({

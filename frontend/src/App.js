@@ -42,10 +42,10 @@ function App() {
   return (
     <div className={STYLEAPP}>
       <Folder />
-      <button onClick={openAddModal("addFolder")}>
+      <button onClick={() => openAddModal("addFolder")}>
         <FaFolderPlus />
       </button>
-      <Modal open={modal.show} close={closeModal}></Modal>
+      <Modal />
     </div>
   );
 }
