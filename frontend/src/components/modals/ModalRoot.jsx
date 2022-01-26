@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 
 import AddFolder from './AddFolder';
 
-import styles from './ModalRoot.module.css';
+import styles from '../../css/ModalRoot.module.css';
 
 const Modal = () => {
   const modal = useSelector(state => state.modal);

@@ -7,7 +7,7 @@ import {
   FaFolderPlus,
 } from 'react-icons/fa';
 
-import styles from './addfolder.module.css';
+import styles from '../../css/addfolder.module.css';
 
 const AddFolder = () => {
   const folders = useSelector(state => state.folders);
