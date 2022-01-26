@@ -44,9 +44,16 @@ const EditFolder = () => {
     }
   };
 
+  const inputChangeHandler = e => {
+    setfldr({
+      ...fldr,
+      [e.target.name]: e.target.value,
+    });
+  };
+
   return <form onSubmit={submitChangeHandler}>
     <label htmlFor="title">Title</label>
-    <input type="text" name="title" value={fldr.title} />
+    <input type="text" name="title" value={fldr.title} onChange={inputChangeHandler} />
     <button type="submit" onClick={submitChangeHandler}>Submit</button>
   </form>;
 };
