@@ -15,6 +15,11 @@ const Folder = () => {
     dispatch(openModal({ child: 'deleteFolder' }));
   };
 
+  const editHandler = id => {
+    dispatch(setSelected({ id: id }));
+    dispatch(openModal({ child: 'editFolder' }));
+  };
+
   useEffect(async () => {
     const result = await fetch(
       'http://localhost:8000/folders/getFolders',
@@ -40,6 +45,9 @@ const Folder = () => {
       {folder.title}
       <button onClick={() => deleteHandler(folder._id)}>
         <FaFolderMinus />
+      </button>
+      <button type="submit" onClick={() => editHandler(folder._id)}>
+        <FaEdit />
       </button>
     </li>
   ));
