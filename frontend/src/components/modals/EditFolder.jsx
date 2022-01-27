@@ -11,8 +11,8 @@ const EditFolder = () => {
     position: null
   });
 
-  const folder = folders.folders.filter(folder => {
-    return folder.id === folders.folders.selected;
+  const folder = folders.folders.filter(item => {
+    return item._id === folders.folders.selected;
   });
 
   setfldr(folder);
