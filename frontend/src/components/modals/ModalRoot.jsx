@@ -11,7 +11,7 @@ import styles from '../../css/ModalRoot.module.css';
 const Modal = () => {
   const modal = useSelector(state => state.modal);
 
-  if (!modal.open) {
+  if (!modal.show) {
     return null;
   }
   return ReactDom.createPortal(

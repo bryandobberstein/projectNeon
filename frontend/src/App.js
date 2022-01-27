@@ -1,12 +1,12 @@
 import React from "react";
-import { useSelector, useDipatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useCookies } from "react-cookie";
 import { FaFolderPlus } from "react-icons/fa";
 
 import SignIn from "./components/SignIn";
 import Folder from "./components/Folder";
 import Modal from "./components/modals/ModalRoot";
-import { open } from "./features/modal/modalSlice";
+import { openModal } from "./features/modal/modalSlice";
 
 import styles from "./App.module.css";
 
@@ -15,7 +15,7 @@ function App() {
 
   const [cookies, setCookie] = useCookies(["authenticate"]);
   const modal = useSelector((state) => state.modal);
-  const dispatch = useDipatch();
+  const dispatch = useDispatch();
 
   const cookieHandler = (name, data, expiration) => {
     setCookie(name, data, {
@@ -25,8 +25,8 @@ function App() {
     });
   };
 
-  const openAddModal = (child) => {
-    dispatch(open({ child: child }));
+  const openModalAddModal = (child) => {
+    dispatch(openModal({ child: child }));
   };
 
   const isAuthenticated = cookies.authenticate;
@@ -42,7 +42,7 @@ function App() {
   return (
     <div className={STYLEAPP}>
       <Folder />
-      <button onClick={() => openAddModal("addFolder")}>
+      <button onClick={() => openModalAddModal("addFolder")}>
         <FaFolderPlus />
       </button>
       <Modal />

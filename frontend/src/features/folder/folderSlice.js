@@ -4,7 +4,7 @@ export const folderSlice = createSlice({
   name: "folders",
   initialState: {
     folders: [],
-    selected: null,
+    selected: "",
   },
   reducers: {
     initialize: (state, action) => {
@@ -16,19 +16,22 @@ export const folderSlice = createSlice({
       state.folders.push(action.payload);
     },
     remove: (state, action) => {
-      state.folders = state.folders.filter((item) => item != action.id);
+      console.log(action);
+      state.folders = state.folders.filter((item) => {
+        return item._id !== action.payload.id;
+      });
       state.selected = null;
     },
     edit: (state, action) => {
       state.folders = state.folders.map((item) => {
-        if (item.id == action.id) {
-          item[action.key] = action.value;
+        if (item.id === action.payload.id) {
+          item[action.payload.key] = action.payload.value;
         }
       });
-      state.selected = null;
+      state.selected = "";
     },
     setSelected: (state, action) => {
-      state.selected = action.id;
+      state.selected = action.payload.id;
     },
   },
 });

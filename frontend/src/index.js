@@ -10,7 +10,6 @@ ReactDOM.render(
   <CookiesProvider>
     <Provider store={store}>
       <App />
-      <Modal />
     </Provider>
   </CookiesProvider>,
   document.getElementById("root")

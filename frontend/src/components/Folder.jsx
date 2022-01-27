@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { initialize, setSelected } from '../features/folder/folderSlice';
-import { open } from '../features/modal/modalSlice';
-import { FaHamburger, HiOutlineFolderRemove } from 'react-icons/fa';
+import { openModal } from '../features/modal/modalSlice';
+import { FaHamburger, FaFolderMinus, FaEdit } from 'react-icons/fa';
 
 import styles from '../css/Folders.module.css';
 
@@ -11,8 +11,8 @@ const Folder = () => {
   const dispatch = useDispatch();
 
   const deleteHandler = (id) => {
-    dispatch(open({ child: 'deleteFolder' }));
     dispatch(setSelected({ id: id }));
+    dispatch(openModal({ child: 'deleteFolder' }));
   };
 
   useEffect(async () => {
@@ -38,12 +38,11 @@ const Folder = () => {
         <FaHamburger />
       </button>
       {folder.title}
-      <button onClick={deleteHandler}>
-        <HiOutlineFolderRemove />
+      <button onClick={() => deleteHandler(folder._id)}>
+        <FaFolderMinus />
       </button>
     </li>
   ));
-
   return <ul className={styles.folderList}>{collection}</ul>;
 };
 

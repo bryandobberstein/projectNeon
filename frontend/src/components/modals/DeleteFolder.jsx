@@ -4,15 +4,15 @@ import { remove, setSelected } from '../../features/folder/folderSlice';
 import { close } from '../../features/modal/modalSlice';
 
 const DeleteFolder = () => {
+
   const folders = useSelector(state => state.folders);
-  const modal = useSelector(state => state.modal);
   const dispatch = useDispatch();
 
-  const folder = folders.folders.filter(folder => {
-    folder.id === folders.folders.selected;
+  const folder = folders.folders.filter(item => {
+    return item._id === folders.selected;
   });
 
-  const deleteHandler = async e => {
+  const deleteHandler = async (e) => {
     e.preventDefault();
     try {
       await fetch(
@@ -24,19 +24,20 @@ const DeleteFolder = () => {
           credentials: 'include',
           crossDomain: true,
           method: 'POST',
-          body: JSON.stringify({ _id: folder.id })
+          body: JSON.stringify({ _id: folder[0]._id })
         }
       );
-      dispatch(remove({ id: folder.id }));
-      dispatch(setSelected({ id: null }));
+      dispatch(remove({ id: folder[0]._id }));
+      dispatch(setSelected({ id: '' }));
       dispatch(close());
     } catch (err) {
-
+      console.error(err);
     }
   };
+
   const cancelHandler = (e) => {
     e.preventDefault();
-    dispatch(setSelected({ id: null }));
+    dispatch(setSelected({ id: '' }));
     dispatch(close());
 
   };

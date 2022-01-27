@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { edit } from '../../features/folder/folderSlice';
+import { edit, setSelected } from '../../features/folder/folderSlice';
 import { close } from '../../features/modal/modalSlice';
 
 const EditFolder = () => {
-  const modal = useSelector(state => state.modal);
   const folders = useSelector(state => state.folders);
   const dispatch = useDispatch();
   const [fldr, setfldr] = useState({
@@ -13,7 +12,7 @@ const EditFolder = () => {
   });
 
   const folder = folders.folders.filter(folder => {
-    folder.id === folders.folders.selected;
+    return folder.id === folders.folders.selected;
   });
 
   setfldr(folder);
