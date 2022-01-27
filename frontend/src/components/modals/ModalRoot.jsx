@@ -3,6 +3,7 @@ import ReactDom from 'react-dom';
 import { useSelector } from 'react-redux';
 
 import AddFolder from './AddFolder';
+import EditFolder from './EditFolder';
 
 import styles from '../../css/ModalRoot.module.css';
 
@@ -17,6 +18,7 @@ const Modal = () => {
       {modal.child === 'addFolder' && (
         <AddFolder />
       )}
+      {modal.child === 'editFolder' && <EditFolder />}
     </div>,
     document.getElementById('modal')
   );

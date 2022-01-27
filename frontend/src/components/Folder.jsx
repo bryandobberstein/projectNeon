@@ -33,7 +33,7 @@ const Folder = () => {
   }, []);
 
   const collection = folders.folders.map(folder => (
-    <li key={folder.position}><button onClick={() => deleteHandler(folder.id)}><FaHamburger /></button>{folder.title}</li>
+    <li key={folder.position}><button><FaHamburger /></button>{folder.title}</li>
   ));
 
   return <ul className={styles.folderList}>{collection}</ul>;
