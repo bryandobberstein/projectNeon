@@ -38,7 +38,8 @@ const EditFolder = () => {
       );
       dispatch(edit({ id: folder.id, key: "title", value: fldr.title }));
       setfldr({ title: '', position: null });
-      dispatch(close);
+      dispatch(setSelected({ id: null }));
+      dispatch(close());
     } catch (error) {
       console.error(error);
     }

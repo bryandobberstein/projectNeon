@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { initialize, setSelected } from '../features/folder/folderSlice';
 import { open } from '../features/modal/modalSlice';
-import { FaHamburger } from 'react-icons/fa';
+import { FaHamburger, HiOutlineFolderRemove } from 'react-icons/fa';
 
 import styles from '../css/Folders.module.css';
 
@@ -33,7 +33,15 @@ const Folder = () => {
   }, []);
 
   const collection = folders.folders.map(folder => (
-    <li key={folder.position}><button><FaHamburger /></button>{folder.title}</li>
+    <li key={folder.position}>
+      <button>
+        <FaHamburger />
+      </button>
+      {folder.title}
+      <button onClick={deleteHandler}>
+        <HiOutlineFolderRemove />
+      </button>
+    </li>
   ));
 
   return <ul className={styles.folderList}>{collection}</ul>;

@@ -16,7 +16,7 @@ export const folderSlice = createSlice({
       state.folders.push(action.payload);
     },
     remove: (state, action) => {
-      state.folders = state.folders.filter((item) => item != action.payload);
+      state.folders = state.folders.filter((item) => item != action.id);
       state.selected = null;
     },
     edit: (state, action) => {

@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 
 import AddFolder from './AddFolder';
 import EditFolder from './EditFolder';
+import DeleteFolder from './DeleteFolder';
 
 import styles from '../../css/ModalRoot.module.css';
 
@@ -15,10 +16,9 @@ const Modal = () => {
   }
   return ReactDom.createPortal(
     <div className={styles.overlay}>
-      {modal.child === 'addFolder' && (
-        <AddFolder />
-      )}
+      {modal.child === 'addFolder' && <AddFolder />}
       {modal.child === 'editFolder' && <EditFolder />}
+      {modal.child === 'deleteFolder' && <DeleteFolder />}
     </div>,
     document.getElementById('modal')
   );
