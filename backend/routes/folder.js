@@ -54,7 +54,6 @@ router.post("/addFolder", tokenVerify, async (req, res) => {
 //update folder
 
 router.post("/updateFolder", tokenVerify, async (req, res) => {
-  console.log(req.body);
   try {
     const folder = await Folder.findById(req.body._id);
     if (!folder) {

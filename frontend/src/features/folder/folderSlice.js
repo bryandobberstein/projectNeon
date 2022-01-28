@@ -24,7 +24,6 @@ export const folderSlice = createSlice({
     },
     edit: (state, action) => {
       state.folders.map((item) => {
-        //console.log(item);
         if (item.id === action.payload.id) {
           item.title = action.payload.value;
         }
