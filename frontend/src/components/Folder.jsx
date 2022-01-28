@@ -45,9 +45,15 @@ const Folder = () => {
     <li key={folder.position} onMouseOver={() => sethovered(folder._id)}>
       {folder.title}
       {hovered === folder._id &&
-        <MenuButton class='folderMenuButton' method={deleteHandler}>{<FaFolderMinus />}</MenuButton>}
+        <MenuButton class='folderMenuButton' onClick={() => deleteHandler(folder._id)}>
+          {<FaFolderMinus />}
+        </MenuButton>
+      }
       {hovered === folder._id &&
-        <MenuButton class='folderMenuButton' method={editHandler}>{<FaEdit />}</MenuButton>}
+        <MenuButton class='folderMenuButton' onClick={() => editHandler(folder._id)}>
+          {<FaEdit />}
+        </MenuButton>
+      }
     </li>
   ));
 
