@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { initialize, setSelected } from '../features/folder/folderSlice';
 import { openModal } from '../features/modal/modalSlice';
@@ -11,6 +11,8 @@ const Folder = () => {
   const folders = useSelector(state => state.folders);
   const modal = useSelector(state => state.modal);
   const dispatch = useDispatch();
+
+  const [hovered, sethovered] = useState('');
 
   const deleteHandler = (id) => {
     dispatch(setSelected({ id: id }));
@@ -40,11 +42,12 @@ const Folder = () => {
   }, [modal.show]);
 
   const collection = folders.folders.map(folder => (
-    <li key={folder.position}>
-      <MenuButton class='folderButton'>{<FaHamburger />}</MenuButton>
+    <li key={folder.position} onMouseOver={() => sethovered(folder._id)}>
       {folder.title}
-      <MenuButton class='folderMenuButton' method={deleteHandler}>{<FaFolderMinus />}</MenuButton>
-      <MenuButton class='folderMenuButton' method={editHandler}>{<FaEdit />}</MenuButton>
+      {hovered === folder._id &&
+        <MenuButton class='folderMenuButton' method={deleteHandler}>{<FaFolderMinus />}</MenuButton>}
+      {hovered === folder._id &&
+        <MenuButton class='folderMenuButton' method={editHandler}>{<FaEdit />}</MenuButton>}
     </li>
   ));
 
