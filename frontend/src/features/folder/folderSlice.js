@@ -10,7 +10,7 @@ export const folderSlice = createSlice({
     initialize: (state, action) => {
       state.folders = [];
       action.payload.map((item) => {
-        state.folders.push(item);
+        return state.folders.push(item);
       });
     },
     add: (state, action) => {
