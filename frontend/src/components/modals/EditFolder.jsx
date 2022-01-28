@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { edit, setSelected } from '../../features/folder/folderSlice';
 import { close } from '../../features/modal/modalSlice';
@@ -6,18 +6,17 @@ import { close } from '../../features/modal/modalSlice';
 const EditFolder = () => {
   const folders = useSelector(state => state.folders);
   const dispatch = useDispatch();
-  const [fldr, setfldr] = useState({
-    title: '',
-    position: null
-  });
 
   const folder = folders.folders.filter(item => {
-    return item._id === folders.folders.selected;
+    const result = item._id === folders.selected;
+    return result[0];
   });
 
-  setfldr(folder);
+  const fldrTitle = useRef(folder.title);
+  const fldrPosition = useRef(folder.position);
+  const fldrId = useRef(folders.selected);
 
-  const submitChangeHandler = async e => {
+  const submitChangeHandler = async (e) => {
     e.preventDefault();
     try {
       await fetch(
@@ -28,32 +27,26 @@ const EditFolder = () => {
           },
           credentials: 'include',
           crossDomain: true,
-          method: 'PUT',
+          method: 'POST',
           body: JSON.stringify({
-            title: fldr.title,
-            position: fldr.position,
+            _id: fldrId.current,
+            title: fldrTitle.current.value,
+            position: fldrPosition.current,
           }),
         }
       );
-      dispatch(edit({ id: folder.id, key: "title", value: fldr.title }));
-      setfldr({ title: '', position: null });
-      dispatch(setSelected({ id: null }));
+      dispatch(edit({ id: fldrId.current, value: fldrTitle.current.value }));
+      dispatch(setSelected(''));
       dispatch(close());
     } catch (error) {
       console.error(error);
     }
-  };
-
-  const inputChangeHandler = e => {
-    setfldr({
-      ...fldr,
-      [e.target.name]: e.target.value,
-    });
+    console.log(folders.folders);
   };
 
   return <form onSubmit={submitChangeHandler}>
     <label htmlFor="title">Title</label>
-    <input type="text" name="title" value={fldr.title} onChange={inputChangeHandler} />
+    <input type="text" id="title" ref={fldrTitle} />
     <button type="submit" onClick={submitChangeHandler}>Submit</button>
   </form>;
 };

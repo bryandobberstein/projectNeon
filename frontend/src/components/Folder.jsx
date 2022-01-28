@@ -8,6 +8,7 @@ import styles from '../css/Folders.module.css';
 
 const Folder = () => {
   const folders = useSelector(state => state.folders);
+  const modal = useSelector(state => state.modal);
   const dispatch = useDispatch();
 
   const deleteHandler = (id) => {
@@ -35,7 +36,7 @@ const Folder = () => {
     const data = await result.json();
     data.sort((a, b) => a.position - b.position);
     dispatch(initialize(data));
-  }, []);
+  }, [modal.show]);
 
   const collection = folders.folders.map(folder => (
     <li key={folder.position}>
@@ -51,6 +52,7 @@ const Folder = () => {
       </button>
     </li>
   ));
+
   return <ul className={styles.folderList}>{collection}</ul>;
 };
 

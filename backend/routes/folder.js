@@ -53,34 +53,17 @@ router.post("/addFolder", tokenVerify, async (req, res) => {
 
 //update folder
 
-router.put("/updateFolder", tokenVerify, async (req, res) => {
+router.post("/updateFolder", tokenVerify, async (req, res) => {
+  console.log(req.body);
   try {
-    if (req.body.parent) {
-      await Folder.updateOne(
-        { id: req.body._id },
-
-        { $set: { title: req.body.title } },
-        { $set: { position: req.body.position } },
-        { $set: { parent: req.body.parent } },
-
-        (err, folder) => {
-          if (err) return console.log(err);
-          return res.status(200).json(folder);
-        }
-      ).clone();
-
-      await Folder.updateOne(
-        { id: req.body._id },
-
-        { $set: { title: req.body.title } },
-        { $set: { position: req.body.position } },
-
-        (err, folder) => {
-          if (err) return console.log(err);
-          return res.status(200).json(folder);
-        }
-      ).clone();
+    const folder = await Folder.findById(req.body._id);
+    if (!folder) {
+      return res.status(401).send("Not Found");
     }
+    folder.title = req.body.title;
+    folder.position = req.body.position;
+    folder.save();
+    return res.status(200).json(folder);
   } catch (err) {
     console.log(err);
     return res.status(500);

@@ -8,6 +8,7 @@ export const folderSlice = createSlice({
   },
   reducers: {
     initialize: (state, action) => {
+      state.folders = [];
       action.payload.map((item) => {
         state.folders.push(item);
       });
@@ -16,19 +17,18 @@ export const folderSlice = createSlice({
       state.folders.push(action.payload);
     },
     remove: (state, action) => {
-      console.log(action);
       state.folders = state.folders.filter((item) => {
         return item._id !== action.payload.id;
       });
       state.selected = null;
     },
     edit: (state, action) => {
-      state.folders = state.folders.map((item) => {
+      state.folders.map((item) => {
+        //console.log(item);
         if (item.id === action.payload.id) {
-          item[action.payload.key] = action.payload.value;
+          item.title = action.payload.value;
         }
       });
-      state.selected = "";
     },
     setSelected: (state, action) => {
       state.selected = action.payload.id;
