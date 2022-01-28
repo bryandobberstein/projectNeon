@@ -5,8 +5,6 @@ const SignIn = props => {
     email: '',
     password: '',
   });
-  const [error, seterror] = useState(false);
-  const [message, setmessage] = useState(null);
 
   const inputChangeHandler = e => {
     setlogin({
@@ -35,23 +33,12 @@ const SignIn = props => {
         }),
       }
     );
-    switch (result.status) {
-      case 200:
-        seterror(false);
-        props.cookieHandler(
-          'authenticate',
-          true,
-          getExpirationDate()
-        );
-        break;
-      case 403:
-        seterror(true);
-        setmessage('Incorrect email or password');
-        break;
-      case 500:
-        seterror(true);
-        setmessage('Sorry, please try again');
-        break;
+    if (result.status === 200) {
+      props.cookieHandler(
+        'authenticate',
+        true,
+        getExpirationDate()
+      );
     }
   };
 
