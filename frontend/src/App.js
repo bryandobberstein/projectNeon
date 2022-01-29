@@ -1,13 +1,13 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useCookies } from "react-cookie";
-import { FaFolderPlus } from "react-icons/fa";
 
 import SignIn from "./components/SignIn";
 import Folder from "./components/Folder";
 import Modal from "./components/modals/ModalRoot";
 import { openModal } from "./features/modal/modalSlice";
-import { initialize, setSelected } from "../features/folder/folderSlice";
+import { initializeFolders } from "./features/folder/folderSlice";
+import { initializeLinks } from "./features/links/linkSlice";
 
 import styles from "./App.module.css";
 
@@ -43,7 +43,20 @@ function App() {
     });
     const data = await result.json();
     data.sort((a, b) => a.position - b.position);
-    dispatch(initialize(data));
+    dispatch(initializeFolders(data));
+  }, [modal.show, isAuthenticated]);
+
+  useEffect(async () => {
+    const result = await fetch("http://localhost:8000/link/get-links", {
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "GET",
+      crossDomain: true,
+    });
+    const data = await result.json();
+    dispatch(initializeLinks(data));
   }, [modal.show, isAuthenticated]);
 
   if (!isAuthenticated) {

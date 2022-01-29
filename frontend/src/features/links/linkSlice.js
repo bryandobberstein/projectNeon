@@ -6,16 +6,16 @@ export const linkSlice = createSlice({
     links: [],
   },
   reducers: {
-    initialize: (state, action) => {
+    initializeLinks: (state, action) => {
       state.links = [u];
       action.payload.links.map(item => {
         state.links.push(item);
       });
     },
-    add: (state, action) => {
+    addLinks: (state, action) => {
       state.links.push(action.payload);
     },
-    edit: (state, action) => {
+    editLinks: (state, action) => {
       state.folders.map(item => {
         if (item._id === action.payload.id) {
           item.key = action.payload.value;
@@ -35,6 +35,11 @@ export const linkSlice = createSlice({
   },
 });
 
-export const { initialize, add, edit, removeLink, removeWithParent } =
-  linkSlice.actions;
+export const {
+  initializeLinks,
+  addLinks,
+  editLinks,
+  removeLink,
+  removeWithParent,
+} = linkSlice.actions;
 export default linkSlice.reducer;

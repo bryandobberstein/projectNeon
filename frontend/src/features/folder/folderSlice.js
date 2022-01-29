@@ -7,9 +7,9 @@ export const folderSlice = createSlice({
     selected: "",
   },
   reducers: {
-    initialize: (state, action) => {
+    initializeFolders: (state, action) => {
       state.folders = [];
-      action.payload.map((item) => {
+      action.payload.map(item => {
         return state.folders.push(item);
       });
     },
@@ -17,12 +17,12 @@ export const folderSlice = createSlice({
       state.folders.push(action.payload);
     },
     remove: (state, action) => {
-      state.folders = state.folders.filter((item) => {
+      state.folders = state.folders.filter(item => {
         return item._id !== action.payload.id;
       });
     },
     edit: (state, action) => {
-      state.folders.map((item) => {
+      state.folders.map(item => {
         if (item.id === action.payload.id) {
           item.key = action.payload.value;
         }
@@ -35,7 +35,7 @@ export const folderSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { initialize, add, remove, edit, setSelected } =
+export const { initializeFolders, add, remove, edit, setSelected } =
   folderSlice.actions;
 
 export default folderSlice.reducer;
