@@ -20,12 +20,11 @@ export const folderSlice = createSlice({
       state.folders = state.folders.filter((item) => {
         return item._id !== action.payload.id;
       });
-      state.selected = null;
     },
     edit: (state, action) => {
       state.folders.map((item) => {
         if (item.id === action.payload.id) {
-          item.title = action.payload.value;
+          item.key = action.payload.value;
         }
       });
     },

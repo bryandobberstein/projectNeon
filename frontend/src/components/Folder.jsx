@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from "react-redux";
-import { initialize, setSelected } from '../features/folder/folderSlice';
+import { setSelected } from '../features/folder/folderSlice';
 import { openModal } from '../features/modal/modalSlice';
 import { FaHamburger, FaFolderMinus, FaEdit } from 'react-icons/fa';
 import MenuButton from './menus/MenuButton';
@@ -24,33 +24,17 @@ const Folder = () => {
     dispatch(openModal({ child: 'editFolder' }));
   };
 
-  useEffect(async () => {
-    const result = await fetch(
-      'http://localhost:8000/folders/getFolders',
-      {
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        method: 'POST',
-        crossDomain: true,
-      }
-    );
-    const data = await result.json();
-    data.sort((a, b) => a.position - b.position);
-    dispatch(initialize(data));
-  }, [modal.show]);
-
   const collection = folders.folders.map(folder => (
-    <li key={folder.position} onMouseOver={() => sethovered(folder._id)}>
+    <li key={folder.position} onMouseOver={() => sethovered(folder._id)} className={styles.folderItem}>
+      <MenuButton cssClass='folderMenuButton'><FaHamburger /></MenuButton>
       {folder.title}
       {hovered === folder._id &&
-        <MenuButton class='folderMenuButton' onClick={() => deleteHandler(folder._id)}>
+        <MenuButton cssClass='folderMenuButton' onClick={() => deleteHandler(folder._id)}>
           {<FaFolderMinus />}
         </MenuButton>
       }
       {hovered === folder._id &&
-        <MenuButton class='folderMenuButton' onClick={() => editHandler(folder._id)}>
+        <MenuButton cssClass='folderMenuButton' onClick={() => editHandler(folder._id)}>
           {<FaEdit />}
         </MenuButton>
       }
