@@ -39,6 +39,7 @@ const AddLinkModal = () => {
         title: linkTitle.current.value,
         url: linkUrl.current.value,
         position: linkPosition,
+        parent: selected
       }));
       dispatch(setSelected(''));
       dispatch(close());
