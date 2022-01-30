@@ -4,6 +4,7 @@ export const linkSlice = createSlice({
   name: "links",
   initialState: {
     links: [],
+    selected: "",
   },
   reducers: {
     initializeLinks: (state, action) => {
@@ -31,6 +32,9 @@ export const linkSlice = createSlice({
       state.links = state.links.filter(item => {
         return item.parent !== action.payload.parent;
       });
+    },
+    setLinkSelected: (state, action) => {
+      state.selected = action.payload.id;
     },
   },
 });
