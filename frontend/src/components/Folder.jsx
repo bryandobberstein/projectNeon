@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { setSelected } from '../features/folder/folderSlice';
 import { openModal } from '../features/modal/modalSlice';
-import { FaHamburger, FaFolderMinus, FaEdit, FaLink } from 'react-icons/fa';
+import { FaHamburger, FaFolderMinus, FaEdit, FaLink, FaAngleRight } from 'react-icons/fa';
 import Link from './Link';
 
 import styles from '../css/Folders.module.css';
@@ -52,6 +52,7 @@ const Folder = () => {
         </button>
       }
       {folder.title}
+      <button><FaAngleRight /></button>
       {links.links.map(link => {
         if (link.parent === folder._id) {
           return <Link key={link._id} link={link} />;
