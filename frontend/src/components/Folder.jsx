@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { setSelected } from '../features/folder/folderSlice';
 import { openModal } from '../features/modal/modalSlice';
-import { FaHamburger, FaFolderMinus, FaEdit } from 'react-icons/fa';
+import { FaHamburger, FaFolderMinus, FaEdit, FaLink } from 'react-icons/fa';
 import Link from './Link';
 
 import styles from '../css/Folders.module.css';
@@ -12,7 +12,16 @@ const Folder = () => {
   const links = useSelector(state => state.links);
   const dispatch = useDispatch();
 
-  const [hovered, sethovered] = useState('');
+  const [menuClicked, setmenuClicked] = useState('');
+
+  const menuButtonHandler = (id) => {
+    if (id === menuClicked) {
+      setmenuClicked('');
+    }
+    else {
+      setmenuClicked(id);
+    }
+  };
 
   const deleteHandler = (id) => {
     dispatch(setSelected({ id: id }));
@@ -25,19 +34,24 @@ const Folder = () => {
   };
 
   const collection = folders.folders.map(folder => (
-    <li key={folder.position} onMouseOver={() => sethovered(folder._id)} onMouseLeave={() => sethovered('')} className={styles.folderItem}>
-      <button type='submit' className={styles.folderMenuButton}><FaHamburger /></button>
-      {folder.title}
-      {hovered === folder._id &&
+    <li key={folder.position} className={styles.folderItem}>
+      <button onClick={() => menuButtonHandler(folder._id)} className={styles.folderMenuButton}><FaHamburger /></button>
+      {menuClicked === folder._id &&
         <button type="submit" onClick={() => deleteHandler(folder._id)} className={styles.folderMenuButton}>
           <FaFolderMinus />
         </button>
       }
-      {hovered === folder._id &&
-        <button type="submit" onClick={() => editHandler(folder._id)} className={styles.folderMenuButton}>
+      {menuClicked === folder._id &&
+        <button onClick={() => editHandler(folder._id)} className={styles.folderMenuButton}>
           <FaEdit />
         </button>
       }
+      {menuClicked === folder._id &&
+        <button className={styles.folderMenuButton}>
+          <FaLink />
+        </button>
+      }
+      {folder.title}
       {links.links.map(link => {
         if (link.parent === folder._id) {
           return <Link key={link._id} link={link} />;
