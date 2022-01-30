@@ -42,6 +42,7 @@ const Folder = () => {
         if (link.parent === folder._id) {
           return <Link key={link._id} link={link} />;
         }
+        return false;
       })}
     </li>
   ));
