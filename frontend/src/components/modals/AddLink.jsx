@@ -1,19 +1,19 @@
 import React, { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addLinks } from '../../features/links/linkSlice';
-import { close } from '../../features/modal/modalSlice';
 
-import styles from '../../css/addfolder.module.css';
+import { addLink } from '../../features/links/linkSlice';
+import { close } from '../../features/modal/modalSlice';
 import { FaRegWindowClose } from 'react-icons/fa';
 import { setSelected } from '../../features/folder/folderSlice';
 
 const AddLinkModal = () => {
   const links = useSelector(state => state.links);
+  const selected = useSelector(state => state.folders.selected);
   const dispatch = useDispatch();
 
   const linkTitle = useRef();
   const linkUrl = useRef();
-  const linkPosition = useRef();
+  const linkPosition = links.length;
 
   const submitLinkHandler = async (e) => {
     e.preventDefault();
@@ -30,14 +30,15 @@ const AddLinkModal = () => {
           body: JSON.stringify({
             title: linkTitle.current.value,
             url: linkUrl.current.value,
-            position: linkPosition.value,
+            position: linkPosition,
+            parent: selected
           })
         }
       );
-      dispatch(addLinks({
+      dispatch(addLink({
         title: linkTitle.current.value,
         url: linkUrl.current.value,
-        position: linkPosition.value,
+        position: linkPosition,
       }));
       dispatch(setSelected(''));
       dispatch(close());

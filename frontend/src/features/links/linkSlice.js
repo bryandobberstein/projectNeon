@@ -13,10 +13,10 @@ export const linkSlice = createSlice({
         return state.links.push(item);
       });
     },
-    addLinks: (state, action) => {
+    addLink: (state, action) => {
       state.links.push(action.payload);
     },
-    editLinks: (state, action) => {
+    editLink: (state, action) => {
       state.folders.forEach(item => {
         if (item._id === action.payload.id) {
           return (item.key = action.payload.value);
