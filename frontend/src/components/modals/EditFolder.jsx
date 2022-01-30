@@ -35,13 +35,12 @@ const EditFolder = () => {
           }),
         }
       );
-      dispatch(edit({ id: fldrId.current, value: fldrTitle.current.value }));
+      dispatch(edit({ id: fldrId.current, key: 'title', value: fldrTitle.current.value }));
       dispatch(setSelected(''));
       dispatch(close());
     } catch (error) {
       console.error(error);
     }
-    console.log(folders.folders);
   };
 
   return <form onSubmit={submitChangeHandler}>

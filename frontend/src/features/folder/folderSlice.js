@@ -9,20 +9,20 @@ export const folderSlice = createSlice({
   reducers: {
     initializeFolders: (state, action) => {
       state.folders = [];
-      action.payload.map(item => {
+      action.payload.forEach(item => {
         return state.folders.push(item);
       });
     },
     add: (state, action) => {
-      state.folders.push(action.payload);
+      return state.folders.push(action.payload);
     },
     remove: (state, action) => {
-      state.folders = state.folders.filter(item => {
+      state.folders = state.folders.forEach(item => {
         return item._id !== action.payload.id;
       });
     },
     edit: (state, action) => {
-      state.folders.map(item => {
+      state.folders.forEach(item => {
         if (item.id === action.payload.id) {
           item.key = action.payload.value;
         }

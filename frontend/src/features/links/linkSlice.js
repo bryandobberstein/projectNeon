@@ -7,18 +7,18 @@ export const linkSlice = createSlice({
   },
   reducers: {
     initializeLinks: (state, action) => {
-      state.links = [u];
-      action.payload.links.map(item => {
-        state.links.push(item);
+      state.links = [];
+      action.payload.forEach(item => {
+        return state.links.push(item);
       });
     },
     addLinks: (state, action) => {
       state.links.push(action.payload);
     },
     editLinks: (state, action) => {
-      state.folders.map(item => {
+      state.folders.forEach(item => {
         if (item._id === action.payload.id) {
-          item.key = action.payload.value;
+          return (item.key = action.payload.value);
         }
       });
     },

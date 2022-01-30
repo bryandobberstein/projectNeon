@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useCookies } from "react-cookie";
+import { FaFolderPlus } from "react-icons/fa";
 
 import SignIn from "./components/SignIn";
 import Folder from "./components/Folder";
@@ -56,6 +57,7 @@ function App() {
       crossDomain: true,
     });
     const data = await result.json();
+    data.sort((a, b) => a.position - b.position);
     dispatch(initializeLinks(data));
   }, [modal.show, isAuthenticated]);
 

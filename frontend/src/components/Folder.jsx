@@ -3,13 +3,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { setSelected } from '../features/folder/folderSlice';
 import { openModal } from '../features/modal/modalSlice';
 import { FaHamburger, FaFolderMinus, FaEdit } from 'react-icons/fa';
-import MenuButton from './menus/MenuButton';
+import Link from './Link';
 
 import styles from '../css/Folders.module.css';
 
 const Folder = () => {
   const folders = useSelector(state => state.folders);
-  const modal = useSelector(state => state.modal);
+  const links = useSelector(state => state.links);
   const dispatch = useDispatch();
 
   const [hovered, sethovered] = useState('');
@@ -25,19 +25,24 @@ const Folder = () => {
   };
 
   const collection = folders.folders.map(folder => (
-    <li key={folder.position} onMouseOver={() => sethovered(folder._id)} className={styles.folderItem}>
-      <MenuButton cssClass='folderMenuButton'><FaHamburger /></MenuButton>
+    <li key={folder.position} onMouseOver={() => sethovered(folder._id)} onMouseLeave={() => sethovered('')} className={styles.folderItem}>
+      <button type='submit' className={styles.folderMenuButton}><FaHamburger /></button>
       {folder.title}
       {hovered === folder._id &&
-        <MenuButton cssClass='folderMenuButton' onClick={() => deleteHandler(folder._id)}>
-          {<FaFolderMinus />}
-        </MenuButton>
+        <button type="submit" onClick={() => deleteHandler(folder._id)} className={styles.folderMenuButton}>
+          <FaFolderMinus />
+        </button>
       }
       {hovered === folder._id &&
-        <MenuButton cssClass='folderMenuButton' onClick={() => editHandler(folder._id)}>
-          {<FaEdit />}
-        </MenuButton>
+        <button type="submit" onClick={() => editHandler(folder._id)} className={styles.folderMenuButton}>
+          <FaEdit />
+        </button>
       }
+      {links.links.map(link => {
+        if (link.parent === folder._id) {
+          return <Link key={link._id} link={link} />;
+        }
+      })}
     </li>
   ));
 
