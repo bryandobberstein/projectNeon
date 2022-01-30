@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { add } from '../../features/folder/folderSlice';
 import { close } from '../../features/modal/modalSlice';
@@ -12,14 +12,9 @@ import styles from '../../css/addfolder.module.css';
 const AddFolder = () => {
   const folders = useSelector(state => state.folders);
   const dispatch = useDispatch();
-  const [folder, setfolder] = useState({ title: '', position: folders.folders.length + 1 });
 
-  const inputChangeHandler = e => {
-    setfolder({
-      ...folder,
-      [e.target.name]: e.target.value,
-    });
-  };
+  const folderTitle = useRef();
+  const position = folders.folders.length;
 
   const submitHandler = async e => {
     e.preventDefault();
@@ -34,13 +29,13 @@ const AddFolder = () => {
           crossDomain: true,
           method: 'POST',
           body: JSON.stringify({
-            title: folder.title,
-            position: folder.position,
+            title: folderTitle,
+            position: position,
           }),
         }
       );
-      dispatch(add(folder));
-      setfolder({ title: '', position: 0 });
+      dispatch(add({ title: folderTitle, position: position }));
+      setfolder('');
       dispatch(close);
     } catch (error) {
       console.error(error);
@@ -57,8 +52,7 @@ const AddFolder = () => {
         <input
           type='text'
           name='title'
-          value={folder.title}
-          onChange={inputChangeHandler}
+          ref={folderTitle}
         />
         <button onClick={submitHandler}>
           <FaFolderPlus />
