@@ -21,8 +21,8 @@ const EditLink = () => {
     return link._id === selected;
   });
 
-  const options = folders.map(folder => {
-    return <option value={folder}>{folder}</option>;
+  const options = folders.map((folder, i) => {
+    return <option key={i} value={folder._id}>{folder.title}</option>;
   });
 
   const submitLinkHandler = async (e) => {
@@ -67,11 +67,10 @@ const EditLink = () => {
       <input type="text" id="title" ref={linkTitle} />
       <label htmlFor="url">URL</label>
       <input type="text" id="url" ref={linkUrl} />
-      {/* <select id="parent" ref={parent}>
-        {folders.map(folder => {
-          options;
-        })}
-      </select> */}
+      <label htmlFor="parent">Folder</label>
+      <select id="parent" ref={parent}>
+        {options}
+      </select>
     </form>
     <button type="submit" onClick={submitLinkHandler}>Edit Link</button>
   </div>;
