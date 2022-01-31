@@ -6,7 +6,7 @@ import { close } from '../../features/modal/modalSlice';
 import { FaRegWindowClose } from 'react-icons/fa';
 import { setSelected } from '../../features/folder/folderSlice';
 
-const AddLinkModal = () => {
+const AddLink = () => {
   const links = useSelector(state => state.links);
   const selected = useSelector(state => state.folders.selected);
   const dispatch = useDispatch();
@@ -60,4 +60,4 @@ const AddLinkModal = () => {
   </div>;
 };
 
-export default AddLinkModal;
+export default AddLink;

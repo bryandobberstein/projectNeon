@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { setSelected } from '../features/folder/folderSlice';
 import { openModal } from '../features/modal/modalSlice';
+import { setLinkSelected } from '../features/links/linkSlice.js';
 import { FaHamburger, FaFolderMinus, FaEdit, FaLink, FaAngleRight } from 'react-icons/fa';
 import Link from './Link';
 
@@ -23,31 +24,40 @@ const Folder = () => {
     }
   };
 
-  const deleteHandler = (id) => {
+  const deleteFolderHandler = id => {
     dispatch(setSelected({ id: id }));
     dispatch(openModal({ child: 'deleteFolder' }));
   };
 
-  const editHandler = id => {
+  const editFolderHandler = id => {
     dispatch(setSelected({ id: id }));
     dispatch(openModal({ child: 'editFolder' }));
+  };
+
+  const addLinkHandler = () => {
+    dispatch(openModal({ child: 'addLink' }));
+  };
+
+  const editLinkHandler = id => {
+    dispatch(setLinkSelected(id));
+    dispatch(openModal({ child: 'editLink' }));
   };
 
   const collection = folders.folders.map(folder => (
     <li key={folder.position} className={styles.folderItem}>
       <button onClick={() => menuButtonHandler(folder._id)} className={styles.folderMenuButton}><FaHamburger /></button>
       {menuClicked === folder._id &&
-        <button type="submit" onClick={() => deleteHandler(folder._id)} className={styles.folderMenuButton}>
+        <button type="submit" onClick={() => deleteFolderHandler(folder._id)} className={styles.folderMenuButton}>
           <FaFolderMinus />
         </button>
       }
       {menuClicked === folder._id &&
-        <button onClick={() => editHandler(folder._id)} className={styles.folderMenuButton}>
+        <button onClick={() => editFolderHandler(folder._id)} className={styles.folderMenuButton}>
           <FaEdit />
         </button>
       }
       {menuClicked === folder._id &&
-        <button className={styles.folderMenuButton}>
+        <button onClick={addLinkHandler} className={styles.folderMenuButton}>
           <FaLink />
         </button>
       }
@@ -55,7 +65,12 @@ const Folder = () => {
       <button><FaAngleRight /></button>
       {links.links.map(link => {
         if (link.parent === folder._id) {
-          return <Link key={link._id} link={link} />;
+          return (
+            <span>
+              <Link key={link._id} link={link} />
+              <button onClick={() => editLinkHandler(link._id)}><FaEdit /></button>
+            </span>
+          );
         }
         return false;
       })}

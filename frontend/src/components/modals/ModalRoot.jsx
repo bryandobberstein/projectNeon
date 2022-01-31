@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import AddFolder from './AddFolder';
 import EditFolder from './EditFolder';
 import DeleteFolder from './DeleteFolder';
+import AddLink from './AddLink';
 
 import styles from '../../css/ModalRoot.module.css';
 
@@ -19,6 +20,7 @@ const Modal = () => {
       {modal.child === 'addFolder' && <AddFolder />}
       {modal.child === 'editFolder' && <EditFolder />}
       {modal.child === 'deleteFolder' && <DeleteFolder />}
+      {modal.child === 'addLink' && <AddLink />}
     </div>,
     document.getElementById('modal')
   );

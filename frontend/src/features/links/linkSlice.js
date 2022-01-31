@@ -41,9 +41,10 @@ export const linkSlice = createSlice({
 
 export const {
   initializeLinks,
-  addLinks,
-  editLinks,
+  addLink,
+  editLink,
   removeLink,
   removeWithParent,
+  setLinkSelected,
 } = linkSlice.actions;
 export default linkSlice.reducer;

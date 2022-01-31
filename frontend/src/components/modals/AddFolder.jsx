@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { add } from '../../features/folder/folderSlice';
+import { add, setSelected } from '../../features/folder/folderSlice';
 import { close } from '../../features/modal/modalSlice';
 import {
   FaRegWindowClose,
@@ -35,7 +35,7 @@ const AddFolder = () => {
         }
       );
       dispatch(add({ title: folderTitle, position: position }));
-      setfolder('');
+      setSelected('');
       dispatch(close);
     } catch (error) {
       console.error(error);
