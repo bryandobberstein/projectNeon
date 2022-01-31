@@ -11,7 +11,7 @@ router.post("/getFolders", tokenVerify, async (req, res) => {
   try {
     const folders = await Folder.find({
       owner: req.user,
-    });
+    }).sort("title");
     if (!folders) {
       return res.status(404);
     }

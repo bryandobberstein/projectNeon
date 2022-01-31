@@ -43,7 +43,6 @@ function App() {
       crossDomain: true,
     });
     const data = await result.json();
-    data.sort((a, b) => a.position - b.position);
     dispatch(initializeFolders(data));
   }, [modal.show, isAuthenticated]);
 
@@ -57,7 +56,6 @@ function App() {
       crossDomain: true,
     });
     const data = await result.json();
-    data.sort((a, b) => a.position - b.position);
     dispatch(initializeLinks(data));
   }, [modal.show, isAuthenticated]);
 
