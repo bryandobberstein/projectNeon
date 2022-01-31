@@ -7,7 +7,8 @@ import { FaRegWindowClose } from 'react-icons/fa';
 import { setSelected } from '../../features/folder/folderSlice';
 
 const EditLink = () => {
-  const links = useSelector(state => state.links);
+  const links = useSelector(state => state.links.links);
+  const selected = useSelector(state => state.links.selected);
   const folders = useSelector(state => state.folders.folders);
   const dispatch = useDispatch();
 
@@ -16,11 +17,19 @@ const EditLink = () => {
   const linkPosition = links.length;
   const parent = useRef();
 
+  const link = folders.filter(link => {
+    return link._id === selected;
+  });
+
+  const options = folders.map(folder => {
+    return <option value={folder}>{folder}</option>;
+  });
+
   const submitLinkHandler = async (e) => {
     e.preventDefault();
     try {
       await fetch(
-        'http://localhost:8000/link/create-link',
+        'http://localhost:8000/link/edit-link',
         {
           headers: {
             'Content-Type': 'application/json',
@@ -29,6 +38,7 @@ const EditLink = () => {
           crossDomain: true,
           method: 'POST',
           body: JSON.stringify({
+            _id: link.id,
             title: linkTitle.current.value,
             url: linkUrl.current.value,
             position: linkPosition,
@@ -37,6 +47,7 @@ const EditLink = () => {
         }
       );
       dispatch(editLink({
+        id: link._id,
         title: linkTitle.current.value,
         url: linkUrl.current.value,
         position: linkPosition,
@@ -50,19 +61,19 @@ const EditLink = () => {
   };
 
   return <div>
-    <button onClick={dispatch(close)}><FaRegWindowClose /></button>
+    <button onClick={() => dispatch(close())}><FaRegWindowClose /></button>
     <form onSubmit={submitLinkHandler}>
       <label htmlFor="title">Title</label>
       <input type="text" id="title" ref={linkTitle} />
       <label htmlFor="url">URL</label>
       <input type="text" id="url" ref={linkUrl} />
-      <select id="parent" ref={parent}>
+      {/* <select id="parent" ref={parent}>
         {folders.map(folder => {
-          return <option key={folder._id} value={folder}>{folder}</option>;
+          options;
         })}
-      </select>
+      </select> */}
     </form>
-    <button type="submit" onClick={submitLinkHandler}>Add Link</button>
+    <button type="submit" onClick={submitLinkHandler}>Edit Link</button>
   </div>;
 };
 
