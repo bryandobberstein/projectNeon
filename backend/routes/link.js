@@ -11,7 +11,7 @@ const router = express.Router();
 
 router.get("/get-links", tokenVerify, async (req, res) => {
   try {
-    const links = await Link.find({ owner: req.user });
+    const links = await Link.find({ owner: req.user }).sort("title");
     if (!links) {
       return res.status(404).send(false);
     }
