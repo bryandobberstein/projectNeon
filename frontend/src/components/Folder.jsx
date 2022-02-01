@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setSelected } from '../features/folder/folderSlice';
 import { openModal } from '../features/modal/modalSlice';
 import { setLinkSelected } from '../features/links/linkSlice.js';
-import { FaHamburger, FaFolderMinus, FaEdit, FaLink, FaAngleRight } from 'react-icons/fa';
+import { FaHamburger, FaFolderMinus, FaEdit, FaLink, FaAngleRight, FaAngleDown } from 'react-icons/fa';
 import Link from './Link';
 
 import styles from '../css/Folders.module.css';
@@ -14,6 +14,7 @@ const Folder = () => {
   const dispatch = useDispatch();
 
   const [menuClicked, setmenuClicked] = useState('');
+  const [linkHovered, setlinkHovered] = useState('');
 
   const menuButtonHandler = (id) => {
     if (id === menuClicked) {
@@ -22,6 +23,10 @@ const Folder = () => {
     else {
       setmenuClicked(id);
     }
+  };
+
+  const linkHoverHandler = id => {
+    setlinkHovered(id);
   };
 
   const deleteFolderHandler = id => {
@@ -62,18 +67,25 @@ const Folder = () => {
         </button>
       }
       {folder.title}
-      <button><FaAngleRight /></button>
-      {links.links.map(link => {
-        if (link.parent === folder._id) {
-          return (
-            <span>
-              <Link key={link._id} link={link} />
-              <button onClick={() => editLinkHandler(link._id)}><FaEdit /></button>
-            </span>
-          );
-        }
-        return false;
-      })}
+      <span onMouseOver={() => linkHoverHandler(folder._id)}>
+        {linkHovered !== folder._id && <FaAngleRight />}
+        {linkHovered === folder._id && <FaAngleDown />}
+        {links.links.map(link => {
+          if (link.parent === folder._id) {
+            return (
+              <span>
+                {linkHovered === folder._id && <Link key={link._id} link={link} />}
+                {linkHovered === folder._id &&
+                  <button onClick={() => editLinkHandler(link._id)}>
+                    <FaEdit />
+                  </button>
+                }
+              </span>
+            );
+          }
+          return false;
+        })}
+      </span>
     </li>
   ));
 
