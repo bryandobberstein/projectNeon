@@ -8,16 +8,12 @@ export const folderSlice = createSlice({
   },
   reducers: {
     initializeFolders: (state, action) => {
-      state.folders = [];
-      return {
-        ...state,
-        folders: action.payload.forEach(folder => {
-          return { ...state.folders.concat(folder) };
-        }),
-      };
+      state = action.payload.map(folder => {
+        return state.folders.push(folder);
+      });
     },
     add: (state, action) => {
-      return { ...state, folders: { ...state.folders.concat(action.payload) } };
+      state.folders.concat(action.payload);
     },
     remove: (state, action) => {
       return {
@@ -28,14 +24,11 @@ export const folderSlice = createSlice({
       };
     },
     edit: (state, action) => {
-      return {
-        ...state,
-        folders: state.folders.forEach(folder => {
-          if (folder._id === action.payload.id) {
-            folder.key = action.payload.value;
-          }
-        }),
-      };
+      state.folders.forEach(folder => {
+        if (folder._id === action.payload.id) {
+          folder.key = action.payload.value;
+        }
+      });
     },
     setSelected: (state, action) => {
       state.selected = action.payload.id;

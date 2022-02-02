@@ -65,9 +65,9 @@ const Folder = () => {
     return setMenuOpen(false);
   };
 
-  const collection = folders.folders.map(folder => (
+  const collection = folders.folders.map((folder, fi) => (
     <>
-      <li key={folder.position} className={styles.folderItem} onMouseLeave={() => linkHoverHandler('')}>
+      <li key={fi} className={styles.folderItem} onMouseLeave={() => linkHoverHandler('')}>
         {menuOpen &&
           <button type="submit" onClick={() => deleteFolderHandler(folder._id)} className={styles.folderMenuButton}>
             <FaFolderMinus />
@@ -87,11 +87,11 @@ const Folder = () => {
         <span onMouseOver={() => linkHoverHandler(folder._id)}>
           {linkHovered !== folder._id && <FaAngleRight />}
           {linkHovered === folder._id && <FaAngleDown />}
-          {links.links.map(link => {
+          {links.links.map((link, i) => {
             if (link.parent === folder._id) {
               return (
                 <span>
-                  {linkHovered === folder._id && <Link key={link._id} link={link} />}
+                  {linkHovered === folder._id && <Link key={i} link={link} />}
                   {linkHovered === folder._id &&
                     <button onClick={() => editLinkHandler(link._id)}>
                       <FaEdit />
