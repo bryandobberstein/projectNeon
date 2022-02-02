@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useCookies } from "react-cookie";
 import { FaFolderPlus, FaSignOutAlt } from "react-icons/fa";
 
@@ -16,7 +16,6 @@ function App() {
   const STYLEAPP = styles.App;
 
   const [cookies, setCookie, removeCookie] = useCookies(["authenticate"]);
-  const modal = useSelector(state => state.modal);
   const dispatch = useDispatch();
 
   const cookieHandler = (name, data, expiration) => {

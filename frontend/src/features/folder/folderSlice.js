@@ -9,24 +9,33 @@ export const folderSlice = createSlice({
   reducers: {
     initializeFolders: (state, action) => {
       state.folders = [];
-      action.payload.forEach(item => {
-        return state.folders.push(item);
-      });
+      return {
+        ...state,
+        folders: action.payload.forEach(folder => {
+          return { ...state.folders.concat(folder) };
+        }),
+      };
     },
     add: (state, action) => {
       return state.folders.push(action.payload);
     },
     remove: (state, action) => {
-      state.folders = state.folders.forEach(item => {
-        return item._id !== action.payload.id;
-      });
+      return {
+        ...state,
+        folders: state.folders.filter(folder => {
+          return folder._id !== action.payload.id;
+        }),
+      };
     },
     edit: (state, action) => {
-      state.folders.forEach(item => {
-        if (item.id === action.payload.id) {
-          item.key = action.payload.value;
-        }
-      });
+      return {
+        ...state,
+        folders: state.folders.forEach(folder => {
+          if (folder.id === action.payload.id) {
+            folder.key = action.payload.value;
+          }
+        }),
+      };
     },
     setSelected: (state, action) => {
       state.selected = action.payload.id;
