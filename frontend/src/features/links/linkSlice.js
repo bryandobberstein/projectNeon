@@ -9,29 +9,44 @@ export const linkSlice = createSlice({
   reducers: {
     initializeLinks: (state, action) => {
       state.links = [];
-      action.payload.forEach(item => {
-        return state.links.push(item);
-      });
+      return {
+        ...state,
+        links: action.payload.map(link => {
+          return { ...state.links.push(link) };
+        }),
+      };
     },
     addLink: (state, action) => {
-      state.links.push(action.payload);
+      return { ...state, links: { ...state.links.concat(action.payload) } };
     },
     editLink: (state, action) => {
-      state.folders.forEach(item => {
-        if (item._id === action.payload.id) {
-          return (item.key = action.payload.value);
-        }
-      });
+      return {
+        ...state,
+        links: state.links.map(link => {
+          if (link._id === action.payload.id)
+            return {
+              ...state.links,
+              link: (action.payload.key = action.payload.value),
+            };
+          return false;
+        }),
+      };
     },
     removeLink: (state, action) => {
-      state.links = state.links.filter(item => {
-        return item._id !== action.payload.id;
-      });
+      return {
+        ...state,
+        links: state.links.filter(link => {
+          return link._id !== action.payload.id;
+        }),
+      };
     },
     removeWithParent: (state, action) => {
-      state.links = state.links.filter(item => {
-        return item.parent !== action.payload.parent;
-      });
+      return {
+        ...state,
+        links: state.links.filter(link => {
+          return link.parent !== action.payload.parent;
+        }),
+      };
     },
     setLinkSelected: (state, action) => {
       state.selected = action.payload.id;

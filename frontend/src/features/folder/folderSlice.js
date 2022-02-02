@@ -17,7 +17,7 @@ export const folderSlice = createSlice({
       };
     },
     add: (state, action) => {
-      return state.folders.push(action.payload);
+      return { ...state, folders: { ...state.folders.concat(action.payload) } };
     },
     remove: (state, action) => {
       return {
@@ -31,7 +31,7 @@ export const folderSlice = createSlice({
       return {
         ...state,
         folders: state.folders.forEach(folder => {
-          if (folder.id === action.payload.id) {
+          if (folder._id === action.payload.id) {
             folder.key = action.payload.value;
           }
         }),
