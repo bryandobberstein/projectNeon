@@ -1,15 +1,15 @@
-require('dotenv').config();
+require("dotenv").config();
 
-const bcrypt = require('bcrypt');
-const express = require('express');
-const jwt = require('jsonwebtoken');
-const validator = require('validator');
+const bcrypt = require("bcrypt");
+const express = require("express");
+const jwt = require("jsonwebtoken");
+const validator = require("validator");
 
-const User = require('../models/User');
+const User = require("../models/User");
 
 const router = express.Router();
 
-router.post('/signup', async (req, res) => {
+router.post("/signup", async (req, res) => {
   const email = req.body.email.trim().toLowerCase();
   if (!validator.isEmail(email)) {
     return res.status(406).send();
@@ -30,17 +30,15 @@ router.post('/signup', async (req, res) => {
       password: pwHash,
     });
     await newUser.save();
-    const token = await jwt.sign(
-      { user: user._id },
-      process.env.JWT_TOKEN,
-      { expiresIn: 24 * 3600 }
-    );
+    const token = await jwt.sign({ user: user._id }, process.env.JWT_TOKEN, {
+      expiresIn: 24 * 3600,
+    });
     return res
       .status(200)
-      .cookie('token', token, {
+      .cookie("token", token, {
         expire: 24 * 3600,
         httpOnly: true,
-        sameSite: 'strict',
+        sameSite: "strict",
       })
       .send();
   } catch (err) {
@@ -49,7 +47,7 @@ router.post('/signup', async (req, res) => {
   }
 });
 
-router.post('/authenticate', async (req, res) => {
+router.post("/authenticate", async (req, res) => {
   try {
     const email = req.body.email.trim();
     const user = await User.findOne({
@@ -65,16 +63,14 @@ router.post('/authenticate', async (req, res) => {
     if (!passwordValid) {
       return res.status(403).send();
     }
-    const token = await jwt.sign(
-      { user: user._id },
-      process.env.JWT_TOKEN,
-      { expiresIn: 24 * 3600 }
-    );
+    const token = await jwt.sign({ user: user._id }, process.env.JWT_TOKEN, {
+      expiresIn: 24 * 3600,
+    });
     return res
-      .cookie('token', token, {
+      .cookie("token", token, {
         maxAge: 2400 * 3600,
         httpOnly: true,
-        sameSite: 'strict',
+        sameSite: "strict",
       })
       .send();
   } catch (err) {
@@ -83,8 +79,9 @@ router.post('/authenticate', async (req, res) => {
   }
 });
 
-router.post('/logout', (req, res) => {
-  res.status(200).send(true);
+router.post("/logout", tokenVerify, (req, res) => {
+  res.clearCookie("token");
+  return res.status(200);
 });
 
 module.exports = router;

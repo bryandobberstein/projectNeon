@@ -67,13 +67,25 @@ function App() {
     );
   }
 
+  const signOut = async () => {
+    await fetch("http://localhost:8000/user/logout", {
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+      crossDomain: true,
+    });
+    removeCookie("authenticate");
+  };
+
   return (
     <div className={STYLEAPP}>
       <Folder />
       <button onClick={() => openModalAddModal("addFolder")}>
         <FaFolderPlus />
       </button>
-      <button onClick={() => removeCookie("authenticate")}>
+      <button onClick={signOut}>
         <FaSignOutAlt />
       </button>
       <Modal />
