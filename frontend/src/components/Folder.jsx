@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { setSelected } from '../features/folder/folderSlice';
 import { openModal } from '../features/modal/modalSlice';
@@ -19,9 +19,6 @@ const Folder = () => {
   const folders = useSelector(state => state.folders);
   const links = useSelector(state => state.links);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-  }, [openModal]);
 
   // const [menuClicked, setmenuClicked] = useState('');
   const [linkHovered, setlinkHovered] = useState('');

@@ -8,12 +8,10 @@ export const modalSlice = createSlice({
   },
   reducers: {
     openModal: (state, action) => {
-      state.show = true;
-      state.child = action.payload.child;
+      return { ...state, show: true, child: action.payload.child };
     },
-    close: (state) => {
-      state.show = false;
-      state.child = "";
+    close: state => {
+      return { ...state, show: false, child: "" };
     },
   },
 });
