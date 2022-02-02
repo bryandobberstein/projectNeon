@@ -44,7 +44,7 @@ function App() {
     });
     const data = await result.json();
     dispatch(initializeFolders(data));
-  }, [modal.show, isAuthenticated]);
+  }, []);
 
   useEffect(async () => {
     const result = await fetch("http://localhost:8000/link/get-links", {
@@ -57,7 +57,7 @@ function App() {
     });
     const data = await result.json();
     dispatch(initializeLinks(data));
-  }, [modal.show, isAuthenticated]);
+  }, []);
 
   if (!isAuthenticated) {
     return (

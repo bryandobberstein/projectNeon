@@ -1,4 +1,5 @@
 require("dotenv").config();
+const tokenVerify = require("../middleware/tokenVerify");
 
 const bcrypt = require("bcrypt");
 const express = require("express");
@@ -80,7 +81,11 @@ router.post("/authenticate", async (req, res) => {
 });
 
 router.post("/logout", tokenVerify, (req, res) => {
-  res.clearCookie("token");
+  res.cookie("token", token, {
+    expire: new Date(Date.now()),
+    httpOnly: true,
+    sameSite: "strict",
+  });
   return res.status(200);
 });
 

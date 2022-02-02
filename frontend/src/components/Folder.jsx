@@ -16,21 +16,27 @@ import Link from './Link';
 import styles from '../css/Folders.module.css';
 
 const Folder = () => {
-  const folders = useSelector(state => state.folders);
-  const links = useSelector(state => state.links);
-  const dispatch = useDispatch();
 
-  const [menuClicked, setmenuClicked] = useState('');
+  useEffect(() => {
+    const folders = useSelector(state => state.folders);
+    const links = useSelector(state => state.links);
+    const dispatch = useDispatch();
+  }, [openModal]);
+
+  // const [menuClicked, setmenuClicked] = useState('');
   const [linkHovered, setlinkHovered] = useState('');
+  const [menuOpen, setMenuOpen] = useState(false);
 
-  const menuButtonHandler = (id) => {
-    if (id === menuClicked) {
-      setmenuClicked('');
-    }
-    else {
-      setmenuClicked(id);
-    }
-  };
+
+
+  // const menuButtonHandler = (id) => {
+  //   if (id === menuClicked) {
+  //     setmenuClicked('');
+  //   }
+  //   else {
+  //     setmenuClicked(id);
+  //   }
+  // };
 
   const linkHoverHandler = id => {
     setlinkHovered(id);
@@ -55,48 +61,63 @@ const Folder = () => {
     dispatch(openModal({ child: 'editLink' }));
   };
 
+  const openMenuToggle = () => {
+    if (menuOpen === false) {
+      return setMenuOpen(true);
+    }
+    return setMenuOpen(false);
+  };
+
   const collection = folders.folders.map(folder => (
-    <li key={folder.position} className={styles.folderItem} onMouseLeave={() => linkHoverHandler('')}>
-      <button onClick={() => menuButtonHandler(folder._id)} className={styles.folderMenuButton}><FaHamburger /></button>
-      {menuClicked === folder._id &&
-        <button type="submit" onClick={() => deleteFolderHandler(folder._id)} className={styles.folderMenuButton}>
-          <FaFolderMinus />
-        </button>
-      }
-      {menuClicked === folder._id &&
-        <button onClick={() => editFolderHandler(folder._id)} className={styles.folderMenuButton}>
-          <FaEdit />
-        </button>
-      }
-      {menuClicked === folder._id &&
-        <button onClick={addLinkHandler} className={styles.folderMenuButton}>
-          <FaLink />
-        </button>
-      }
-      {folder.title}
-      <span onMouseOver={() => linkHoverHandler(folder._id)}>
-        {linkHovered !== folder._id && <FaAngleRight />}
-        {linkHovered === folder._id && <FaAngleDown />}
-        {links.links.map(link => {
-          if (link.parent === folder._id) {
-            return (
-              <span>
-                {linkHovered === folder._id && <Link key={link._id} link={link} />}
-                {linkHovered === folder._id &&
-                  <button onClick={() => editLinkHandler(link._id)}>
-                    <FaEdit />
-                  </button>
-                }
-              </span>
-            );
-          }
-          return false;
-        })}
-      </span>
-    </li>
+    <>
+      <li key={folder.position} className={styles.folderItem} onMouseLeave={() => linkHoverHandler('')}>
+        {menuOpen &&
+          <button type="submit" onClick={() => deleteFolderHandler(folder._id)} className={styles.folderMenuButton}>
+            <FaFolderMinus />
+          </button>
+        }
+        {menuOpen &&
+          <button onClick={() => editFolderHandler(folder._id)} className={styles.folderMenuButton}>
+            <FaEdit />
+          </button>
+        }
+        {menuOpen &&
+          <button onClick={addLinkHandler} className={styles.folderMenuButton}>
+            <FaLink />
+          </button>
+        }
+        {folder.title}
+        <span onMouseOver={() => linkHoverHandler(folder._id)}>
+          {linkHovered !== folder._id && <FaAngleRight />}
+          {linkHovered === folder._id && <FaAngleDown />}
+          {links.links.map(link => {
+            if (link.parent === folder._id) {
+              return (
+                <span>
+                  {linkHovered === folder._id && <Link key={link._id} link={link} />}
+                  {linkHovered === folder._id &&
+                    <button onClick={() => editLinkHandler(link._id)}>
+                      <FaEdit />
+                    </button>
+                  }
+                </span>
+              );
+            }
+            return false;
+          })}
+        </span>
+      </li>
+    </>
   ));
 
-  return <ul className={styles.folderList}>{collection}</ul>;
+  return (<>
+    <button onClick={openMenuToggle} className={styles.folderMenuButton}>
+      <FaHamburger />
+    </button>
+    <ul className={styles.folderList}>
+      {collection}
+    </ul>
+  </>);
 };
 
 export default Folder;
