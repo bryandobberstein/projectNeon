@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useCookies } from "react-cookie";
-import { FaFolderPlus } from "react-icons/fa";
+import { FaFolderPlus, FaSignOutAlt } from "react-icons/fa";
 
 import SignIn from "./components/SignIn";
 import Folder from "./components/Folder";
@@ -15,7 +15,7 @@ import styles from "./App.module.css";
 function App() {
   const STYLEAPP = styles.App;
 
-  const [cookies, setCookie] = useCookies(["authenticate"]);
+  const [cookies, setCookie, removeCookie] = useCookies(["authenticate"]);
   const modal = useSelector(state => state.modal);
   const dispatch = useDispatch();
 
@@ -72,6 +72,9 @@ function App() {
       <Folder />
       <button onClick={() => openModalAddModal("addFolder")}>
         <FaFolderPlus />
+      </button>
+      <button onClick={() => removeCookie("authenticate")}>
+        <FaSignOutAlt />
       </button>
       <Modal />
     </div>

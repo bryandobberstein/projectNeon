@@ -3,7 +3,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { setSelected } from '../features/folder/folderSlice';
 import { openModal } from '../features/modal/modalSlice';
 import { setLinkSelected } from '../features/links/linkSlice.js';
-import { FaHamburger, FaFolderMinus, FaEdit, FaLink, FaAngleRight, FaAngleDown } from 'react-icons/fa';
+import {
+  FaHamburger,
+  FaFolderMinus,
+  FaEdit,
+  FaLink,
+  FaAngleRight,
+  FaAngleDown,
+} from 'react-icons/fa';
 import Link from './Link';
 
 import styles from '../css/Folders.module.css';
@@ -49,7 +56,7 @@ const Folder = () => {
   };
 
   const collection = folders.folders.map(folder => (
-    <li key={folder.position} className={styles.folderItem}>
+    <li key={folder.position} className={styles.folderItem} onMouseLeave={() => linkHoverHandler('')}>
       <button onClick={() => menuButtonHandler(folder._id)} className={styles.folderMenuButton}><FaHamburger /></button>
       {menuClicked === folder._id &&
         <button type="submit" onClick={() => deleteFolderHandler(folder._id)} className={styles.folderMenuButton}>
