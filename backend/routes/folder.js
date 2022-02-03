@@ -13,12 +13,12 @@ router.post("/getFolders", tokenVerify, async (req, res) => {
       owner: req.user,
     }).sort("title");
     if (!folders) {
-      return res.status(404);
+      return res.status(404).send();
     }
-    return res.json(folders);
+    return res.json(folders).send();
   } catch (err) {
     console.log(err);
-    return res.status(500);
+    return res.status(500).send();
   }
 });
 
@@ -26,7 +26,7 @@ router.post("/getFolders", tokenVerify, async (req, res) => {
 router.post("/addFolder", tokenVerify, async (req, res) => {
   try {
     if (!req.body.title || !req.body.position) {
-      return res.status(400).send(false);
+      return res.status(400).send(false).send();
     }
     if (req.parent) {
       const folder = new Folder({
@@ -36,7 +36,7 @@ router.post("/addFolder", tokenVerify, async (req, res) => {
         owner: req.user,
       });
       await folder.save();
-      return res.status(200).json(folder);
+      return res.status(200).json(folder).send();
     }
     const folder = new Folder({
       title: req.body.title,
@@ -44,10 +44,10 @@ router.post("/addFolder", tokenVerify, async (req, res) => {
       owner: req.user,
     });
     await folder.save();
-    return res.status(200).json(folder);
+    return res.status(200).json(folder).send();
   } catch (err) {
     console.error(err);
-    return res.status(500).json({ err: err });
+    return res.status(500).json({ err: err }).send();
   }
 });
 
@@ -62,10 +62,10 @@ router.post("/updateFolder", tokenVerify, async (req, res) => {
     folder.title = req.body.title;
     folder.position = req.body.position;
     folder.save();
-    return res.status(200).json(folder);
+    return res.status(200).json(folder).send();
   } catch (err) {
     console.log(err);
-    return res.status(500);
+    return res.status(500).send();
   }
 });
 

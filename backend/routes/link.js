@@ -15,7 +15,7 @@ router.get("/get-links", tokenVerify, async (req, res) => {
     if (!links) {
       return res.status(404).send(false);
     }
-    return res.status(200).json(links);
+    return res.status(200).json(links).send();
   } catch (err) {
     console.log(err);
     return res.status(500).send(false);
@@ -38,10 +38,10 @@ router.post("/create-link", tokenVerify, async (req, res) => {
       owner: req.user,
     });
     await link.save();
-    return res.status(200).json(link);
+    return res.status(200).json(link).send();
   } catch (err) {
     console.error(err);
-    return res.status(500).send(false);
+    return res.status(500).send(false).send();
   }
 });
 
@@ -59,7 +59,7 @@ router.put("/update-link", tokenVerify, async (req, res) => {
 
       (err, link) => {
         if (err) return console.log(err);
-        return res.status(200).json(link);
+        return res.status(200).json(link).send();
       }
     ).clone();
   } catch (err) {
