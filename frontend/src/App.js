@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useDispatch } from "react-redux";
 import { useCookies } from "react-cookie";
 import { FaFolderPlus, FaSignOutAlt } from "react-icons/fa";
@@ -7,8 +7,6 @@ import SignIn from "./components/SignIn";
 import Folder from "./components/Folder";
 import Modal from "./components/modals/ModalRoot";
 import { openModal } from "./features/modal/modalSlice";
-import { initializeFolders } from "./features/folder/folderSlice";
-import { initializeLinks } from "./features/links/linkSlice";
 
 import styles from "./App.module.css";
 
@@ -31,32 +29,6 @@ function App() {
   };
 
   const isAuthenticated = cookies.authenticate;
-
-  useEffect(async () => {
-    const result = await fetch("http://localhost:8000/folders/getFolders", {
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      method: "POST",
-      crossDomain: true,
-    });
-    const data = await result.json();
-    dispatch(initializeFolders(data));
-  }, []);
-
-  useEffect(async () => {
-    const result = await fetch("http://localhost:8000/link/get-links", {
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      method: "GET",
-      crossDomain: true,
-    });
-    const data = await result.json();
-    dispatch(initializeLinks(data));
-  }, []);
 
   if (!isAuthenticated) {
     return (

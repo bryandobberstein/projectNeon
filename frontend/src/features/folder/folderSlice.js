@@ -8,6 +8,7 @@ export const folderSlice = createSlice({
   },
   reducers: {
     initializeFolders: (state, action) => {
+      state.folders = [];
       state = action.payload.map(folder => {
         return state.folders.push(folder);
       });

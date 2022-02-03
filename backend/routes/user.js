@@ -80,7 +80,7 @@ router.post("/authenticate", async (req, res) => {
   }
 });
 
-router.post("/logout", tokenVerify, (req, res) => {
+router.post("/logout", (req, res) => {
   res.cookie("token", token, {
     expire: new Date(Date.now()),
     httpOnly: true,

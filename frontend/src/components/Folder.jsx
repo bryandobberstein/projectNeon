@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from "react-redux";
-import { setSelected } from '../features/folder/folderSlice';
+import { setSelected, initializeFolders } from '../features/folder/folderSlice';
 import { openModal } from '../features/modal/modalSlice';
-import { setLinkSelected } from '../features/links/linkSlice.js';
+import { setLinkSelected, initializeLinks } from '../features/links/linkSlice.js';
 import {
   FaHamburger,
   FaFolderMinus,
@@ -26,14 +26,33 @@ const Folder = () => {
 
 
 
-  // const menuButtonHandler = (id) => {
-  //   if (id === menuClicked) {
-  //     setmenuClicked('');
-  //   }
-  //   else {
-  //     setmenuClicked(id);
-  //   }
-  // };
+  useEffect(async () => {
+    const result = await fetch("http://localhost:8000/folders/getFolders", {
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+      crossDomain: true,
+    });
+    const data = await result.json();
+    console.log(data);
+    dispatch(initializeFolders(data));
+  }, []);
+
+  useEffect(async () => {
+    const result = await fetch("http://localhost:8000/link/get-links", {
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "GET",
+      crossDomain: true,
+    });
+    const data = await result.json();
+    console.log(data);
+    dispatch(initializeLinks(data));
+  }, []);
 
   const linkHoverHandler = id => {
     setlinkHovered(id);
