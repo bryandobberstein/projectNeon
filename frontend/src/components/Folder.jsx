@@ -91,12 +91,12 @@ const Folder = () => {
             if (link.parent === folder._id) {
               return (
                 <span>
-                  {linkHovered === folder._id && <Link key={i} link={link} />}
                   {linkHovered === folder._id &&
                     <button onClick={() => editLinkHandler(link._id)}>
                       <FaEdit />
                     </button>
                   }
+                  {linkHovered === folder._id && <Link key={i} link={link} />}
                 </span>
               );
             }
