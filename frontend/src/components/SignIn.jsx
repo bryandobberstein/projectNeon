@@ -43,26 +43,27 @@ const SignIn = props => {
   };
 
   const formStyle = {
-    margin: '100px',
     display: 'grid',
-    gridTemplateColumns: '1fr 1fr 1fr 1fr',
-    alignContent: 'center',
+    margin: '100px',
+    width: '400px',
+    gridTemplateColumns: '1fr 1fr',
+    justifyItems: 'left',
     gap: '10px',
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
   };
 
   const labelStyle = {
-    gridColumn: '2/3',
-    justifySelf: 'end'
+    gridColumn: '1',
   };
 
   const inputStyle = {
-    gridColumn: '3/4'
+    gridColumn: '2',
   };
 
   const buttonStyle = {
-    gridColumn: '2/4',
-    width: 'fit-content',
-    justifySelf: 'center'
+    gridColumn: '1/ span 2',
+    // width: 'fit-content',
+    justifySelf: 'center',
   };
 
   return (

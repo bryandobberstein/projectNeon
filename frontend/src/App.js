@@ -8,8 +8,6 @@ import Folder from "./components/Folder";
 import Modal from "./components/modals/ModalRoot";
 import { openModal } from "./features/modal/modalSlice";
 
-// import styles from "./App.module.css";
-
 function App() {
   const [cookies, setCookie, removeCookie] = useCookies(["authenticate"]);
   const dispatch = useDispatch();
@@ -40,16 +38,21 @@ function App() {
     removeCookie("authenticate");
   };
 
+  const appStyle = {
+    display: "flex",
+    justifyContent: "center",
+  };
+
   if (!isAuthenticated) {
     return (
-      <div>
+      <div style={appStyle}>
         <SignIn cookieHandler={cookieHandler} />
       </div>
     );
   }
 
   return (
-    <div>
+    <div style={appStyle}>
       <Folder />
       <button onClick={() => openModalAddModal("addFolder")}>
         <FaFolderPlus />
