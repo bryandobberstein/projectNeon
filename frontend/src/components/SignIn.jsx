@@ -42,25 +42,50 @@ const SignIn = props => {
     }
   };
 
+  const formStyle = {
+    margin: '100px',
+    display: 'grid',
+    gridTemplateColumns: '1fr 1fr 1fr 1fr',
+    alignContent: 'center',
+    gap: '10px',
+  };
+
+  const labelStyle = {
+    gridColumn: '2/3',
+    justifySelf: 'end'
+  };
+
+  const inputStyle = {
+    gridColumn: '3/4'
+  };
+
+  const buttonStyle = {
+    gridColumn: '2/4',
+    width: 'fit-content',
+    justifySelf: 'center'
+  };
+
   return (
-    <form onSubmit={submitHandler}>
-      <label htmlFor='email'>{login.email}</label>
+    <form onSubmit={submitHandler} style={formStyle}>
+      <label htmlFor='email' style={labelStyle}>Email</label>
       <input
+        style={inputStyle}
         type='text'
         name='email'
         id='email'
         value={login.email}
         onChange={inputChangeHandler}
       />
-      <label htmlFor='password'>{login.password}</label>
+      <label htmlFor='password' style={labelStyle}>Password</label>
       <input
+        style={inputStyle}
         type='password'
         name='password'
         id='password'
         value={login.password}
         onChange={inputChangeHandler}
       />
-      <button type='submit' onClick={submitHandler}>
+      <button type='submit' onClick={submitHandler} style={buttonStyle}>
         Login
       </button>
     </form>

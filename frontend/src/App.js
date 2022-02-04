@@ -11,12 +11,6 @@ import { openModal } from "./features/modal/modalSlice";
 // import styles from "./App.module.css";
 
 function App() {
-  const container = {
-    display: "grid",
-    jusitfyContent: "center",
-    width: "maxContent",
-  };
-
   const [cookies, setCookie, removeCookie] = useCookies(["authenticate"]);
   const dispatch = useDispatch();
 
@@ -48,14 +42,14 @@ function App() {
 
   if (!isAuthenticated) {
     return (
-      <div style={container}>
+      <div>
         <SignIn cookieHandler={cookieHandler} />
       </div>
     );
   }
 
   return (
-    <div style={container}>
+    <div>
       <Folder />
       <button onClick={() => openModalAddModal("addFolder")}>
         <FaFolderPlus />
