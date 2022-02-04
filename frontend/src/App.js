@@ -40,6 +40,7 @@ function App() {
 
   const appStyle = {
     display: "flex",
+    flexDirection: "column",
     justifyContent: "center",
   };
 
