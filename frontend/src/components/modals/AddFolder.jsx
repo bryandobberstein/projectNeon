@@ -44,7 +44,7 @@ const AddFolder = () => {
 
   return (
     <div className={styles.modal}>
-      <button onClick={dispatch(close)}>
+      <button onClick={() => dispatch(close())}>
         <FaRegWindowClose />
       </button>
       <form onSubmit={submitHandler}>

@@ -15,7 +15,7 @@ router.get("/get-links", tokenVerify, async (req, res) => {
     if (!links) {
       return res.status(404).send(false);
     }
-    return res.status(200).json(links).send();
+    return res.status(200).json(links);
   } catch (err) {
     console.log(err);
     return res.status(500).send(false);
