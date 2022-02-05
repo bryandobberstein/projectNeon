@@ -44,25 +44,38 @@ function App() {
     justifyContent: "center",
   };
 
+  const pageTopper = ["Links", "Lynx", "Skinks", "Klinks", "Blinks"];
+
+  const pageTopperSelector = () => {
+    const number = Math.floor(Math.random() * pageTopper.length);
+    return pageTopper[number];
+  };
+
   if (!isAuthenticated) {
     return (
-      <div style={appStyle}>
-        <SignIn cookieHandler={cookieHandler} />
-      </div>
+      <>
+        <h1>{pageTopperSelector()}</h1>
+        <div style={appStyle}>
+          <SignIn cookieHandler={cookieHandler} />
+        </div>
+      </>
     );
   }
 
   return (
-    <div style={appStyle}>
-      <Folder />
-      <button onClick={() => openModalAddModal("addFolder")}>
-        <FaFolderPlus />
-      </button>
-      <button onClick={signOut}>
-        <FaSignOutAlt />
-      </button>
-      <Modal />
-    </div>
+    <>
+      <h1>{pageTopperSelector()}</h1>
+      <div style={appStyle}>
+        <Folder />
+        <button onClick={() => openModalAddModal("addFolder")}>
+          <FaFolderPlus />
+        </button>
+        <button onClick={signOut}>
+          <FaSignOutAlt />
+        </button>
+        <Modal />
+      </div>
+    </>
   );
 }
 

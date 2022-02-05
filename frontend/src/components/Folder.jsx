@@ -32,7 +32,6 @@ const Folder = () => {
       crossDomain: true,
     });
     const data = await result.json();
-    console.log(data);
     dispatch(initializeFolders(data));
   }, []);
 
@@ -46,7 +45,6 @@ const Folder = () => {
       crossDomain: true,
     });
     const data = await result.json();
-    console.log(data);
     dispatch(initializeLinks(data));
   }, []);
 
@@ -87,7 +85,6 @@ const Folder = () => {
     width: '400px',
     gridTemplateColumns: '1fr 1fr',
     justifyItems: 'center',
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
   };
 
   const folderListStyle = {

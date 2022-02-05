@@ -49,7 +49,6 @@ const SignIn = props => {
     gridTemplateColumns: '1fr 1fr',
     justifyItems: 'left',
     gap: '10px',
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
   };
 
   const labelStyle = {
