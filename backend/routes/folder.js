@@ -31,7 +31,6 @@ router.post("/addFolder", tokenVerify, async (req, res) => {
     if (req.parent) {
       const folder = new Folder({
         title: req.body.title,
-        position: req.body.position,
         parent: req.body.parent,
         owner: req.user,
       });

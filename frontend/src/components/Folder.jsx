@@ -8,14 +8,13 @@ import {
   FaFolderMinus,
   FaEdit,
   FaLink,
-  FaAngleRight,
-  FaAngleDown,
 } from 'react-icons/fa';
 import Link from './Link';
 
 const Folder = () => {
   const folders = useSelector(state => state.folders);
   const links = useSelector(state => state.links);
+  console.log(links);
   const dispatch = useDispatch();
 
   const [linkHovered, setlinkHovered] = useState('');
@@ -32,7 +31,7 @@ const Folder = () => {
     });
     const data = await result.json();
     dispatch(initializeFolders(data));
-  }, []);
+  }, [openModal]);
 
   useEffect(async () => {
     const result = await fetch("http://localhost:8000/link/get-links", {
@@ -44,8 +43,9 @@ const Folder = () => {
       crossDomain: true,
     });
     const data = await result.json();
+    console.log(data);
     dispatch(initializeLinks(data));
-  }, []);
+  }, [openModal]);
 
   const linkHoverHandler = id => {
     setlinkHovered(id);
@@ -61,7 +61,8 @@ const Folder = () => {
     dispatch(openModal({ child: 'editFolder' }));
   };
 
-  const addLinkHandler = () => {
+  const addLinkHandler = id => {
+    dispatch(setSelected({ id: id }));
     dispatch(openModal({ child: 'addLink' }));
   };
 
@@ -98,7 +99,6 @@ const Folder = () => {
     flex: '1 1 auto',
     alignSelf: 'flex-end',
     position: 'relative',
-    left: '1em',
     bottom: 'auto',
   };
 
@@ -108,7 +108,7 @@ const Folder = () => {
   };
 
   const collection = folders.folders.map((folder, fi) => (
-    <>
+    <div onMouseLeave={() => linkHoverHandler('')}>
       <li key={fi} style={folderListStyle}>
         {menuOpen &&
           <span type="submit" onClick={() => deleteFolderHandler(folder._id)}>
@@ -123,15 +123,13 @@ const Folder = () => {
           </span>
         }
         {menuOpen &&
-          <span onClick={addLinkHandler}>
+          <span onClick={() => addLinkHandler(folder._id)}>
             <FaLink />
             &nbsp;
           </span>
         }
-        {folder.title}
         <span onMouseOver={() => linkHoverHandler(folder._id)}>
-          {linkHovered !== folder._id && <FaAngleRight />}
-          {linkHovered === folder._id && <FaAngleDown />}
+          {folder.title}
         </span>
       </li>
       {links.links.map((link, i) => {
@@ -150,7 +148,7 @@ const Folder = () => {
         }
         return false;
       })}
-    </>
+    </div>
   ));
 
   return (<>

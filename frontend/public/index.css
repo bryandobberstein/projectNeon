@@ -8,4 +8,29 @@
 
 body {
   font-family: "Roboto", sans-serif;
+  color: #101;
+}
+
+ul {
+  list-style-type: none;
+}
+
+li {
+  transition-property: box-shadow, color;
+  /* transition-delay: 0ms;
+  transition-duration: 2s; */
+}
+
+li:hover {
+  color: lawngreen;
+  box-shadow: -3px -3px lawngreen;
+}
+
+a {
+  text-decoration: none;
+  color: lawngreen;
+}
+
+a:last-child {
+  box-shadow: 3px 3px lawngreen;
 }

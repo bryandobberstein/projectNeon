@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const LinkSchema = new mongoose.Schema({
   title: {
@@ -12,7 +12,7 @@ const LinkSchema = new mongoose.Schema({
   position: {
     type: Number,
   },
-  folder: {
+  parent: {
     type: String,
   },
   owner: {
@@ -20,4 +20,4 @@ const LinkSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model('Link', LinkSchema);
+module.exports = mongoose.model("Link", LinkSchema);

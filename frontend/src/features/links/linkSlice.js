@@ -8,12 +8,14 @@ export const linkSlice = createSlice({
   },
   reducers: {
     initializeLinks: (state, action) => {
+      state.links = [];
       state = action.payload.map(link => {
         return state.links.push(link);
       });
     },
     addLink: (state, action) => {
-      return { ...state, links: { ...state.links.concat(action.payload) } };
+      console.log(action.payload);
+      state.links.concat(action.payload);
     },
     editLink: (state, action) => {
       return {

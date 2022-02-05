@@ -7,16 +7,15 @@ import { FaRegWindowClose } from 'react-icons/fa';
 import { setSelected } from '../../features/folder/folderSlice';
 
 const AddLink = () => {
-  const links = useSelector(state => state.links);
   const selected = useSelector(state => state.folders.selected);
   const dispatch = useDispatch();
 
   const linkTitle = useRef();
   const linkUrl = useRef();
-  const linkPosition = links.length;
 
   const submitLinkHandler = async (e) => {
     e.preventDefault();
+    console.log(1);
     try {
       await fetch(
         'http://localhost:8000/link/create-link',
@@ -30,15 +29,14 @@ const AddLink = () => {
           body: JSON.stringify({
             title: linkTitle.current.value,
             url: linkUrl.current.value,
-            position: linkPosition,
             parent: selected
           })
         }
       );
+      console.log(2);
       dispatch(addLink({
         title: linkTitle.current.value,
         url: linkUrl.current.value,
-        position: linkPosition,
         parent: selected
       }));
       dispatch(setSelected(''));
@@ -49,7 +47,7 @@ const AddLink = () => {
   };
 
   return <div>
-    <button onClick={dispatch(close)}><FaRegWindowClose /></button>
+    <span onClick={() => dispatch(close())}><FaRegWindowClose /></span>
     <form onSubmit={submitLinkHandler}>
       <label htmlFor="title">Title</label>
       <input type="text" id="title" ref={linkTitle} />
