@@ -39,9 +39,16 @@ function App() {
   };
 
   const appStyle = {
-    display: "grid",
-    gridTemplateColumns: "1fr",
+    display: "flex",
+    flexDirection: "column",
     justifyContent: "center",
+    alignItems: "center",
+    flexWrap: "wrap",
+  };
+
+  const buttonStyle = {
+    flexDirection: "row",
+    cursor: "pointer",
   };
 
   const pageTopper = ["Links", "Lynx", "Skinks", "Klinks", "Blinks"];
@@ -67,12 +74,15 @@ function App() {
       <h1>{pageTopperSelector()}</h1>
       <div style={appStyle}>
         <Folder />
-        <button onClick={() => openModalAddModal("addFolder")}>
-          <FaFolderPlus />
-        </button>
-        <button onClick={signOut}>
-          <FaSignOutAlt />
-        </button>
+        <div style={buttonStyle}>
+          <span onClick={() => openModalAddModal("addFolder")}>
+            <FaFolderPlus />
+            &nbsp;
+          </span>
+          <span onClick={signOut}>
+            <FaSignOutAlt />
+          </span>
+        </div>
         <Modal />
       </div>
     </>

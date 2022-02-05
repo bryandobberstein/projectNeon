@@ -1,9 +1,9 @@
 import React from 'react';
 
 const Link = props => {
-  return <div>
+  return <span>
     <a href={props.link.url}>{props.link.title}</a>
-  </div>;
+  </span>;
 };
 
 export default Link;

@@ -18,7 +18,6 @@ const Folder = () => {
   const links = useSelector(state => state.links);
   const dispatch = useDispatch();
 
-  // const [menuClicked, setmenuClicked] = useState('');
   const [linkHovered, setlinkHovered] = useState('');
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -50,7 +49,6 @@ const Folder = () => {
 
   const linkHoverHandler = id => {
     setlinkHovered(id);
-    showHideStyle = linkListStyle;
   };
 
   const deleteFolderHandler = id => {
@@ -80,46 +78,55 @@ const Folder = () => {
   };
 
   const folderStyle = {
-    display: 'grid',
+    columns: '2',
+    display: 'flex',
+    flexDirection: 'column',
+    flexWrap: 'wrap',
     margin: 'auto',
-    width: '400px',
-    gridTemplateColumns: '1fr 1fr',
+    minWidth: 'min-content',
+    maxWidth: 'max-content',
     justifyItems: 'center',
   };
 
   const folderListStyle = {
-    gridColumn: '1',
-    justifySelf: 'center',
-  };
-
-  const linkListStyleHidden = {
-    display: 'hidden',
+    flex: '1 1 auto',
+    alignSelf: 'flex-start',
   };
 
   const linkListStyle = {
-    gridColumn: '2',
-    justifySelf: 'center',
+    flexDirection: 'row',
+    flex: '1 1 auto',
+    alignSelf: 'flex-end',
+    position: 'relative',
+    left: '1em',
+    bottom: 'auto',
   };
 
-  let showHideStyle = linkListStyleHidden;
+  const buttonStyle = {
+    flexDirection: "row",
+    cursor: "pointer",
+  };
 
   const collection = folders.folders.map((folder, fi) => (
     <>
-      <li key={fi} style={folderListStyle} onMouseLeave={() => linkHoverHandler('')}>
+      <li key={fi} style={folderListStyle}>
         {menuOpen &&
-          <button type="submit" onClick={() => deleteFolderHandler(folder._id)}>
+          <span type="submit" onClick={() => deleteFolderHandler(folder._id)}>
             <FaFolderMinus />
-          </button>
+            &nbsp;
+          </span>
         }
         {menuOpen &&
-          <button onClick={() => editFolderHandler(folder._id)}>
+          <span onClick={() => editFolderHandler(folder._id)}>
             <FaEdit />
-          </button>
+            &nbsp;
+          </span>
         }
         {menuOpen &&
-          <button onClick={addLinkHandler}>
+          <span onClick={addLinkHandler}>
             <FaLink />
-          </button>
+            &nbsp;
+          </span>
         }
         {folder.title}
         <span onMouseOver={() => linkHoverHandler(folder._id)}>
@@ -130,11 +137,12 @@ const Folder = () => {
       {links.links.map((link, i) => {
         if (link.parent === folder._id) {
           return (
-            <span style={showHideStyle}>
+            <span style={linkListStyle}>
               {linkHovered === folder._id &&
-                <button onClick={() => editLinkHandler(link._id)}>
+                <span onClick={() => editLinkHandler(link._id)}>
                   <FaEdit />
-                </button>
+                  &nbsp;
+                </span>
               }
               {linkHovered === folder._id && <Link key={i} link={link} />}
             </span>
@@ -146,9 +154,9 @@ const Folder = () => {
   ));
 
   return (<>
-    <button onClick={openMenuToggle}>
+    <span style={buttonStyle} onClick={openMenuToggle}>
       <FaHamburger />
-    </button>
+    </span>
     <ul style={folderStyle}>
       {collection}
     </ul>
