@@ -39,8 +39,8 @@ function App() {
   };
 
   const appStyle = {
-    display: "flex",
-    flexDirection: "column",
+    display: "grid",
+    gridTemplateColumns: "1fr",
     justifyContent: "center",
   };
 
