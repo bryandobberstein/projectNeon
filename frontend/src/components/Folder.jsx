@@ -84,9 +84,28 @@ const Folder = () => {
     return setMenuOpen(false);
   };
 
+  const folderStyle = {
+    display: 'grid',
+    margin: 'auto',
+    width: '400px',
+    gridTemplateColumns: '1fr 1fr',
+    justifyItems: 'center',
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+  };
+
+  const folderListStyle = {
+    gridColumn: '1',
+    justifySelf: 'center',
+  };
+
+  const linkListStyle = {
+    gridColumn: '2',
+    justifySelf: 'center',
+  };
+
   const collection = folders.folders.map((folder, fi) => (
-    <>
-      <li key={fi} className={styles.folderItem} onMouseLeave={() => linkHoverHandler('')}>
+    <div style={folderStyle}>
+      <li key={fi} style={folderListStyle} onMouseLeave={() => linkHoverHandler('')}>
         {menuOpen &&
           <button type="submit" onClick={() => deleteFolderHandler(folder._id)} className={styles.folderMenuButton}>
             <FaFolderMinus />
@@ -103,27 +122,27 @@ const Folder = () => {
           </button>
         }
         {folder.title}
-        <span onMouseOver={() => linkHoverHandler(folder._id)}>
-          {linkHovered !== folder._id && <FaAngleRight />}
-          {linkHovered === folder._id && <FaAngleDown />}
-          {links.links.map((link, i) => {
-            if (link.parent === folder._id) {
-              return (
-                <span>
-                  {linkHovered === folder._id &&
-                    <button onClick={() => editLinkHandler(link._id)}>
-                      <FaEdit />
-                    </button>
-                  }
-                  {linkHovered === folder._id && <Link key={i} link={link} />}
-                </span>
-              );
-            }
-            return false;
-          })}
-        </span>
       </li>
-    </>
+      <span style={linkListStyle} onMouseOver={() => linkHoverHandler(folder._id)}>
+        {linkHovered !== folder._id && <FaAngleRight />}
+        {linkHovered === folder._id && <FaAngleDown />}
+        {links.links.map((link, i) => {
+          if (link.parent === folder._id) {
+            return (
+              <span>
+                {linkHovered === folder._id &&
+                  <button onClick={() => editLinkHandler(link._id)}>
+                    <FaEdit />
+                  </button>
+                }
+                {linkHovered === folder._id && <Link key={i} link={link} />}
+              </span>
+            );
+          }
+          return false;
+        })}
+      </span>
+    </div>
   ));
 
   return (<>
