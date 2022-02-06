@@ -44,9 +44,28 @@ const AddLink = () => {
     }
   };
 
-  return <div>
+  const modalStyle = {
+    position: 'absolute',
+    left: '50%',
+    top: '50%',
+    transform: 'translate(-50%, -50%);',
+    display: 'flex',
+    flexDirection: 'column',
+    backgroundColor: 'antiquewhite',
+    width: 'auto',
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: '1000',
+  };
+
+  const formStyle = {
+    flex: '1 1 auto',
+    alignSelf: 'center'
+  };
+
+  return <div style={modalStyle}>
     <span onClick={() => dispatch(close())}><FaRegWindowClose /></span>
-    <form onSubmit={submitLinkHandler}>
+    <form style={formStyle} onSubmit={submitLinkHandler}>
       <label htmlFor="title">Title</label>
       <input type="text" id="title" ref={linkTitle} />
       <label htmlFor="url">URL</label>

@@ -6,7 +6,6 @@ import { close } from '../../features/modal/modalSlice';
 import { FaRegWindowClose } from 'react-icons/fa';
 import { setSelected } from '../../features/folder/folderSlice';
 
-import styles from '../../css/EditLink.module.css';
 
 const EditLink = () => {
   const links = useSelector(state => state.links.links);
@@ -62,9 +61,28 @@ const EditLink = () => {
     }
   };
 
-  return <div className={styles.mainDiv}>
+  const modalStyle = {
+    position: 'absolute',
+    left: '50%',
+    top: '50%',
+    transform: 'translate(-50%, -50%);',
+    display: 'flex',
+    flexDirection: 'column',
+    backgroundColor: 'antiquewhite',
+    width: 'auto',
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: '1000',
+  };
+
+  const formStyle = {
+    flex: '1 1 auto',
+    alignSelf: 'center'
+  };
+
+  return <div style={modalStyle}>
     <button onClick={() => dispatch(close())}><FaRegWindowClose /></button>
-    <form onSubmit={submitLinkHandler}>
+    <form style={formStyle} onSubmit={submitLinkHandler}>
       <label htmlFor="title">Title</label>
       <input type="text" id="title" ref={linkTitle} />
       <label htmlFor="url">URL</label>

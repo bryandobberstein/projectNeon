@@ -41,12 +41,17 @@ const AddFolder = () => {
   };
 
   const modalStyle = {
+    position: 'absolute',
+    left: '50%',
+    top: '50%',
+    transform: 'translate(-50%, -50%);',
     display: 'flex',
     flexDirection: 'column',
     backgroundColor: 'antiquewhite',
     width: 'auto',
     justifyContent: 'center',
     alignItems: 'center',
+    zIndex: '1000',
   };
 
   const formStyle = {
