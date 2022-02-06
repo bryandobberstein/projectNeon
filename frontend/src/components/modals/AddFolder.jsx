@@ -7,8 +7,6 @@ import {
   FaFolderPlus,
 } from 'react-icons/fa';
 
-import styles from '../../css/addfolder.module.css';
-
 const AddFolder = () => {
   const folders = useSelector(state => state.folders);
   const dispatch = useDispatch();
@@ -42,9 +40,23 @@ const AddFolder = () => {
     }
   };
 
+  const modalStyle = {
+    display: 'flex',
+    flexDirection: 'column',
+    backgroundColor: 'antiquewhite',
+    width: 'auto',
+    justifyContent: 'center',
+    alignItems: 'center',
+  };
+
+  const formStyle = {
+    flex: '1 1 auto',
+    alignSelf: 'center'
+  };
+
   return (
-    <div className={styles.modal}>
-      <button onClick={() => dispatch(close())}>
+    <div style={modalStyle}>
+      <button style={formStyle} onClick={() => dispatch(close())}>
         <FaRegWindowClose />
       </button>
       <form onSubmit={submitHandler}>

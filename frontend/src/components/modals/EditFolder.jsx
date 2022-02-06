@@ -1,4 +1,5 @@
 import React, { useRef } from 'react';
+import { FaRegWindowClose } from 'react-icons/fa';
 import { useSelector, useDispatch } from 'react-redux';
 import { edit, setSelected } from '../../features/folder/folderSlice';
 import { close } from '../../features/modal/modalSlice';
@@ -43,11 +44,14 @@ const EditFolder = () => {
     }
   };
 
-  return <form onSubmit={submitChangeHandler}>
-    <label htmlFor="title">Title</label>
-    <input type="text" id="title" ref={fldrTitle} />
-    <button type="submit" onClick={submitChangeHandler}>Submit</button>
-  </form>;
+  return <div>
+    <span onClick={() => dispatch(close())}><FaRegWindowClose /></span>
+    <form onSubmit={submitChangeHandler}>
+      <label htmlFor="title">Title</label>
+      <input type="text" id="title" ref={fldrTitle} />
+      <button type="submit" onClick={submitChangeHandler}>Submit</button>
+    </form>
+  </div>;
 };
 
 export default EditFolder;

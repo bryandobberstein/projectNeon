@@ -86,7 +86,7 @@ const Folder = () => {
     margin: 'auto',
     minWidth: 'min-content',
     maxWidth: 'max-content',
-    justifyItems: 'center',
+    justifyItems: 'flex-end',
   };
 
   const folderListStyle = {
