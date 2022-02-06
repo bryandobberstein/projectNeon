@@ -1,0 +1,15 @@
+.modalWindow {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-image: linear-gradient(#fff, rgb(186, 197, 208));
+  margin: 10px;
+  padding: 50px;
+}
+
+.formContainer {
+  background-image: linear-gradient(#fff, rgb(186, 197, 208));
+  margin: 10px;
+  padding: 10px;
+}

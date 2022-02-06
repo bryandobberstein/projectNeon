@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { remove, setSelected } from '../../features/folder/folderSlice';
 import { close } from '../../features/modal/modalSlice';
 
+import styles from '../../css/modalStyles.module.css';
+
 const DeleteFolder = () => {
 
   const folders = useSelector(state => state.folders);
@@ -43,7 +45,7 @@ const DeleteFolder = () => {
 
 
 
-  return <div>
+  return <div className={styles.modalWindow}>
     <button type="submit" onClick={deleteHandler}>Delete Permanently</button>
     <button type="submit" onClick={cancelHandler}>Cancel</button>
   </div>;

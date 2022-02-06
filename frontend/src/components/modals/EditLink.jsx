@@ -6,6 +6,8 @@ import { close } from '../../features/modal/modalSlice';
 import { FaRegWindowClose } from 'react-icons/fa';
 import { setSelected } from '../../features/folder/folderSlice';
 
+import styles from '../../css/modalStyles.module.css';
+
 
 const EditLink = () => {
   const links = useSelector(state => state.links.links);
@@ -61,9 +63,9 @@ const EditLink = () => {
     }
   };
 
-  return <div>
+  return <div className={styles.modalWindow}>
     <button onClick={() => dispatch(close())}><FaRegWindowClose /></button>
-    <form>
+    <form className={styles.formContainer}>
       <label htmlFor="title">Title</label>
       <input type="text" id="title" ref={linkTitle} />
       <label htmlFor="url">URL</label>

@@ -4,6 +4,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { edit, setSelected } from '../../features/folder/folderSlice';
 import { close } from '../../features/modal/modalSlice';
 
+import styles from '../../css/modalStyles.module.css';
+
 const EditFolder = () => {
   const folders = useSelector(state => state.folders);
   const dispatch = useDispatch();
@@ -46,9 +48,9 @@ const EditFolder = () => {
 
 
 
-  return <div>
+  return <div className={styles.modalWindow}>
     <span onClick={() => dispatch(close())}><FaRegWindowClose /></span>
-    <form onSubmit={submitChangeHandler}>
+    <form className={styles.formContainer} onSubmit={submitChangeHandler}>
       <label htmlFor="title">Title</label>
       <input type="text" id="title" ref={fldrTitle} />
       <button type="submit" onClick={submitChangeHandler}>Submit</button>

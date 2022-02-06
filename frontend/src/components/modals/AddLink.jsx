@@ -6,6 +6,8 @@ import { close } from '../../features/modal/modalSlice';
 import { FaRegWindowClose } from 'react-icons/fa';
 import { setSelected } from '../../features/folder/folderSlice';
 
+import styles from '../../css/modalStyles.module.css';
+
 const AddLink = () => {
   const selected = useSelector(state => state.folders.selected);
   const dispatch = useDispatch();
@@ -46,9 +48,9 @@ const AddLink = () => {
 
 
 
-  return <div>
+  return <div className={styles.modalWindow}>
     <span onClick={() => dispatch(close())}><FaRegWindowClose /></span>
-    <form onSubmit={submitLinkHandler}>
+    <form className={styles.formContainer} onSubmit={submitLinkHandler}>
       <label htmlFor="title">Title</label>
       <input type="text" id="title" ref={linkTitle} />
       <label htmlFor="url">URL</label>

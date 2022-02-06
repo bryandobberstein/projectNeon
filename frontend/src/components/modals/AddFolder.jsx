@@ -7,6 +7,8 @@ import {
   FaFolderPlus,
 } from 'react-icons/fa';
 
+import styles from '../../css/modalStyles.module.css';
+
 const AddFolder = () => {
   const folders = useSelector(state => state.folders);
   const dispatch = useDispatch();
@@ -41,11 +43,11 @@ const AddFolder = () => {
   };
 
   return (
-    <div>
+    <div className={styles.modalWindow}>
       <button onClick={() => dispatch(close())}>
         <FaRegWindowClose />
       </button>
-      <form onSubmit={submitHandler}>
+      <form className={styles.formContainer} onSubmit={submitHandler}>
         <label htmlFor='title'>Title</label>
         <input
           type='text'
