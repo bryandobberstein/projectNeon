@@ -1,22 +1,22 @@
-import React from "react";
-import { useDispatch } from "react-redux";
-import { useCookies } from "react-cookie";
-import { FaFolderPlus, FaSignOutAlt } from "react-icons/fa";
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { useCookies } from 'react-cookie';
+import { FaFolderPlus, FaSignOutAlt } from 'react-icons/fa';
 
-import SignIn from "./components/SignIn";
-import Folder from "./components/Folder";
-import Modal from "./components/modals/ModalRoot";
-import { openModal } from "./features/modal/modalSlice";
+import SignIn from './components/SignIn';
+import Folder from './components/Folder';
+import Modal from './components/modals/ModalRoot';
+import { openModal } from './features/modal/modalSlice';
 
 function App() {
-  const [cookies, setCookie, removeCookie] = useCookies(["authenticate"]);
+  const [cookies, setCookie, removeCookie] = useCookies(['authenticate']);
   const dispatch = useDispatch();
 
   const cookieHandler = (name, data, expiration) => {
     setCookie(name, data, {
-      path: "/",
+      path: '/',
       expires: expiration,
-      sameSite: "strict",
+      sameSite: 'strict',
     });
   };
 
@@ -27,31 +27,36 @@ function App() {
   const isAuthenticated = cookies.authenticate;
 
   const signOut = async () => {
-    await fetch("http://localhost:8000/user/logout", {
-      credentials: "include",
+    await fetch('http://localhost:8000/user/logout', {
+      credentials: 'include',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
-      method: "POST",
+      method: 'POST',
       crossDomain: true,
     });
-    removeCookie("authenticate");
+    removeCookie('authenticate');
   };
 
   const appStyle = {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    flexWrap: "wrap",
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexWrap: 'wrap',
+    // top: '100%',
+    // right: '100%',
+    height: '100%',
+    width: '100%',
+    position: 'relative',
   };
 
   const buttonStyle = {
-    flexDirection: "row",
-    cursor: "pointer",
+    flexDirection: 'row',
+    cursor: 'pointer',
   };
 
-  const pageTopper = ["Links", "Lynx", "Skinks", "Klinks", "Blinks"];
+  const pageTopper = ['Links', 'Lynx', 'Skinks', 'Klinks', 'Blinks'];
 
   const pageTopperSelector = () => {
     const number = Math.floor(Math.random() * pageTopper.length);
@@ -75,7 +80,7 @@ function App() {
       <div style={appStyle}>
         <Folder />
         <div style={buttonStyle}>
-          <span onClick={() => openModalAddModal("addFolder")}>
+          <span onClick={() => openModalAddModal('addFolder')}>
             <FaFolderPlus />
             &nbsp;
           </span>

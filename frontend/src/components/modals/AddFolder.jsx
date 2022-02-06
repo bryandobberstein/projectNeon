@@ -40,31 +40,12 @@ const AddFolder = () => {
     }
   };
 
-  const modalStyle = {
-    position: 'absolute',
-    left: '50%',
-    top: '50%',
-    transform: 'translate(-50%, -50%);',
-    display: 'flex',
-    flexDirection: 'column',
-    backgroundColor: 'antiquewhite',
-    width: 'auto',
-    justifyContent: 'center',
-    alignItems: 'center',
-    zIndex: '1000',
-  };
-
-  const formStyle = {
-    flex: '1 1 auto',
-    alignSelf: 'center'
-  };
-
   return (
-    <div style={modalStyle}>
+    <div>
       <button onClick={() => dispatch(close())}>
         <FaRegWindowClose />
       </button>
-      <form style={formStyle} onSubmit={submitHandler}>
+      <form onSubmit={submitHandler}>
         <label htmlFor='title'>Title</label>
         <input
           type='text'

@@ -11,6 +11,8 @@ import {
 } from 'react-icons/fa';
 import Link from './Link';
 
+import styles from '../css/Folders.module.css';
+
 const Folder = () => {
   const folders = useSelector(state => state.folders);
   const links = useSelector(state => state.links);
@@ -79,38 +81,10 @@ const Folder = () => {
     return setMenuOpen(false);
   };
 
-  const folderStyle = {
-    columns: '2',
-    display: 'flex',
-    flexDirection: 'column',
-    flexWrap: 'wrap',
-    margin: 'auto',
-    minWidth: 'min-content',
-    maxWidth: 'max-content',
-    justifyItems: 'flex-end',
-  };
-
-  const folderListStyle = {
-    flex: '1 1 auto',
-    alignSelf: 'flex-start',
-  };
-
-  const linkListStyle = {
-    flexDirection: 'row',
-    flex: '1 1 auto',
-    alignSelf: 'flex-end',
-    position: 'relative',
-    bottom: 'auto',
-  };
-
-  const buttonStyle = {
-    flexDirection: "row",
-    cursor: "pointer",
-  };
 
   const collection = folders.folders.map((folder, fi) => (
     <div onMouseLeave={() => linkHoverHandler('')}>
-      <li key={fi} style={folderListStyle}>
+      <li key={fi} className={styles.folderListStyle}>
         {menuOpen &&
           <span type="submit" onClick={() => deleteFolderHandler(folder._id)}>
             <FaFolderMinus />
@@ -136,7 +110,7 @@ const Folder = () => {
       {links.links.map((link, i) => {
         if (link.parent === folder._id) {
           return (
-            <span style={linkListStyle}>
+            <span classname={styles.linkListStyle}>
               {linkHovered === folder._id &&
                 <span onClick={() => editLinkHandler(link._id)}>
                   <FaEdit />
@@ -153,10 +127,10 @@ const Folder = () => {
   ));
 
   return (<>
-    <span style={buttonStyle} onClick={openMenuToggle}>
+    <span className={styles.buttonStyle} onClick={openMenuToggle}>
       <FaHamburger />
     </span>
-    <ul style={folderStyle}>
+    <ul className={styles.folderStyle}>
       {collection}
     </ul>
   </>);

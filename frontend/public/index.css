@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400&display=swap');
 
 * {
   margin: 0;
@@ -6,8 +6,15 @@
   box-sizing: border-box;
 }
 
+html {
+  height: 98vh;
+  background-image: linear-gradient(#fff, rgb(186, 197, 208));
+  /* background-repeat: no-repeat; */
+  background-size: 100% 100%;
+}
+
 body {
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
   color: #101;
 }
 

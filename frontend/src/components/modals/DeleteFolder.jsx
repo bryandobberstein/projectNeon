@@ -41,21 +41,9 @@ const DeleteFolder = () => {
     dispatch(close());
   };
 
-  const modalStyle = {
-    position: 'absolute',
-    left: '50%',
-    top: '50%',
-    transform: 'translate(-50%, -50%);',
-    display: 'flex',
-    flexDirection: 'column',
-    backgroundColor: 'antiquewhite',
-    width: 'auto',
-    justifyContent: 'center',
-    alignItems: 'center',
-    zIndex: '1000',
-  };
 
-  return <div style={modalStyle}>
+
+  return <div>
     <button type="submit" onClick={deleteHandler}>Delete Permanently</button>
     <button type="submit" onClick={cancelHandler}>Cancel</button>
   </div>;
