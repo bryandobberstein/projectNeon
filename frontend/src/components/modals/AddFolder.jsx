@@ -27,7 +27,7 @@ const AddFolder = () => {
           crossDomain: true,
           method: 'POST',
           body: JSON.stringify({
-            title: folderTitle,
+            title: folderTitle.current.value,
             position: position,
           }),
         }
@@ -56,10 +56,10 @@ const AddFolder = () => {
 
   return (
     <div style={modalStyle}>
-      <button style={formStyle} onClick={() => dispatch(close())}>
+      <button onClick={() => dispatch(close())}>
         <FaRegWindowClose />
       </button>
-      <form onSubmit={submitHandler}>
+      <form style={formStyle} onSubmit={submitHandler}>
         <label htmlFor='title'>Title</label>
         <input
           type='text'

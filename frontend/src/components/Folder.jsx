@@ -14,8 +14,10 @@ import Link from './Link';
 const Folder = () => {
   const folders = useSelector(state => state.folders);
   const links = useSelector(state => state.links);
-  console.log(links);
+  const modalShow = useSelector(state => state.modal.show);
   const dispatch = useDispatch();
+
+  const modalBool = modalShow === false;
 
   const [linkHovered, setlinkHovered] = useState('');
   const [menuOpen, setMenuOpen] = useState(false);
@@ -31,7 +33,7 @@ const Folder = () => {
     });
     const data = await result.json();
     dispatch(initializeFolders(data));
-  }, [openModal]);
+  }, [modalBool]);
 
   useEffect(async () => {
     const result = await fetch("http://localhost:8000/link/get-links", {
@@ -43,9 +45,8 @@ const Folder = () => {
       crossDomain: true,
     });
     const data = await result.json();
-    console.log(data);
     dispatch(initializeLinks(data));
-  }, [openModal]);
+  }, [modalBool]);
 
   const linkHoverHandler = id => {
     setlinkHovered(id);

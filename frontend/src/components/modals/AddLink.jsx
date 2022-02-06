@@ -15,7 +15,6 @@ const AddLink = () => {
 
   const submitLinkHandler = async (e) => {
     e.preventDefault();
-    console.log(1);
     try {
       await fetch(
         'http://localhost:8000/link/create-link',
@@ -33,7 +32,6 @@ const AddLink = () => {
           })
         }
       );
-      console.log(2);
       dispatch(addLink({
         title: linkTitle.current.value,
         url: linkUrl.current.value,

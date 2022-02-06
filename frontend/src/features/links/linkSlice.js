@@ -1,10 +1,10 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 export const linkSlice = createSlice({
-  name: "links",
+  name: 'links',
   initialState: {
     links: [],
-    selected: "",
+    selected: '',
   },
   reducers: {
     initializeLinks: (state, action) => {
@@ -14,7 +14,6 @@ export const linkSlice = createSlice({
       });
     },
     addLink: (state, action) => {
-      console.log(action.payload);
       state.links.concat(action.payload);
     },
     editLink: (state, action) => {
