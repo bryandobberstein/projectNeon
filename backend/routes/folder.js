@@ -1,33 +1,86 @@
-const { Router } = require('express');
+const express = require('express');
 
-const folder = require('../models/Folder');
-const authenticateToken = require('../middleware/tokenAuthentication');
+const Folder = require('../models/Folder');
+const Link = require('../models/Link');
+const tokenVerify = require('../middleware/tokenVerify');
 
-const folderRouter = Router();
+const router = express.Router();
 
-//folder create (post)
-folderRouter.post(
-  '/folders',
-  authenticateToken,
-  (req, res) => {}
-);
-//folder delete (delete)
-folderRouter.delete(
-  '/folders',
-  authenticateToken,
-  (req, res) => {}
-);
-//folders get (get)
-folderRouter.get(
-  '/folders',
-  authenticateToken,
-  (req, res) => {}
-);
-//folder edit (patch)
-folderRouter.patch(
-  '/folders',
-  authenticateToken,
-  (req, res) => {}
-);
+//get folders
+router.post('/getFolders', tokenVerify, async (req, res) => {
+  try {
+    const folders = await Folder.find({
+      owner: req.user,
+    }).sort('title');
+    if (!folders) {
+      return res.status(404).send();
+    }
+    return res.json(folders).send();
+  } catch (err) {
+    console.error(err);
+    return res.status(500).send();
+  }
+});
 
-module.exports = folderRouter;
+//create folder
+router.post('/addFolder', tokenVerify, async (req, res) => {
+  try {
+    if (!req.body.title || !req.body.position) {
+      return res.status(400).send(false).send();
+    }
+    if (req.parent) {
+      const folder = new Folder({
+        title: req.body.title,
+        parent: req.body.parent,
+        owner: req.user,
+      });
+      await folder.save();
+      return res.status(200).json(folder).send();
+    }
+    const folder = new Folder({
+      title: req.body.title,
+      position: req.body.position,
+      owner: req.user,
+    });
+    await folder.save();
+    return res.status(200).json(folder).send();
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ err: err }).send();
+  }
+});
+
+//update folder
+
+router.post('/updateFolder', tokenVerify, async (req, res) => {
+  try {
+    const folder = await Folder.findById(req.body._id);
+    if (!folder) {
+      return res.status(401).send('Not Found');
+    }
+    folder.title = req.body.title;
+    folder.position = req.body.position;
+    folder.save();
+    return res.status(200).json(folder).send();
+  } catch (err) {
+    console.error(err);
+    return res.status(500).send();
+  }
+});
+
+//delete folder
+router.post('/deleteFolder', tokenVerify, async (req, res) => {
+  try {
+    await Folder.findOneAndDelete({
+      owner: req.user,
+      _id: req.body._id,
+    });
+    await Link.deleteMany({ parent: req.body._id });
+    return res.status(200).send(true);
+  } catch (err) {
+    console.error(err);
+    return res.status(500).send(false);
+  }
+});
+
+module.exports = router;

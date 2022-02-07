@@ -1,0 +1,28 @@
+.folderStyle {
+  columns: 2;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  margin: auto;
+  min-width: 'min-content';
+  max-width: 'max-content';
+  justify-items: 'flex-end';
+}
+
+.folderListStyle {
+  flex: '1 1 auto';
+  align-self: 'flex-start';
+}
+
+.linkListStyle {
+  flex-direction: 'row';
+  flex: '1 1 auto';
+  align-self: 'flex-end';
+  position: 'relative';
+  bottom: 'auto';
+}
+
+.buttonStyle {
+  flex-direction: 'row';
+  cursor: 'pointer';
+}

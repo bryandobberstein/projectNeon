@@ -1,26 +1,52 @@
 require('dotenv').config();
-const bp = require('body-parser');
-const cookieSession = require('cookie-session');
-const cors = require('cors');
-const express = require('express');
 
-const { dbConnect } = require('./util/db');
+const bp = require('body-parser');
+const express = require('express');
+const mongoose = require('mongoose');
+const cors = require('cors');
+const cookieParser = require('cookie-parser');
+
+const userRoute = require('./routes/user');
+const folderRoute = require('./routes/folder');
+const linkRoute = require('./routes/link');
+
 const app = express();
 
+const whitelist = [
+  'http://localhost:3000',
+  'http://127.0.0.1:3000',
+  'http://localhost:8000',
+  'http://localhost:8000',
+];
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'HEAD', 'PUT', 'PATCH', 'DELETE'],
+  allowedHeaders: ['Content-Type'],
+  exposedHeaders: ['Content-Type'],
+};
+
 app.use(bp.json());
-app.use(cors());
-app.use(
-  cookieSession({
-    name: 'session',
-    keys: [process.env.KEY1, process.env.KEY2],
-    maxAge: 24 * 3600000,
-  })
-);
+app.use(cookieParser());
+app.use(cors(corsOptions));
 
-const PORT = process.env.PORT;
+app.use('/user', userRoute);
+app.use('/folders', folderRoute);
+app.use('/link', linkRoute);
 
-dbConnect(() => {
-  app.listen(PORT, () =>
-    console.log(`Running on port:${PORT}`)
-  );
-});
+const runApp = async () => {
+  try {
+    await mongoose.connect(process.env.DB_URI);
+    app.listen(process.env.PORT);
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+runApp();

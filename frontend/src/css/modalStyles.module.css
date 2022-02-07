@@ -1,0 +1,26 @@
+input {
+  display: block;
+}
+
+.modalWindow {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: aliceblue;
+  margin: 10px;
+  padding: 50px;
+}
+
+.formContainer {
+  display: inline;
+  /* background-image: linear-gradient(#fff, rgb(186, 197, 208)); */
+  margin: 10px;
+  padding: 10px;
+}
+
+.button {
+  background-color: aliceblue;
+  padding: 1px;
+  margin: 3px;
+}
