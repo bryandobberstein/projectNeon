@@ -15,11 +15,7 @@
 }
 
 .linkListStyle {
-  flex-direction: 'row';
-  flex: '1 1 auto';
-  align-self: 'flex-end';
-  position: 'relative';
-  bottom: 'auto';
+  display: block;
 }
 
 .buttonStyle {

@@ -1,38 +1,30 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { editLink } from '../../features/links/linkSlice';
+import { removeLink, setLinkSelected } from '../../features/links/linkSlice';
 import { close } from '../../features/modal/modalSlice';
-import { FaRegWindowClose } from 'react-icons/fa';
+import { MdDelete, MdCancel } from 'react-icons/md';
 import { setSelected } from '../../features/folder/folderSlice';
 
 import styles from '../../css/modalStyles.module.css';
 
 
 const EditLink = () => {
-  const links = useSelector(state => state.links.links);
+  const links = useSelector(state => state.links);
   const selected = useSelector(state => state.links.selected);
-  const folders = useSelector(state => state.folders.folders);
   const dispatch = useDispatch();
 
-  const linkTitle = useRef();
-  const linkUrl = useRef();
-  const linkPosition = links.length;
-  const parent = useRef();
-
-  const link = folders.filter(link => {
+  const link = links.links.filter(link => {
     return link._id === selected;
   });
 
-  const options = folders.map((folder, i) => {
-    return <option key={i} value={folder._id}>{folder.title}</option>;
-  });
+  const linkObj = link[0];
 
-  const submitLinkHandler = async (e) => {
+  const deleteHandler = async (e) => {
     e.preventDefault();
     try {
       await fetch(
-        'http://localhost:8000/link/edit-link',
+        'http://localhost:8000/link/delete-link',
         {
           headers: {
             'Content-Type': 'application/json',
@@ -41,41 +33,30 @@ const EditLink = () => {
           crossDomain: true,
           method: 'POST',
           body: JSON.stringify({
-            _id: link.id,
-            title: linkTitle.current.value,
-            url: linkUrl.current.value,
-            position: linkPosition,
-            parent: parent.current.value
+            _id: linkObj._id
           })
         }
       );
-      dispatch(editLink({
-        id: link._id,
-        title: linkTitle.current.value,
-        url: linkUrl.current.value,
-        position: linkPosition,
-        parent: parent.current.value
+      dispatch(removeLink({
+        id: linkObj._id,
       }));
       dispatch(setSelected(''));
+      dispatch(setLinkSelected(''));
       dispatch(close());
     } catch (err) {
       console.error(err);
     }
   };
 
+  const cancelHandler = (e) => {
+    e.preventDefault();
+    dispatch(setSelected({ id: '' }));
+    dispatch(close());
+  };
+
   return <div className={styles.modalWindow}>
-    <span className={styles.button} onClick={() => dispatch(close())}><FaRegWindowClose /></span>
-    <form className={styles.formContainer}>
-      <label htmlFor="title">Title</label>
-      <input type="text" id="title" ref={linkTitle} />
-      <label htmlFor="url">URL</label>
-      <input type="text" id="url" ref={linkUrl} />
-      <label htmlFor="parent">Folder</label>
-      <select id="parent" ref={parent}>
-        {options}
-      </select>
-    </form>
-    <span className={styles.button} onClick={submitLinkHandler}>Edit Link</span>
+    <span className={styles.button} type="submit" onClick={deleteHandler} title='Delete folder'><MdDelete /></span>
+    <span className={styles.button} type="submit" onClick={cancelHandler} title='Cancel'><MdCancel /></span>
   </div>;
 };
 

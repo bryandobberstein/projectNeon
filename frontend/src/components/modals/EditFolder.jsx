@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { FaRegWindowClose } from 'react-icons/fa';
+import { FaRegWindowClose, FaSave } from 'react-icons/fa';
 import { useSelector, useDispatch } from 'react-redux';
 import { edit, setSelected } from '../../features/folder/folderSlice';
 import { close } from '../../features/modal/modalSlice';
@@ -53,7 +53,7 @@ const EditFolder = () => {
     <form className={styles.formContainer} onSubmit={submitChangeHandler}>
       <label htmlFor="title">Title</label>
       <input type="text" id="title" ref={fldrTitle} />
-      <span className={styles.button} type="submit" onClick={submitChangeHandler}>Submit</span>
+      <span className={styles.button} type="submit" onClick={submitChangeHandler}><FaSave /></span>
     </form>
   </div>;
 };

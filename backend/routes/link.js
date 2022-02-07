@@ -68,13 +68,12 @@ router.put('/update-link', tokenVerify, async (req, res) => {
 
 //delete link
 
-router.post('delete-link', tokenVerify, async (req, res) => {
+router.post('/delete-link', tokenVerify, async (req, res) => {
   try {
     await Link.findOneAndDelete({
-      owner: req.user,
-      folder: req.body.folder,
       _id: req.body._id,
     });
+    return res.status(200).send();
   } catch (err) {
     console.error(err);
     return res.status(500).send(false);

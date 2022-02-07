@@ -133,7 +133,7 @@ const SignIn = props => {
               id='password'
               ref={password}
             />
-            <label htmlFor='confirm' style={labelStyle}>Password</label>
+            <label htmlFor='confirm' style={labelStyle}>Confirm</label>
             <input
               style={inputStyle}
               type='password'
@@ -144,7 +144,7 @@ const SignIn = props => {
             <span type='submit' onClick={registerHandler} style={buttonStyle}>
               <FaSignInAlt />
             </span>
-            <span onClick={() => setloginOrRegister('login')}>Click here to log in</span>
+            <span onClick={() => setloginOrRegister('login')}>Already a member? Click here to log in</span>
           </form>
         </span>
       }

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { addLink } from '../../features/links/linkSlice';
 import { close } from '../../features/modal/modalSlice';
-import { FaRegWindowClose } from 'react-icons/fa';
+import { FaRegWindowClose, FaSave } from 'react-icons/fa';
 import { setSelected } from '../../features/folder/folderSlice';
 
 import styles from '../../css/modalStyles.module.css';
@@ -56,7 +56,7 @@ const AddLink = () => {
       <label htmlFor="url">URL</label>
       <input type="text" id="url" ref={linkUrl} />
     </form>
-    <span className={styles.button} type="submit" onClick={submitLinkHandler}>Add Link</span>
+    <span className={styles.button} type="submit" onClick={submitLinkHandler}><FaSave /></span>
   </div>;
 };
 

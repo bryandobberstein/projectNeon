@@ -30,6 +30,7 @@ export const linkSlice = createSlice({
       };
     },
     removeLink: (state, action) => {
+      console.log(action);
       return {
         ...state,
         links: state.links.filter(link => {
@@ -46,7 +47,7 @@ export const linkSlice = createSlice({
       };
     },
     setLinkSelected: (state, action) => {
-      state.selected = action.payload.id;
+      state.selected = action.payload;
     },
   },
 });

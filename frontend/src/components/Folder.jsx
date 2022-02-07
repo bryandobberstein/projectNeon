@@ -9,6 +9,7 @@ import {
   FaEdit,
   FaLink,
 } from 'react-icons/fa';
+import { MdDelete } from 'react-icons/md';
 import Link from './Link';
 
 import styles from '../css/Folders.module.css';
@@ -69,7 +70,8 @@ const Folder = () => {
     dispatch(openModal({ child: 'addLink' }));
   };
 
-  const editLinkHandler = id => {
+  const editLinkHandler = (id, folder) => {
+    dispatch(setSelected(folder));
     dispatch(setLinkSelected(id));
     dispatch(openModal({ child: 'editLink' }));
   };
@@ -112,8 +114,8 @@ const Folder = () => {
           return (
             <span className={styles.linkListStyle}>
               {linkHovered === folder._id &&
-                <span onClick={() => editLinkHandler(link._id)}>
-                  <FaEdit />
+                <span onClick={() => editLinkHandler(link._id, folder._id)}>
+                  <MdDelete />
                   &nbsp;
                 </span>
               }
