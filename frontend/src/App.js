@@ -76,7 +76,7 @@ function App() {
   return (
     <>
       <h1>{pageTopperSelector()}</h1>
-      <span>
+      <>
         {theme === 'dark' && (
           <span onClick={() => themeHandler('light')}>
             <FaMoon />
@@ -87,7 +87,7 @@ function App() {
             <FaSun />
           </span>
         )}
-      </span>
+      </>
       <div className={styles.app}>
         <Folder />
         <div className={styles.button}>

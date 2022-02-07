@@ -54,7 +54,7 @@ const AddFolder = () => {
           name='title'
           ref={folderTitle}
         />
-        <span className={styles.button} onClick={submitHandler}>
+        <span className={styles.button} onClick={submitHandler} title='Add Folder'>
           <FaFolderPlus />
         </span>
       </form>

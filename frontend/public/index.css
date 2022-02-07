@@ -12,6 +12,7 @@ html {
 
 body {
   font-family: 'Roboto', sans-serif;
+  font-size: xx-large;
   background-image: linear-gradient(#fff, rgb(186, 197, 208));
   color: #101;
 }

@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import { FaSignInAlt } from 'react-icons/fa';
 
 const SignIn = props => {
 
@@ -106,9 +107,9 @@ const SignIn = props => {
               id='password'
               ref={password}
             />
-            <button type='submit' onClick={submitHandler} style={buttonStyle}>
-              Login
-            </button>
+            <span type='submit' onClick={submitHandler} style={buttonStyle}>
+              <FaSignInAlt />
+            </span>
           </form>
           <span onClick={() => setloginOrRegister('register')}>Click here to register</span>
         </span>
@@ -140,9 +141,9 @@ const SignIn = props => {
               id='confirm'
               ref={confirm}
             />
-            <button type='submit' onClick={registerHandler} style={buttonStyle}>
-              Register
-            </button>
+            <span type='submit' onClick={registerHandler} style={buttonStyle}>
+              <FaSignInAlt />
+            </span>
             <span onClick={() => setloginOrRegister('login')}>Click here to log in</span>
           </form>
         </span>

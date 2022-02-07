@@ -2,6 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { remove, setSelected } from '../../features/folder/folderSlice';
 import { close } from '../../features/modal/modalSlice';
+import { MdDelete, MdCancel } from 'react-icons/md';
 
 import styles from '../../css/modalStyles.module.css';
 
@@ -46,8 +47,8 @@ const DeleteFolder = () => {
 
 
   return <div className={styles.modalWindow}>
-    <span className={styles.button} type="submit" onClick={deleteHandler}>Delete Permanently</span>
-    <span className={styles.button} type="submit" onClick={cancelHandler}>Cancel</span>
+    <span className={styles.button} type="submit" onClick={deleteHandler} title='Delete folder'><MdDelete /></span>
+    <span className={styles.button} type="submit" onClick={cancelHandler} title='Cancel'><MdCancel /></span>
   </div>;
 };
 
