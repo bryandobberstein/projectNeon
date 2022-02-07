@@ -110,7 +110,7 @@ const Folder = () => {
       {links.links.map((link, i) => {
         if (link.parent === folder._id) {
           return (
-            <span classname={styles.linkListStyle}>
+            <span className={styles.linkListStyle}>
               {linkHovered === folder._id &&
                 <span onClick={() => editLinkHandler(link._id)}>
                   <FaEdit />

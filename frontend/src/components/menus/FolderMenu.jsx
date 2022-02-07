@@ -9,8 +9,8 @@ const FolderMenu = props => {
   const folder = folders.filter(fldr => fldr.name == props.folderName);
 
   return <div>
-    <button><FaEdit />Edit Folder</button>
-    <button><FaLink />Add Link</button>
+    <span className={styles.button}><FaEdit />Edit Folder</span>
+    <span className={styles.button}><FaLink />Add Link</span>
   </div>;
 };
 

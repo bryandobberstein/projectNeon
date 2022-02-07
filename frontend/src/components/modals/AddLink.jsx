@@ -56,7 +56,7 @@ const AddLink = () => {
       <label htmlFor="url">URL</label>
       <input type="text" id="url" ref={linkUrl} />
     </form>
-    <button type="submit" onClick={submitLinkHandler}>Add Link</button>
+    <span className={styles.button} type="submit" onClick={submitLinkHandler}>Add Link</span>
   </div>;
 };
 

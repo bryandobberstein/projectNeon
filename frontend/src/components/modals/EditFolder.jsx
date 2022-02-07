@@ -53,7 +53,7 @@ const EditFolder = () => {
     <form className={styles.formContainer} onSubmit={submitChangeHandler}>
       <label htmlFor="title">Title</label>
       <input type="text" id="title" ref={fldrTitle} />
-      <button type="submit" onClick={submitChangeHandler}>Submit</button>
+      <span className={styles.button} type="submit" onClick={submitChangeHandler}>Submit</span>
     </form>
   </div>;
 };

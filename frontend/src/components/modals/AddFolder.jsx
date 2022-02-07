@@ -34,9 +34,9 @@ const AddFolder = () => {
           }),
         }
       );
-      dispatch(add({ title: folderTitle, position: position }));
+      dispatch(add({ title: folderTitle.current.value, position: position }));
       setSelected('');
-      dispatch(close);
+      dispatch(close());
     } catch (error) {
       console.error(error);
     }
@@ -44,9 +44,9 @@ const AddFolder = () => {
 
   return (
     <div className={styles.modalWindow}>
-      <button onClick={() => dispatch(close())}>
+      <span className={styles.button} onClick={() => dispatch(close())}>
         <FaRegWindowClose />
-      </button>
+      </span>
       <form className={styles.formContainer} onSubmit={submitHandler}>
         <label htmlFor='title'>Title</label>
         <input
@@ -54,9 +54,9 @@ const AddFolder = () => {
           name='title'
           ref={folderTitle}
         />
-        <button onClick={submitHandler}>
+        <span className={styles.button} onClick={submitHandler}>
           <FaFolderPlus />
-        </button>
+        </span>
       </form>
     </div>
   );

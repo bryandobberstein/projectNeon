@@ -64,7 +64,7 @@ const EditLink = () => {
   };
 
   return <div className={styles.modalWindow}>
-    <button onClick={() => dispatch(close())}><FaRegWindowClose /></button>
+    <span className={styles.button} onClick={() => dispatch(close())}><FaRegWindowClose /></span>
     <form className={styles.formContainer}>
       <label htmlFor="title">Title</label>
       <input type="text" id="title" ref={linkTitle} />
@@ -75,7 +75,7 @@ const EditLink = () => {
         {options}
       </select>
     </form>
-    <button type="submit" onClick={submitLinkHandler}>Edit Link</button>
+    <span className={styles.button} onClick={submitLinkHandler}>Edit Link</span>
   </div>;
 };
 

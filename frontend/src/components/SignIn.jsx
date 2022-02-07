@@ -1,17 +1,9 @@
-import React, { useState } from 'react';
+import React, { useRef } from 'react';
 
 const SignIn = props => {
-  const [login, setlogin] = useState({
-    email: '',
-    password: '',
-  });
 
-  const inputChangeHandler = e => {
-    setlogin({
-      ...login,
-      [e.target.name]: e.target.value,
-    });
-  };
+  const email = useRef();
+  const password = useRef();
 
   const getExpirationDate = () => {
     return new Date(Date.now() + 864000);
@@ -28,8 +20,8 @@ const SignIn = props => {
         credentials: 'include',
         method: 'POST',
         body: JSON.stringify({
-          email: login.email,
-          password: login.password,
+          email: email.current.value,
+          password: password.current.value,
         }),
       }
     );
@@ -73,8 +65,7 @@ const SignIn = props => {
         type='text'
         name='email'
         id='email'
-        value={login.email}
-        onChange={inputChangeHandler}
+        ref={email}
       />
       <label htmlFor='password' style={labelStyle}>Password</label>
       <input
@@ -82,8 +73,7 @@ const SignIn = props => {
         type='password'
         name='password'
         id='password'
-        value={login.password}
-        onChange={inputChangeHandler}
+        ref={password}
       />
       <button type='submit' onClick={submitHandler} style={buttonStyle}>
         Login

@@ -46,8 +46,8 @@ const DeleteFolder = () => {
 
 
   return <div className={styles.modalWindow}>
-    <button type="submit" onClick={deleteHandler}>Delete Permanently</button>
-    <button type="submit" onClick={cancelHandler}>Cancel</button>
+    <span className={styles.button} type="submit" onClick={deleteHandler}>Delete Permanently</span>
+    <span className={styles.button} type="submit" onClick={cancelHandler}>Cancel</span>
   </div>;
 };
 
