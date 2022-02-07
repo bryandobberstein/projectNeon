@@ -25,21 +25,11 @@ router.post('/getFolders', tokenVerify, async (req, res) => {
 //create folder
 router.post('/addFolder', tokenVerify, async (req, res) => {
   try {
-    if (!req.body.title || !req.body.position) {
+    if (!req.body.title) {
       return res.status(400).send(false).send();
-    }
-    if (req.parent) {
-      const folder = new Folder({
-        title: req.body.title,
-        parent: req.body.parent,
-        owner: req.user,
-      });
-      await folder.save();
-      return res.status(200).json(folder).send();
     }
     const folder = new Folder({
       title: req.body.title,
-      position: req.body.position,
       owner: req.user,
     });
     await folder.save();

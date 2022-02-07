@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { add, setSelected } from '../../features/folder/folderSlice';
 import { close } from '../../features/modal/modalSlice';
 import {
@@ -10,14 +10,13 @@ import {
 import styles from '../../css/modalStyles.module.css';
 
 const AddFolder = () => {
-  const folders = useSelector(state => state.folders);
   const dispatch = useDispatch();
 
   const folderTitle = useRef();
-  const position = folders.folders.length;
 
   const submitHandler = async e => {
     e.preventDefault();
+    console.log(folderTitle);
     try {
       await fetch(
         'http://localhost:8000/folders/addFolder',
@@ -30,11 +29,10 @@ const AddFolder = () => {
           method: 'POST',
           body: JSON.stringify({
             title: folderTitle.current.value,
-            position: position,
           }),
         }
       );
-      dispatch(add({ title: folderTitle.current.value, position: position }));
+      dispatch(add({ title: folderTitle.current.value }));
       setSelected('');
       dispatch(close());
     } catch (error) {
