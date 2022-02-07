@@ -5,7 +5,7 @@ const SignIn = props => {
   const email = useRef();
   const password = useRef();
   const confirm = useRef();
-  const [loginOrRegister, setloginOrRegister] = useState('register');
+  const [loginOrRegister, setloginOrRegister] = useState('login');
 
   const getExpirationDate = () => {
     return new Date(Date.now() + 864000);
