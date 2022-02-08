@@ -88,19 +88,19 @@ const Folder = () => {
     <div onMouseLeave={() => linkHoverHandler('')}>
       <li key={fi} className={styles.folderListStyle}>
         {menuOpen &&
-          <span type="submit" onClick={() => deleteFolderHandler(folder._id)}>
+          <span type="submit" onClick={() => deleteFolderHandler(folder._id)} className={styles.button}>
             <FaFolderMinus />
             &nbsp;
           </span>
         }
         {menuOpen &&
-          <span onClick={() => editFolderHandler(folder._id)}>
+          <span onClick={() => editFolderHandler(folder._id)} className={styles.button}>
             <FaEdit />
             &nbsp;
           </span>
         }
         {menuOpen &&
-          <span onClick={() => addLinkHandler(folder._id)}>
+          <span onClick={() => addLinkHandler(folder._id)} className={styles.button}>
             <FaLink />
             &nbsp;
           </span>
@@ -114,7 +114,7 @@ const Folder = () => {
           return (
             <span className={styles.linkListStyle}>
               {linkHovered === folder._id &&
-                <span onClick={() => editLinkHandler(link._id, folder._id)}>
+                <span onClick={() => editLinkHandler(link._id, folder._id)} className={styles.button}>
                   <MdDelete />
                   &nbsp;
                 </span>
@@ -129,7 +129,7 @@ const Folder = () => {
   ));
 
   return (<>
-    <span className={styles.buttonStyle} onClick={openMenuToggle}>
+    <span className={styles.button} onClick={openMenuToggle}>
       <FaHamburger />
     </span>
     <ul className={styles.folderStyle}>

@@ -12,4 +12,9 @@
 .button {
   flex-direction: row;
   cursor: pointer;
+  opacity: 0.3;
+}
+
+.button:hover {
+  opacity: 1;
 }

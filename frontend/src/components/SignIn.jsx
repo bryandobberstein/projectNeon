@@ -80,7 +80,7 @@ const SignIn = props => {
     gridColumn: '2',
   };
 
-  const buttonStyle = {
+  const button = {
     gridColumn: '1/ span 2',
     // width: 'fit-content',
     justifySelf: 'center',
@@ -107,7 +107,7 @@ const SignIn = props => {
               id='password'
               ref={password}
             />
-            <span type='submit' onClick={submitHandler} style={buttonStyle}>
+            <span type='submit' onClick={submitHandler} style={button}>
               <FaSignInAlt />
             </span>
           </form>
@@ -141,7 +141,7 @@ const SignIn = props => {
               id='confirm'
               ref={confirm}
             />
-            <span type='submit' onClick={registerHandler} style={buttonStyle}>
+            <span type='submit' onClick={registerHandler} style={button}>
               <FaSignInAlt />
             </span>
             <span onClick={() => setloginOrRegister('login')}>Already a member? Click here to log in</span>

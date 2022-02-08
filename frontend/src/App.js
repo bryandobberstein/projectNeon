@@ -90,12 +90,15 @@ function App() {
       </>
       <div className={styles.app}>
         <Folder />
-        <div className={styles.button}>
-          <span onClick={() => openModalAddModal('addFolder')}>
+        <div>
+          <span
+            onClick={() => openModalAddModal('addFolder')}
+            className={styles.button}
+          >
             <FaFolderPlus />
             &nbsp;
           </span>
-          <span onClick={signOut}>
+          <span onClick={signOut} className={styles.button}>
             <FaSignOutAlt />
           </span>
         </div>

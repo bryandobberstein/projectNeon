@@ -28,8 +28,5 @@ ul {
 
 a {
   text-decoration: none;
-}
-
-a:last-child {
-  box-shadow: 3px 3px #101;
+  color: inherit;
 }
