@@ -54,7 +54,7 @@ const AddLink = () => {
       <label htmlFor="title">Title</label>
       <input type="text" id="title" ref={linkTitle} />
       <label htmlFor="url">URL</label>
-      <input type="text" id="url" ref={linkUrl} />
+      <input type="text" id="url" ref={linkUrl} value='https://' />
     </form>
     <span className={styles.button} type="submit" onClick={submitLinkHandler}><FaSave /></span>
   </div>;
